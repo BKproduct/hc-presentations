@@ -4,7 +4,7 @@
 
 ## Ссылка на презентацию в браузере
 
-После сборки Pages (обычно 1–2 минуты после пуша):
+Формат **прокрутки вниз** (удобно на iPhone): один длинный документ, оглавление сверху, индикатор прогресса.
 
 **https://bkproduct.github.io/hc-presentations/presentations/inclisiran-pcsk9-evidence-2026-03-22.html**
 

@@ -2,8 +2,10 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Инклисиран (Сибрава): доказательности, гены, «разовые» PCSK9‑терапии</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d1b3e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>Инклисиран (Сибрава): доказательности, гены, PCSK9</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&display=swap" rel="stylesheet" />
@@ -17,122 +19,205 @@
       --muted: #94a3b8;
       --dim: #64748b;
       --font-h: "Source Serif 4", Georgia, serif;
-      --font-b: "IBM Plex Sans", system-ui, sans-serif;
+      --font-b: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+      --safe-t: env(safe-area-inset-top, 0px);
+      --safe-b: env(safe-area-inset-bottom, 0px);
+      --safe-x: max(1rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
     body {
       font-family: var(--font-b);
-      background: radial-gradient(120% 80% at 20% 0%, #1a2a5c 0%, var(--navy) 45%, #070d1f 100%);
+      background: radial-gradient(120% 50% at 50% 0%, #1a2a5c 0%, var(--navy) 42%, #070d1f 100%);
+      background-attachment: fixed;
       color: var(--text);
-      overflow: hidden;
+      min-height: 100%;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: calc(var(--safe-t) + 3.25rem) var(--safe-x) calc(var(--safe-b) + 2rem);
     }
-    .deck {
-      height: 100dvh;
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--teal), var(--amber));
+      z-index: 50;
+      transition: width 0.12s ease-out;
+    }
+    .sticky-head {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      padding: calc(var(--safe-t) + 0.5rem) var(--safe-x) 0.5rem;
+      background: linear-gradient(180deg, rgba(7,13,31,0.94) 0%, rgba(7,13,31,0.88) 70%, transparent 100%);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      pointer-events: none;
+    }
+    .sticky-head-inner {
+      pointer-events: auto;
+    }
+    .scroll-hint {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+    .toc {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: clamp(1rem, 4vw, 2.5rem);
+      gap: 0.4rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 0.25rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      mask-image: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%);
     }
-    .slide {
-      display: none;
-      width: min(920px, 100%);
-      min-height: min(560px, 82dvh);
+    .toc::-webkit-scrollbar { display: none; }
+    .toc a {
+      flex-shrink: 0;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.55rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(20,32,71,0.85);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .toc a:active { background: rgba(13,148,136,0.25); color: var(--teal); }
+    .wrap {
+      max-width: 36rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+    .card {
       background: linear-gradient(145deg, var(--card) 0%, #0f1838 100%);
       border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 20px;
-      padding: clamp(1.5rem, 4vw, 2.75rem);
-      box-shadow: 0 24px 80px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
-      flex-direction: column;
-      justify-content: center;
-      gap: 1.25rem;
-      animation: enter 0.55s ease both;
-    }
-    .slide.active { display: flex; }
-    @keyframes enter {
-      from { opacity: 0; transform: translateY(12px) scale(0.99); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+      border-radius: 18px;
+      padding: 1.35rem 1.2rem;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05);
     }
     .kicker {
-      font-size: 0.75rem;
+      font-size: 0.68rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--teal);
       font-weight: 600;
+      margin-bottom: 0.65rem;
     }
     h1 {
       font-family: var(--font-h);
-      font-size: clamp(1.65rem, 4.2vw, 2.35rem);
+      font-size: clamp(1.35rem, 5.2vw, 1.85rem);
       font-weight: 700;
-      line-height: 1.15;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
     }
     h2 {
       font-family: var(--font-h);
-      font-size: clamp(1.35rem, 3vw, 1.85rem);
+      font-size: clamp(1.15rem, 4.2vw, 1.45rem);
       font-weight: 600;
       color: #fff;
+      margin-bottom: 0.65rem;
+      line-height: 1.25;
     }
     p, li {
-      font-size: clamp(0.95rem, 2.1vw, 1.08rem);
-      line-height: 1.55;
+      font-size: clamp(1rem, 3.6vw, 1.05rem);
+      line-height: 1.6;
       color: var(--muted);
     }
-    ul { padding-left: 1.2rem; }
-    li { margin-bottom: 0.55rem; }
+    p + p { margin-top: 0.65rem; }
+    ul { padding-left: 1.15rem; margin-top: 0.35rem; }
+    li { margin-bottom: 0.65rem; }
+    li:last-child { margin-bottom: 0; }
     .big-num {
       font-family: var(--font-h);
-      font-size: clamp(3rem, 10vw, 4.5rem);
+      font-size: clamp(2.5rem, 12vw, 3.5rem);
       font-weight: 700;
       background: linear-gradient(90deg, var(--teal), var(--amber));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       line-height: 1;
+      margin: 0.35rem 0 0.65rem;
     }
     .callout {
       border-left: 4px solid var(--amber);
-      padding: 0.75rem 0 0.75rem 1rem;
+      padding: 0.85rem 0 0.85rem 1rem;
       background: rgba(245, 158, 11, 0.08);
       border-radius: 0 12px 12px 0;
+      margin-top: 0.75rem;
     }
-    .sources {
-      font-size: 0.82rem;
-      color: var(--dim);
-      line-height: 1.5;
+    .callout p { font-size: 0.98rem; }
+    .sources p, .sources a {
+      font-size: 0.88rem;
+      line-height: 1.55;
     }
-    .sources a { color: var(--teal); }
-    .nav-hint {
-      position: fixed;
-      bottom: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.72rem;
-      color: var(--dim);
-      opacity: 0.85;
+    .sources a {
+      color: var(--teal);
+      word-break: break-word;
+      display: inline;
+      padding: 0.2rem 0;
+      min-height: 44px;
     }
-    .progress {
-      position: fixed;
-      top: 0; left: 0; height: 3px;
-      background: linear-gradient(90deg, var(--teal), var(--amber));
-      transition: width 0.35s ease;
-      z-index: 10;
-    }
+    a { color: var(--teal); }
     strong { color: #f1f5f9; font-weight: 600; }
-    @media (max-width: 520px) {
-      .slide { min-height: unset; }
+    code {
+      font-size: 0.82em;
+      background: rgba(255,255,255,0.06);
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+    .end-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--dim);
+      padding: 0.5rem 0 0;
     }
   </style>
 </head>
 <body>
-  <div class="progress" id="progress" style="width:0%"></div>
-  <div class="deck" id="deck">
-    <section class="slide active" data-i="0">
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <header class="sticky-head">
+    <div class="sticky-head-inner">
+      <div class="scroll-hint">Листайте вниз · iPhone</div>
+      <nav class="toc" aria-label="Разделы">
+        <a href="#intro">Начало</a>
+        <a href="#terms">Термины</a>
+        <a href="#q1">Литература</a>
+        <a href="#grade">GRADE</a>
+        <a href="#q2">Гены</a>
+        <a href="#q3">Разовые</a>
+        <a href="#synth">Итог</a>
+        <a href="#sources">Ссылки</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card" id="intro">
       <span class="kicker">Обзор для обсуждения с врачом · не медицинский совет</span>
       <h1>Инклисиран (Сибрава / Leqvio): насколько он «доказан», что с генами и какие бывают «разовые» PCSK9‑подходы</h1>
-      <p>Версия 1.3 · обновлено 2026-03-22 · Публичный просмотр (бесплатный GitHub Pages): <a href="https://bkproduct.github.io/hc-presentations/presentations/inclisiran-pcsk9-evidence-2026-03-22.html" target="_blank" rel="noopener" style="color:var(--teal)">bkproduct.github.io/hc-presentations/…</a> · Сводка по первичным источникам: PubMed, EMA и открытые материалы клинических исследований.</p>
+      <p>Версия 1.4 · формат <strong>прокрутки вниз</strong> (удобно на iPhone) · обновлено 2026-03-22 · Публичный просмотр: <a href="https://github.com/BKproduct/hc-presentations" target="_blank" rel="noopener">BKproduct/hc-presentations</a> (GitHub Pages). Сводка по первичным источникам: PubMed, EMA и открытые материалы клинических исследований.</p>
     </section>
 
-    <section class="slide" data-i="1">
+    <section class="card" id="terms">
       <span class="kicker">Термины</span>
       <h2>Это не «статин в шприце»</h2>
       <ul>
@@ -142,10 +227,10 @@
       </ul>
     </section>
 
-    <section class="slide" data-i="2">
+    <section class="card" id="q1">
       <span class="kicker">Вопрос 1 — индексируемые журналы</span>
       <h2>Насколько изучен в «топовой» литературе</h2>
-      <div class="big-num" style="margin: 0.25rem 0 0.5rem;">Iб–II</div>
+      <div class="big-num">Iб–II</div>
       <ul>
         <li><strong>Снижение ЛПНП:</strong> несколько рандомизированных плацебо‑контролируемых фаз III (ORION‑9, ‑10, ‑11 и др.) — по шкале Оксфордского ЦЕБМ это уровень <strong>1b–2</strong> для эффекта на липиды (высокое качество дизайна, но исход «ЛПНП», а не «инфаркт» как первичная конечная точка этих исследований).</li>
         <li><strong>Клинические события:</strong> пуловый анализ на уровне пациентов (≈3655 чел., 18 мес.) в <em>Eur Heart J</em> — композитный MACE сдвинулся (OR 0,74), отдельно ИМ и инсульт — без устойчивой значимости; авторы прямо пишут, что перенос на исходы требует <strong>больших и более длинных</strong> исходных исследований.</li>
@@ -153,7 +238,7 @@
       </ul>
     </section>
 
-    <section class="slide" data-i="3">
+    <section class="card" id="grade">
       <span class="kicker">GRADE / «Grade A,B»</span>
       <h2>Как читать «оценку доказательности»</h2>
       <ul>
@@ -161,11 +246,11 @@
         <li>Пулы мета‑анализов в PubMed/PMC дополняют картину по безопасности и ЛПНП, но <strong>не заменяют</strong> исходное КТ исходов.</li>
       </ul>
       <div class="callout">
-        <p><strong>Вывод для слайда:</strong> по публикациям уровня ведущих кардиожурналов эффект на ЛПНП — хорошо документирован; доказательность «спасает от инфаркта» — в ожидании/частично (пул 18 мес.), не путать с маркетингом «раз в полгода = навсегда без риска».</p>
+        <p><strong>Вывод:</strong> по публикациям уровня ведущих кардиожурналов эффект на ЛПНП — хорошо документирован; доказательность «спасает от инфаркта» — в ожидании/частично (пул 18 мес.), не путать с маркетингом «раз в полгода = навсегда без риска».</p>
       </div>
     </section>
 
-    <section class="slide" data-i="4">
+    <section class="card" id="q2">
       <span class="kicker">Вопрос 2 — универсальность</span>
       <h2>Лаборатории, «расширенный генотест» и фармакогенетика</h2>
       <ul>
@@ -175,7 +260,7 @@
       </ul>
     </section>
 
-    <section class="slide" data-i="5">
+    <section class="card" id="q3">
       <span class="kicker">Вопрос 3 — «один раз и навсегда»</span>
       <h2>Долгоживущие и «разовые» вмешательства в PCSK9</h2>
       <ul>
@@ -186,7 +271,7 @@
       </ul>
     </section>
 
-    <section class="slide" data-i="6">
+    <section class="card" id="synth">
       <span class="kicker">Синтез</span>
       <h2>Три коротких тезиса без повторов</h2>
       <ul>
@@ -196,7 +281,7 @@
       </ul>
     </section>
 
-    <section class="slide" data-i="7">
+    <section class="card" id="sources">
       <span class="kicker">Источники (первичные)</span>
       <h2>Ссылки для проверки</h2>
       <div class="sources">
@@ -204,40 +289,24 @@
         <p>EMA Leqvio (инклисиран) EPAR и SmPC — <a href="https://www.ema.europa.eu/en/medicines/human/EPAR/leqvio" target="_blank" rel="noopener">ema.europa.eu/…/leqvio</a>.</p>
         <p>ORION‑4 / HPS‑4‑TIMI‑65 — <a href="https://www.orion4trial.org/" target="_blank" rel="noopener">orion4trial.org</a> (статус набора/исследования на момент проверки).</p>
         <p>Дизайн Heart‑2 / VERVE‑102 (abstract) — <a href="https://www.ahajournals.org/doi/10.1161/circ.150.suppl_1.4139206" target="_blank" rel="noopener">Circulation supplement abstract</a>.</p>
-        <p><strong>Слайды в браузере (бесплатно):</strong> публичный репозиторий <a href="https://github.com/BKproduct/hc-presentations" target="_blank" rel="noopener">BKproduct/hc-presentations</a> + GitHub Pages →<br /><a href="https://bkproduct.github.io/hc-presentations/presentations/inclisiran-pcsk9-evidence-2026-03-22.html" target="_blank" rel="noopener">https://bkproduct.github.io/hc-presentations/presentations/inclisiran-pcsk9-evidence-2026-03-22.html</a></p>
-        <p><strong>Исходник:</strong> <a href="https://github.com/BKproduct/hc-presentations/blob/main/docs/presentations/inclisiran-pcsk9-evidence-2026-03-22.html" target="_blank" rel="noopener">файл в hc-presentations</a>. Приватный проект Health Copilot: <a href="https://github.com/BKproduct/health-copilot" target="_blank" rel="noopener">health-copilot</a>. Ссылка <code>raw.githubusercontent.com</code> показывает код, а не интерактивные слайды — для просмотра используйте ссылку github.io выше.</p>
+        <p><strong>Эта страница:</strong> та же ссылка GitHub Pages — прокрутка вместо слайдов. <strong>Исходник:</strong> <a href="https://github.com/BKproduct/hc-presentations/blob/main/docs/presentations/inclisiran-pcsk9-evidence-2026-03-22.html" target="_blank" rel="noopener">hc-presentations</a>. Приватный проект: <a href="https://github.com/BKproduct/health-copilot" target="_blank" rel="noopener">health-copilot</a>. <code>raw.githubusercontent.com</code> не рендерит страницу как сайт — пользуйтесь этим URL в Safari.</p>
       </div>
     </section>
-  </div>
-  <p class="nav-hint">← → или свайп · Пробел · Esc обзор (в консоли)</p>
+
+    <p class="end-note">Конец · листайте наверх или выберите раздел выше</p>
+  </main>
+
   <script>
     (function () {
-      const slides = Array.from(document.querySelectorAll(".slide"));
-      let i = 0;
-      const progress = document.getElementById("progress");
-      function show(n) {
-        i = (n + slides.length) % slides.length;
-        slides.forEach((s, j) => s.classList.toggle("active", j === i));
-        progress.style.width = ((i + 1) / slides.length) * 100 + "%";
+      var bar = document.getElementById("progress");
+      function onScroll() {
+        var el = document.documentElement;
+        var sh = el.scrollHeight - el.clientHeight;
+        var pct = sh > 0 ? (el.scrollTop / sh) * 100 : 100;
+        bar.style.width = pct + "%";
       }
-      function next() { show(i + 1); }
-      function prev() { show(i - 1); }
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); next(); }
-        if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); prev(); }
-        if (e.key === "Home") { e.preventDefault(); show(0); }
-        if (e.key === "End") { e.preventDefault(); show(slides.length - 1); }
-      });
-      let tx = null;
-      document.getElementById("deck").addEventListener("touchstart", (e) => { tx = e.changedTouches[0].screenX; }, { passive: true });
-      document.getElementById("deck").addEventListener("touchend", (e) => {
-        if (tx == null) return;
-        const dx = e.changedTouches[0].screenX - tx;
-        tx = null;
-        if (dx < -40) next();
-        if (dx > 40) prev();
-      }, { passive: true });
-      show(0);
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
     })();
   </script>
 </body>
