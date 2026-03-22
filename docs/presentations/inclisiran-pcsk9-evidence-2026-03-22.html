@@ -1,8 +1,11 @@
 <!DOCTYPE html>
+<!-- scroll-deck v1.5 · 2026-03-22 · full page scroll (not slides) -->
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
   <meta name="theme-color" content="#0d1b3e" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <title>Инклисиран (Сибрава): доказательности, гены, PCSK9</title>
@@ -28,16 +31,19 @@
     html {
       scroll-behavior: smooth;
       -webkit-text-size-adjust: 100%;
+      min-height: 100%;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
     }
     body {
       font-family: var(--font-b);
       background: radial-gradient(120% 50% at 50% 0%, #1a2a5c 0%, var(--navy) 42%, #070d1f 100%);
-      background-attachment: fixed;
       color: var(--text);
+      height: auto;
       min-height: 100%;
       min-height: 100dvh;
       overflow-x: hidden;
-      overflow-y: auto;
+      overflow-y: visible;
       -webkit-overflow-scrolling: touch;
       padding: calc(var(--safe-t) + 3.25rem) var(--safe-x) calc(var(--safe-b) + 2rem);
     }
@@ -190,6 +196,28 @@
       color: var(--dim);
       padding: 0.5rem 0 0;
     }
+    .scroll-cue {
+      margin-top: 1.25rem;
+      padding: 0.75rem 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--teal);
+      border: 1px dashed rgba(13, 148, 136, 0.45);
+      border-radius: 12px;
+      background: rgba(13, 148, 136, 0.08);
+      line-height: 1.45;
+    }
+    .scroll-cue span {
+      display: block;
+      font-size: 1.35rem;
+      margin-bottom: 0.2rem;
+      animation: cue-nudge 1.8s ease-in-out infinite;
+    }
+    @keyframes cue-nudge {
+      0%, 100% { transform: translateY(0); opacity: 1; }
+      50% { transform: translateY(6px); opacity: 0.75; }
+    }
   </style>
 </head>
 <body>
@@ -214,7 +242,9 @@
     <section class="card" id="intro">
       <span class="kicker">Обзор для обсуждения с врачом · не медицинский совет</span>
       <h1>Инклисиран (Сибрава / Leqvio): насколько он «доказан», что с генами и какие бывают «разовые» PCSK9‑подходы</h1>
-      <p>Версия 1.4 · формат <strong>прокрутки вниз</strong> (удобно на iPhone) · обновлено 2026-03-22 · Публичный просмотр: <a href="https://github.com/BKproduct/hc-presentations" target="_blank" rel="noopener">BKproduct/hc-presentations</a> (GitHub Pages). Сводка по первичным источникам: PubMed, EMA и открытые материалы клинических исследований.</p>
+      <p>Версия <strong>1.5</strong> · одна длинная страница, <strong>листайте вниз</strong> — ниже ещё <strong>7 разделов</strong> (Термины, литература, GRADE, гены, «разовые» терапии, итог, ссылки). Если видите «1.3» или подсказку «← →» — это старый кэш: нажмите <strong>обновить без кэша</strong> (Chrome: Ctrl+Shift+R / Cmd+Shift+R) или откройте ссылку в режиме инкогнито.</p>
+      <p>Обновлено 2026-03-22 · Репозиторий: <a href="https://github.com/BKproduct/hc-presentations" target="_blank" rel="noopener">BKproduct/hc-presentations</a>. Сводка по первичным источникам: PubMed, EMA и открытые материалы клинических исследований.</p>
+      <div class="scroll-cue" role="note"><span aria-hidden="true">↓</span>Вся презентация на этой же странице — прокрутите вниз или нажмите раздел в меню сверху.</div>
     </section>
 
     <section class="card" id="terms">
@@ -301,8 +331,10 @@
       var bar = document.getElementById("progress");
       function onScroll() {
         var el = document.documentElement;
+        var st = window.pageYOffset || el.scrollTop || document.body.scrollTop || 0;
         var sh = el.scrollHeight - el.clientHeight;
-        var pct = sh > 0 ? (el.scrollTop / sh) * 100 : 100;
+        if (sh <= 0) sh = document.body.scrollHeight - window.innerHeight;
+        var pct = sh > 0 ? (st / sh) * 100 : 100;
         bar.style.width = pct + "%";
       }
       window.addEventListener("scroll", onScroll, { passive: true });

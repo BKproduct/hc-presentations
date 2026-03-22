@@ -8,6 +8,9 @@
 
 **https://bkproduct.github.io/hc-presentations/presentations/inclisiran-pcsk9-evidence-2026-03-22.html**
 
+Если браузер показывает старую «слайдовую» версию (внизу «← →»), сделайте жёсткое обновление или откройте с параметром (обход кэша):  
+`https://bkproduct.github.io/hc-presentations/presentations/inclisiran-pcsk9-evidence-2026-03-22.html?v=15`
+
 Корень сайта: **https://bkproduct.github.io/hc-presentations/**
 
 ## Репозиторий с кодом
