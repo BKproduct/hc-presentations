@@ -231,7 +231,7 @@
           </tbody>
         </table>
       </div>
-      <p class="note"><strong>Метод 22.03.2026:</strong> первичные страницы PubMed, EMA, ClinicalTrials.gov, FDA открывались и сверялись. Запрос к Perplexity API из среды разработчика вернул 401 (неверный ключ или лимит); MCP Perplexity — «quota exceeded». При рабочем ключе в <code>~/.secrets/perplexity.env</code> можно повторить обзор через API — см. правило <code>.cursor/rules/perplexity-research.mdc</code> в репозитории Work.</p>
+      <p class="note"><strong>Метод 22.03.2026:</strong> сводка собрана вручную по первичным страницам (PubMed, EMA, ClinicalTrials.gov, FDA и др.). Ключ <strong>Parallels</strong> к этим базам не относится и хранится отдельно для API Parallels — см. <code>.secrets/parallels.env</code> и правило <code>.cursor/rules/parallels-api.mdc</code> в репозитории Work. Для веб-рисёрча при необходимости используйте MCP/ключ <strong>Perplexity</strong> по его документации, не подставляя ключ Parallels.</p>
     </section>
 
     <section class="card" id="questions">
