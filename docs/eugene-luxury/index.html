@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#FAF8F4">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Eugene Gantsel — Elite Wellness & Longevity</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --cream:       #FAF8F4;
+            --cream-mid:   #F3EEE5;
+            --cream-dark:  #EAE2D4;
+            --white:       #FFFFFF;
+            --gold:        #B8975A;
+            --gold-mid:    #C9A96E;
+            --gold-light:  #DEC898;
+            --text:        #1C1B18;
+            --text-mid:    #4A4944;
+            --text-muted:  #8A8980;
+            --border:      rgba(90, 78, 50, 0.14);
+            --border-gold: rgba(184, 151, 90, 0.25);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.65;
+            overflow-x: hidden;
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+
+        img { display: block; max-width: 100%; }
+
+        /* ── TYPOGRAPHY ── */
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+        }
+
+        .eyebrow {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .rule {
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            margin: 20px 0 28px;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 200;
+            background: rgba(250, 248, 244, 0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: env(safe-area-inset-top, 0px) max(64px, env(safe-area-inset-right)) 0 max(64px, env(safe-area-inset-left));
+            min-height: calc(72px + env(safe-area-inset-top, 0px));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 0.14em;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .nav-logo span { color: var(--gold); }
+
+        .nav-links {
+            display: flex; gap: 44px; list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px; font-weight: 500;
+            letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--text-mid); text-decoration: none;
+            transition: color .3s;
+        }
+
+        .nav-links a:hover { color: var(--gold); }
+
+        .nav-btn {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px; font-weight: 600;
+            letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--white);
+            background: var(--text);
+            padding: 13px 28px;
+            text-decoration: none;
+            transition: background .3s;
+        }
+
+        .nav-btn:hover { background: var(--gold); }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding-top: calc(72px + env(safe-area-inset-top, 0px));
+        }
+
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 72px 80px 72px;
+            background: var(--cream);
+        }
+
+        .hero-left .eyebrow { margin-bottom: 28px; }
+
+        .hero-left h1 {
+            font-size: clamp(52px, 5.5vw, 82px);
+            font-weight: 300;
+            line-height: 1.06;
+            margin-bottom: 28px;
+            color: var(--text);
+        }
+
+        .hero-left h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .hero-sub {
+            font-size: 16px;
+            font-weight: 300;
+            color: var(--text-mid);
+            max-width: 440px;
+            line-height: 1.8;
+            margin-bottom: 44px;
+        }
+
+        .hero-ctas {
+            display: flex; gap: 16px; align-items: center;
+        }
+
+        .btn-dark {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px; font-weight: 600;
+            letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--white);
+            background: var(--text);
+            padding: 17px 40px;
+            text-decoration: none;
+            transition: background .3s;
+            display: inline-block;
+        }
+
+        .btn-dark:hover { background: var(--gold); }
+
+        .btn-outline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px; font-weight: 500;
+            letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--text);
+            border-bottom: 1px solid var(--border-gold);
+            padding-bottom: 3px;
+            text-decoration: none;
+            transition: color .3s, border-color .3s;
+        }
+
+        .btn-outline:hover { color: var(--gold); border-color: var(--gold); }
+
+        .hero-right {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-right img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+        }
+
+        .hero-right-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to right, rgba(250,248,244,0.08), transparent);
+        }
+
+        /* ── TRUST STRIP ── */
+        .trust-strip {
+            background: var(--text);
+            padding: 0 64px;
+        }
+
+        .trust-strip-inner {
+            max-width: 1240px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(4, 1fr);
+        }
+
+        .trust-stat {
+            padding: 36px 0;
+            text-align: center;
+            border-right: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .trust-stat:last-child { border-right: none; }
+
+        .trust-n {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px; font-weight: 300;
+            color: var(--gold-mid);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .trust-l {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 9px; font-weight: 500;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+        }
+
+        /* ── SECTIONS ── */
+        .section { padding: 120px 64px; }
+        .section-inner { max-width: 1240px; margin: 0 auto; }
+
+        .section-head { margin-bottom: 72px; }
+        .section-head h2 {
+            font-size: clamp(38px, 4vw, 62px);
+            font-weight: 300; line-height: 1.1;
+        }
+
+        .section-head h2 em { font-style: italic; color: var(--gold); }
+
+        /* ── PHILOSOPHY ── */
+        .philosophy { background: var(--white); }
+
+        .philosophy-split {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 96px; align-items: center;
+        }
+
+        .philosophy-img {
+            position: relative; aspect-ratio: 4/5;
+            overflow: hidden;
+        }
+
+        .philosophy-img img {
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center top;
+        }
+
+        .philosophy-img-badge {
+            position: absolute;
+            bottom: -1px; right: -1px;
+            background: var(--gold);
+            padding: 20px 28px;
+        }
+
+        .philosophy-img-badge p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 13px; font-weight: 400;
+            letter-spacing: 0.04em;
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        .philosophy-text .eyebrow { margin-bottom: 20px; }
+
+        .philosophy-text h2 {
+            font-size: clamp(36px, 3.8vw, 54px);
+            font-weight: 300; line-height: 1.1;
+            margin-bottom: 32px;
+        }
+
+        .philosophy-text h2 em { font-style: italic; color: var(--gold); }
+
+        .philosophy-text p {
+            font-size: 16px; color: var(--text-mid);
+            line-height: 1.85; margin-bottom: 20px;
+        }
+
+        .quote-pull {
+            margin: 32px 0;
+            padding-left: 24px;
+            border-left: 2px solid var(--gold);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px; font-weight: 300; font-style: italic;
+            line-height: 1.4; color: var(--text);
+        }
+
+        /* ── PILLARS ── */
+        .pillars { background: var(--cream); }
+
+        .pillars-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+
+        .pillar {
+            background: var(--white);
+            padding: 56px 44px;
+            border-top: 2px solid transparent;
+            transition: border-color .4s;
+        }
+
+        .pillar:hover { border-color: var(--gold); }
+
+        .pillar-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 72px; font-weight: 300;
+            color: var(--cream-dark); line-height: 1;
+            margin-bottom: 28px;
+        }
+
+        .pillar h3 { font-size: 26px; margin-bottom: 16px; }
+
+        .pillar p { font-size: 15px; color: var(--text-mid); line-height: 1.75; }
+
+        /* ── LIFESTYLE IMAGE (couple/tennis) ── */
+        .lifestyle-hero {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .lifestyle-hero img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center 40%;
+        }
+
+        .lifestyle-hero-overlay {
+            position: absolute; inset: 0;
+            background: rgba(28, 27, 24, 0.38);
+            display: flex; align-items: flex-end;
+            padding: 64px;
+        }
+
+        .lifestyle-hero-text {
+            max-width: 560px;
+        }
+
+        .lifestyle-hero-text h2 {
+            font-size: clamp(36px, 4vw, 58px);
+            font-weight: 300; line-height: 1.1;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .lifestyle-hero-text h2 em { font-style: italic; color: var(--gold-light); }
+
+        .lifestyle-hero-text p {
+            font-size: 16px; font-weight: 300;
+            color: rgba(255,255,255,0.75);
+        }
+
+        /* ── HEALTH COPILOT ── */
+        .hc-section { background: var(--cream-mid); }
+
+        .hc-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 96px; align-items: center;
+        }
+
+        .hc-text .eyebrow { margin-bottom: 20px; }
+
+        .hc-text h2 {
+            font-size: clamp(36px, 3.8vw, 56px);
+            font-weight: 300; line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .hc-text h2 em { font-style: italic; color: var(--gold); }
+
+        .hc-text p {
+            font-size: 16px; color: var(--text-mid);
+            line-height: 1.85; margin-bottom: 20px;
+        }
+
+        .hc-features {
+            display: flex; flex-direction: column;
+            gap: 16px; margin-top: 36px;
+        }
+
+        .hc-feat {
+            display: flex; align-items: flex-start;
+            gap: 18px; padding: 18px 20px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            transition: border-color .3s;
+        }
+
+        .hc-feat:hover { border-color: var(--border-gold); }
+
+        .hc-icon {
+            width: 38px; height: 38px;
+            background: var(--cream-dark);
+            border: 1px solid var(--border-gold);
+            display: flex; align-items: center;
+            justify-content: center;
+            font-size: 17px; flex-shrink: 0;
+        }
+
+        .hc-feat h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px; font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px; color: var(--text);
+        }
+
+        .hc-feat p {
+            font-size: 13px; color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ── TELEGRAM MOCKUP ── */
+        .tg-wrap {
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        .tg-device {
+            width: 100%; max-width: 400px;
+            background: #EFEFF4;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow:
+                0 0 0 1px rgba(0,0,0,0.08),
+                0 24px 64px rgba(0,0,0,0.18),
+                0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .tg-top-bar {
+            background: #F7F7F7;
+            padding: 14px 20px 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 0.5px solid rgba(0,0,0,0.1);
+        }
+
+        .tg-top-bar span {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px; font-weight: 600;
+            color: #1C1C1E;
+        }
+
+        .tg-signals {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px; color: #1C1C1E;
+            display: flex; gap: 6px; align-items: center;
+        }
+
+        .tg-chat-bar {
+            background: #F7F7F7;
+            padding: 10px 16px;
+            display: flex; align-items: center;
+            gap: 12px;
+            border-bottom: 0.5px solid rgba(0,0,0,0.08);
+        }
+
+        .tg-back-btn {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px; color: #007AFF;
+        }
+
+        .tg-av {
+            width: 38px; height: 38px; border-radius: 50%;
+            background: linear-gradient(140deg, #1D4ED8, #6D28D9);
+            display: flex; align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px; font-weight: 700; color: white;
+            flex-shrink: 0;
+        }
+
+        .tg-chat-meta h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px; font-weight: 600;
+            color: #1C1C1E; margin-bottom: 2px;
+        }
+
+        .tg-chat-meta span {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px; color: #34C759;
+        }
+
+        .tg-messages {
+            background: #EFEFF4;
+            padding: 12px 10px;
+            min-height: 440px;
+            display: flex; flex-direction: column; gap: 6px;
+        }
+
+        .tg-day {
+            align-self: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px; color: #8E8E93;
+            background: rgba(0,0,0,0.06);
+            border-radius: 10px;
+            padding: 4px 12px;
+            margin: 4px 0;
+        }
+
+        .tg-msg {
+            background: #FFFFFF;
+            border-radius: 18px 18px 18px 4px;
+            padding: 12px 14px 9px;
+            max-width: 95%;
+            align-self: flex-start;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+        }
+
+        .tg-msg-sender {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px; font-weight: 600;
+            color: #5856D6;
+            margin-bottom: 8px;
+        }
+
+        .tg-msg-body {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px; line-height: 1.65;
+            color: #1C1C1E;
+            white-space: pre-line;
+        }
+
+        .tg-msg-body b { font-weight: 600; }
+
+        .tg-msg-time {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px; color: #8E8E93;
+            text-align: right; margin-top: 7px;
+        }
+
+        .tg-input {
+            background: #F7F7F7;
+            padding: 10px 14px;
+            display: flex; align-items: center; gap: 10px;
+            border-top: 0.5px solid rgba(0,0,0,0.1);
+        }
+
+        .tg-input-field {
+            flex: 1;
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 9px 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px; color: #8E8E93;
+            border: 0.5px solid rgba(0,0,0,0.1);
+        }
+
+        .tg-mic-btn { font-size: 20px; color: #8E8E93; }
+
+        /* ── 7 STEPS ── */
+        .steps { background: var(--white); }
+
+        .steps-cols {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 96px; align-items: start;
+        }
+
+        .step-list { display: flex; flex-direction: column; }
+
+        .step-row {
+            display: grid; grid-template-columns: 64px 1fr;
+            gap: 24px;
+            padding: 32px 0;
+            border-bottom: 1px solid var(--border);
+            align-items: start;
+        }
+
+        .step-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+        .step-n {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 56px; font-weight: 300;
+            color: var(--cream-dark); line-height: 1;
+        }
+
+        .step-row h3 {
+            font-size: 22px; font-weight: 400;
+            padding-top: 2px; margin-bottom: 8px;
+        }
+
+        .step-row p {
+            font-size: 15px; color: var(--text-mid); line-height: 1.72;
+        }
+
+        /* ── DUBAI SKYLINE ── */
+        .dubai-section {
+            position: relative; height: 520px; overflow: hidden;
+        }
+
+        .dubai-section img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center 55%;
+            filter: brightness(0.88);
+        }
+
+        .dubai-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(28,27,24,0.55) 0%, transparent 60%);
+            display: flex; align-items: flex-end;
+            padding: 56px 72px;
+        }
+
+        .dubai-caption {
+            max-width: 600px;
+        }
+
+        .dubai-caption .eyebrow { color: var(--gold-light); margin-bottom: 16px; }
+
+        .dubai-caption h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(32px, 3.5vw, 52px);
+            font-weight: 300; line-height: 1.2;
+            color: var(--white);
+        }
+
+        .dubai-caption h2 em { font-style: italic; color: var(--gold-light); }
+
+        /* ── LOCATIONS ── */
+        .locations { background: var(--cream); }
+
+        .locations-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-rows: 280px 280px;
+            gap: 3px;
+        }
+
+        .loc-card {
+            position: relative; overflow: hidden;
+        }
+
+        .loc-card.span2 { grid-row: 1 / 3; }
+
+        .loc-card img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: brightness(0.82);
+            transition: transform .5s, filter .5s;
+        }
+
+        .loc-card:hover img {
+            transform: scale(1.04); filter: brightness(0.9);
+        }
+
+        .loc-label {
+            position: absolute; bottom: 20px; left: 22px; z-index: 2;
+        }
+
+        .loc-num {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 9px; font-weight: 600;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            color: rgba(255,255,255,0.6); margin-bottom: 4px;
+        }
+
+        .loc-city {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 30px; font-weight: 300;
+            color: var(--white);
+            text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+        }
+
+        /* ── TESTIMONIALS ── */
+        .testimonials { background: var(--white); }
+
+        .testi-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .testi {
+            padding: 40px 32px;
+            border: 1px solid var(--border);
+            transition: border-color .3s, box-shadow .3s;
+        }
+
+        .testi:hover {
+            border-color: var(--border-gold);
+            box-shadow: 0 4px 24px rgba(184,151,90,0.08);
+        }
+
+        .testi-stars {
+            color: var(--gold); font-size: 12px;
+            letter-spacing: 3px; margin-bottom: 20px;
+        }
+
+        .testi-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 19px; font-style: italic;
+            line-height: 1.6; color: var(--text-mid);
+            margin-bottom: 24px;
+        }
+
+        .testi-sep {
+            width: 28px; height: 1px;
+            background: var(--gold); margin-bottom: 20px;
+        }
+
+        .testi-author-name {
+            font-size: 13px; font-weight: 500;
+            color: var(--text); margin-bottom: 2px;
+        }
+
+        .testi-author-loc {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px; font-weight: 500;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* ── CTA ── */
+        .cta-section {
+            background: var(--cream-mid);
+            padding: 140px 64px;
+            text-align: center;
+        }
+
+        .cta-section .eyebrow { margin-bottom: 28px; }
+
+        .cta-section h2 {
+            font-size: clamp(44px, 5vw, 72px);
+            font-weight: 300; line-height: 1.08;
+            margin-bottom: 28px;
+        }
+
+        .cta-section h2 em { font-style: italic; color: var(--gold); }
+
+        .cta-section p {
+            font-size: 17px; font-weight: 300;
+            color: var(--text-mid);
+            max-width: 520px; margin: 0 auto 52px;
+            line-height: 1.78;
+        }
+
+        .cta-note {
+            margin-top: 24px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--text);
+            padding: 56px 64px;
+        }
+
+        .footer-inner {
+            max-width: 1240px; margin: 0 auto;
+            display: flex; justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px; letter-spacing: 0.12em;
+            color: var(--gold);
+        }
+
+        .footer-links {
+            display: flex; gap: 36px; list-style: none;
+        }
+
+        .footer-links a {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 9px; letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            text-decoration: none; transition: color .3s;
+        }
+
+        .footer-links a:hover { color: var(--gold); }
+
+        .footer-copy {
+            font-size: 12px; color: rgba(255,255,255,0.25);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 960px) {
+            nav {
+                padding: env(safe-area-inset-top, 0px) max(24px, env(safe-area-inset-right)) 0 max(24px, env(safe-area-inset-left));
+            }
+            .nav-links, .nav-btn { display: none; }
+            .hero { grid-template-columns: 1fr; }
+            .hero-right { height: 50vw; }
+            .hero-left { padding: 60px 24px; }
+            .section { padding: 80px 24px; }
+            .philosophy-split, .hc-grid, .steps-cols { grid-template-columns: 1fr; gap: 48px; }
+            .pillars-grid, .testi-grid { grid-template-columns: 1fr; }
+            .locations-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+            .loc-card.span2 { grid-row: auto; }
+            .trust-strip { padding: 0 24px; }
+            footer { padding: 40px 24px; }
+            .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+    <a href="#" class="nav-logo">EUGENE <span>GANTSEL</span></a>
+    <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#method">Method</a></li>
+        <li><a href="#copilot">Health Copilot</a></li>
+        <li><a href="#program">Programme</a></li>
+        <li><a href="#results">Results</a></li>
+    </ul>
+    <a href="#contact" class="nav-btn">Book a Consultation</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+    <div class="hero-left">
+        <span class="eyebrow">Elite Wellness &amp; Longevity</span>
+        <h1>
+            Sculpt the Body.<br>
+            <em>Master the Mind.</em><br>
+            Extend the Life.
+        </h1>
+        <p class="hero-sub">
+            Bespoke transformation coaching for high-performing individuals — blending elite fitness, neuropsychology, precision nutrition, and AI-powered health intelligence.
+        </p>
+        <div class="hero-ctas">
+            <a href="#contact" class="btn-dark">Request a Consultation</a>
+            <a href="#method" class="btn-outline">Discover the Method</a>
+        </div>
+    </div>
+    <div class="hero-right">
+        <!-- Luxury couple near tennis court with high-end car -->
+        <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=1400&q=90" alt="Burj Al Arab Dubai">
+        <div class="hero-right-overlay"></div>
+    </div>
+</section>
+
+<!-- ── TRUST STRIP ── -->
+<div class="trust-strip">
+    <div class="trust-strip-inner">
+        <div class="trust-stat">
+            <div class="trust-n">500<span style="font-size:20px;opacity:.6">+</span></div>
+            <div class="trust-l">Clients Transformed</div>
+        </div>
+        <div class="trust-stat">
+            <div class="trust-n">10<span style="font-size:20px;opacity:.6">+</span></div>
+            <div class="trust-l">Years of Practice</div>
+        </div>
+        <div class="trust-stat">
+            <div class="trust-n">3</div>
+            <div class="trust-l">Expert Disciplines</div>
+        </div>
+        <div class="trust-stat">
+            <div class="trust-n" style="font-size:24px;padding-top:10px">DXB · MCO · LDN</div>
+            <div class="trust-l">Active Locations</div>
+        </div>
+    </div>
+</div>
+
+<!-- ── ABOUT / PHILOSOPHY ── -->
+<section class="section philosophy" id="about">
+    <div class="section-inner">
+        <div class="philosophy-split">
+            <div class="philosophy-img">
+                <!-- Eugene's actual photo -->
+                <img src="https://thb.tildacdn.com/tild3861-3061-4235-a430-356239613433/313.png"
+                     alt="Eugene Gantsel">
+                <div class="philosophy-img-badge">
+                    <p>ISSA Certified · Neuropsychologist<br>Sports Nutritionist · 10+ Years</p>
+                </div>
+            </div>
+            <div class="philosophy-text">
+                <span class="eyebrow">Eugene Gantsel</span>
+                <div class="rule"></div>
+                <h2>The Architect Behind the <em>Transformation</em></h2>
+                <p>Eugene Gantsel is one of the few specialists in the world operating simultaneously across three disciplines: elite fitness coaching, clinical neuropsychology, and precision sports nutrition science.</p>
+                <div class="quote-pull">
+                    "The sculptor does not add — he removes everything that is not the masterpiece. Your body is no different."
+                </div>
+                <p>Trained to ISSA (USA) standards, Eugene has spent over a decade refining a methodology that produces lasting results where conventional approaches consistently fail. His clients are executives, entrepreneurs, and athletes across Dubai, Monaco, and London.</p>
+                <p>With the introduction of the <strong>Health Copilot</strong> — an AI-powered daily wellness intelligence system — Eugene now offers a truly integrated programme: elite coaching, neuropsychological support, and real-time biomarker intelligence, delivered together for the first time.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── THREE PILLARS ── -->
+<section class="section pillars" id="method">
+    <div class="section-inner">
+        <div class="section-head">
+            <span class="eyebrow">The Method</span>
+            <div class="rule"></div>
+            <h2>A Complete System for<br><em>Elite Human Performance</em></h2>
+        </div>
+        <div class="pillars-grid">
+            <div class="pillar">
+                <div class="pillar-num">01</div>
+                <h3>Body Architecture</h3>
+                <p>Precision body composition programming designed around your physiology, schedule, and goals. No generic templates. Every variable is calibrated for you. ISSA-certified methodology applied with surgical precision.</p>
+            </div>
+            <div class="pillar">
+                <div class="pillar-num">02</div>
+                <h3>Mind &amp; Neuroscience</h3>
+                <p>Transformation fails at the level of behaviour — not information. As a qualified neuropsychologist, I work directly on the patterns that silently undermine every programme: emotional eating, self-sabotage, stress responses.</p>
+            </div>
+            <div class="pillar">
+                <div class="pillar-num">03</div>
+                <h3>Longevity &amp; Wellness</h3>
+                <p>Performance is not a sprint. We integrate biomarker tracking, recovery science, and AI-powered daily health intelligence to ensure your results compound over decades — not just twelve weeks.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── LIFESTYLE PHOTO: couple / tennis / luxury car ── -->
+<div class="lifestyle-hero">
+    <!-- Elegant couple at private tennis court / luxury estate lifestyle -->
+    <img src="https://images.pexels.com/photos/337909/pexels-photo-337909.jpeg?auto=compress&cs=tinysrgb&w=1920&h=900&dpr=1" alt="Ferrari Dubai Luxury Lifestyle">
+    <div class="lifestyle-hero-overlay">
+        <div class="lifestyle-hero-text">
+            <h2>Wellness for the<br><em>Life You've Built</em></h2>
+            <p>A programme designed around the demands of your world — not against them.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ── HEALTH COPILOT ── -->
+<section class="section hc-section" id="copilot">
+    <div class="section-inner">
+        <div class="hc-grid">
+            <div class="hc-text">
+                <span class="eyebrow">AI-Powered Wellness</span>
+                <div class="rule"></div>
+                <h2>Meet Your<br><em>Health Copilot</em></h2>
+                <p>Every morning, before you even think about your day, your personal AI health intelligence system has already analysed your overnight biometrics, calibrated your training recommendation, and prepared your daily protocol.</p>
+                <p>This is not a generic app. This is a bespoke AI layer — trained on your biomarkers — delivering clinical-grade insight in the language of your life, via Telegram.</p>
+                <div class="hc-features">
+                    <div class="hc-feat">
+                        <div class="hc-icon">⚡</div>
+                        <div>
+                            <h4>Daily Biological Age Tracking</h4>
+                            <p>HRV, resting HR, VO2max, recovery score — synthesised into a single morning intelligence brief.</p>
+                        </div>
+                    </div>
+                    <div class="hc-feat">
+                        <div class="hc-icon">🎯</div>
+                        <div>
+                            <h4>Real-Time Training Optimisation</h4>
+                            <p>Training intensity adapted to your daily readiness — not a fixed schedule that ignores your biology.</p>
+                        </div>
+                    </div>
+                    <div class="hc-feat">
+                        <div class="hc-icon">💊</div>
+                        <div>
+                            <h4>Precision Supplement Protocol</h4>
+                            <p>Daily recommendations based on your bloodwork, biomarkers, and specific physiological goals.</p>
+                        </div>
+                    </div>
+                    <div class="hc-feat">
+                        <div class="hc-icon">🧠</div>
+                        <div>
+                            <h4>Cognitive Performance Windows</h4>
+                            <p>Deep work timing, energy management, and neuropsychological recovery — scheduled around your biology.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- iOS Telegram Mockup -->
+            <div class="tg-wrap">
+                <div class="tg-device">
+                    <div class="tg-top-bar">
+                        <span>9:41</span>
+                        <div class="tg-signals">
+                            <span>●●●●</span>
+                            <span>Wi-Fi</span>
+                            <span>🔋</span>
+                        </div>
+                    </div>
+                    <div class="tg-chat-bar">
+                        <span class="tg-back-btn">‹</span>
+                        <div class="tg-av">H</div>
+                        <div class="tg-chat-meta">
+                            <h4>HealthBK</h4>
+                            <span>online</span>
+                        </div>
+                    </div>
+                    <div class="tg-messages">
+                        <div class="tg-day">Today, 27 March 2026</div>
+                        <div class="tg-msg">
+                            <div class="tg-msg-sender">HealthBK</div>
+                            <div class="tg-msg-body"><b>🏥 Health Briefing · 2026-03-27</b>
+<b>🎯 Biological Age: ~52 yrs</b> (+1 to chronological)
+
+<b>🌅 Good morning, Boris ⌚</b>
+
+Yesterday's readout:
+• <b>HRV 29.3 ms</b> — below baseline. Recovery incomplete.
+• <b>Resting HR 59</b> — excellent ✓
+• <b>VO2max → 35.5</b> — positive trend ↑
+• Training: <b>51 min logged</b> ✓
+
+🌤 Today — rain, 9°C. Best window: <b>9:00–11:00</b>, indoors.
+
+⚠️ HRV low → high intensity not advised.
+Optimal: <b>Zone 2</b>, bike or elliptical.
+Target HR: <b>110–130 bpm</b>.
+
+🧠 Low HRV + fatigue points to incomplete recovery, likely linked to anaemia markers (Hb 13.4, Ferritin 20).
+
+💊 Protocol:
+• Iron ✓ taken
+• Add <b>Vitamin C ~500mg</b> alongside — critical for non-haem iron absorption at Ferritin 20.
+
+Deep work: after 18:00 as usual.</div>
+                            <div class="tg-msg-time">15:00 ✓✓</div>
+                        </div>
+                    </div>
+                    <div class="tg-input">
+                        <div class="tg-input-field">Message</div>
+                        <span class="tg-mic-btn">🎙</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── 7 STEPS ── -->
+<section class="section steps" id="program">
+    <div class="section-inner">
+        <div class="section-head">
+            <span class="eyebrow">The Programme</span>
+            <div class="rule"></div>
+            <h2>7 Steps to Your<br><em>Dream Body</em></h2>
+        </div>
+        <div class="steps-cols">
+            <div class="step-list">
+                <div class="step-row">
+                    <div class="step-n">01</div>
+                    <div>
+                        <h3>Deep Assessment</h3>
+                        <p>Comprehensive analysis of your physiology, bloodwork, body composition, psychology, lifestyle, and goals. No assumptions — only data.</p>
+                    </div>
+                </div>
+                <div class="step-row">
+                    <div class="step-n">02</div>
+                    <div>
+                        <h3>Bespoke Programme Design</h3>
+                        <p>A completely personalised training, nutrition, and recovery plan — built around your exact schedule, preferences, and physiological constraints.</p>
+                    </div>
+                </div>
+                <div class="step-row">
+                    <div class="step-n">03</div>
+                    <div>
+                        <h3>Precision Nutrition</h3>
+                        <p>Sports nutrition science applied to your real life. Practical, sustainable, calibrated to your metabolic and hormonal profile.</p>
+                    </div>
+                </div>
+                <div class="step-row" style="border-bottom:none;padding-bottom:0;">
+                    <div class="step-n">04</div>
+                    <div>
+                        <h3>Neuropsychological Coaching</h3>
+                        <p>Dismantle the behavioural patterns — emotional eating, self-sabotage, stress — that have blocked your progress until now.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="step-list">
+                <div class="step-row">
+                    <div class="step-n">05</div>
+                    <div>
+                        <h3>AI Health Intelligence</h3>
+                        <p>Daily briefings via Health Copilot. Your personal AI adapts your protocols in real time based on overnight biomarker feedback.</p>
+                    </div>
+                </div>
+                <div class="step-row">
+                    <div class="step-n">06</div>
+                    <div>
+                        <h3>Weekly Calibration</h3>
+                        <p>Regular check-ins, biometric reviews, and programme adjustments. Your plan evolves as your body responds.</p>
+                    </div>
+                </div>
+                <div class="step-row">
+                    <div class="step-n">07</div>
+                    <div>
+                        <h3>Sustainable Mastery</h3>
+                        <p>The programme ends — the knowledge doesn't. You leave with the skills and habits to sustain your results for life.</p>
+                    </div>
+                </div>
+                <div class="step-row" style="border-bottom:none;padding-bottom:0;">
+                    <div class="step-n" style="color:var(--gold);opacity:.7">2.5</div>
+                    <div>
+                        <h3 style="color:var(--gold)">Months to Transform</h3>
+                        <p>Full body and consciousness transformation for the dedicated and discerning — in just 2.5 months.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── DUBAI / BURJ KHALIFA IN HAZE ── -->
+<div class="dubai-section">
+    <!-- Burj Khalifa in morning mist/haze -->
+    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1920&q=90" alt="Dubai Skyline Burj Khalifa">
+    <div class="dubai-overlay">
+        <div class="dubai-caption">
+            <span class="eyebrow">Dubai · Monaco · London</span>
+            <h2>Where the world's<br><em>highest performers</em> train.</h2>
+        </div>
+    </div>
+</div>
+
+<!-- ── LOCATIONS ── -->
+<section class="section locations">
+    <div class="section-inner">
+        <div class="section-head">
+            <span class="eyebrow">Locations</span>
+            <div class="rule"></div>
+            <h2>Available <em>Worldwide</em></h2>
+        </div>
+        <div class="locations-grid">
+            <div class="loc-card span2">
+                <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=900&q=85" alt="Dubai">
+                <div class="loc-label">
+                    <div class="loc-num">01</div>
+                    <div class="loc-city">Dubai</div>
+                </div>
+            </div>
+            <div class="loc-card">
+                <img src="https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&dpr=1" alt="Monaco">
+                <div class="loc-label">
+                    <div class="loc-num">02</div>
+                    <div class="loc-city">Monaco</div>
+                </div>
+            </div>
+            <div class="loc-card">
+                <img src="https://images.pexels.com/photos/672532/pexels-photo-672532.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&dpr=1" alt="London">
+                <div class="loc-label">
+                    <div class="loc-num">03</div>
+                    <div class="loc-city">London</div>
+                </div>
+            </div>
+            <div class="loc-card">
+                <img src="https://images.pexels.com/photos/1467300/pexels-photo-1467300.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&dpr=1" alt="Online Worldwide">
+                <div class="loc-label">
+                    <div class="loc-num">04</div>
+                    <div class="loc-city">Online</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section class="section testimonials" id="results">
+    <div class="section-inner">
+        <div class="section-head">
+            <span class="eyebrow">Client Results</span>
+            <div class="rule"></div>
+            <h2>What <em>Transformation</em> Looks Like</h2>
+        </div>
+        <div class="testi-grid">
+            <div class="testi">
+                <div class="testi-stars">★★★★★</div>
+                <div class="testi-text">"I've worked with trainers in London, New York, and Dubai. Eugene is the first who understood that my problem was not physical — it was psychological. Six weeks in, 8kg gone and clarity I hadn't felt in years."</div>
+                <div class="testi-sep"></div>
+                <div class="testi-author-name">Alexander M.</div>
+                <div class="testi-author-loc">CEO · Dubai</div>
+            </div>
+            <div class="testi">
+                <div class="testi-stars">★★★★★</div>
+                <div class="testi-text">"The Health Copilot changed my relationship with my own body. I wake up knowing exactly what I need — and why. This is not a fitness programme. It is a system for living at your best."</div>
+                <div class="testi-sep"></div>
+                <div class="testi-author-name">Marina V.</div>
+                <div class="testi-author-loc">Entrepreneur · Monaco</div>
+            </div>
+            <div class="testi">
+                <div class="testi-stars">★★★★★</div>
+                <div class="testi-text">"In 2.5 months: 11kg lost, resting HR to 52, energy unrecognisable. More importantly — I finally understand how my body actually works. Worth every penny and substantially more."</div>
+                <div class="testi-sep"></div>
+                <div class="testi-author-name">Dmitry K.</div>
+                <div class="testi-author-loc">Private Equity · London</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section" id="contact">
+    <span class="eyebrow">Begin the Journey</span>
+    <h2>You Have One Body.<br><em>Invest in it accordingly.</em></h2>
+    <p>Consultations are by application only. Limited availability in Dubai, Monaco, and London — with a select number of online programmes accepted globally.</p>
+    <a href="https://t.me/EugeneHantsel" class="btn-dark" style="font-size:11px;padding:18px 56px;letter-spacing:0.18em;">
+        Request a Private Consultation
+    </a>
+    <div class="cta-note">By application only &nbsp;·&nbsp; Strictly limited availability</div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-logo">EUGENE GANTSEL</div>
+        <ul class="footer-links">
+            <li><a href="https://body7steps.com">7 Steps Programme</a></li>
+            <li><a href="https://eugene-hantsel.ru">Personal Site</a></li>
+            <li><a href="#copilot">Health Copilot</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="footer-copy">© 2026 Eugene Gantsel. All rights reserved.</div>
+    </div>
+</footer>
+
+</body>
+</html>
