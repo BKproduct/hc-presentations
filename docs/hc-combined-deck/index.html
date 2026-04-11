@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Copilot — для вас и команды вокруг здоровья</title>
+  <meta name="description" content="Один канал в Telegram: утро, еда, журнал, бриф для врача. Для клиники и для спорта — одна логика: данные собраны, ответы короткие.">
+  <meta property="og:title" content="Health Copilot — объединённая презентация">
+  <meta property="og:description" content="От разрозненных источников к одному спокойному каналу: примеры из продукта.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=JetBrains+Mono:wght@400;500&family=Spline+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --void: #04060d;
+      --panel: #0e162c;
+      --panel2: #121c38;
+      --teal: #0d9488;
+      --teal-hot: #2dd4bf;
+      --amber: #f59e0b;
+      --rose: #fb7185;
+      --text: #e8edf7;
+      --muted: #94a3b8;
+      --grid: rgba(148, 163, 184, 0.12);
+      --stroke: rgba(255, 255, 255, 0.08);
+      --ease: cubic-bezier(0.19, 1, 0.22, 1);
+      --font-h: 'Fraunces', Georgia, serif;
+      --font-b: 'Spline Sans', system-ui, sans-serif;
+      --font-m: 'JetBrains Mono', ui-monospace, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-b);
+      background: var(--void);
+      color: var(--text);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(transparent 95%, var(--grid) 95%),
+        linear-gradient(90deg, transparent 95%, var(--grid) 95%);
+      background-size: 28px 28px;
+      opacity: 0.35;
+      mask-image: radial-gradient(ellipse 90% 70% at 50% -10%, black 40%, transparent 75%);
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    #progress {
+      position: fixed; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--teal), var(--amber));
+      transform-origin: left; transform: scaleX(0); z-index: 400;
+      transition: transform 0.12s linear;
+    }
+
+    header.bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem clamp(0.9rem, 3vw, 2rem);
+      background: linear-gradient(180deg, rgba(4, 6, 13, 0.92), rgba(4, 6, 13, 0.45) 65%, transparent);
+      backdrop-filter: blur(14px);
+    }
+    .mark { display: flex; flex-direction: column; gap: 0.1rem; transform: skewX(-5deg); }
+    .mark strong { font-family: var(--font-h); font-size: 1.08rem; letter-spacing: -0.02em; }
+    .mark span {
+      font-family: var(--font-m);
+      font-size: 0.58rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--teal-hot);
+    }
+    .bar-actions { display: flex; gap: 0.45rem; flex-wrap: wrap; justify-content: flex-end; align-items: center; }
+    .chip {
+      font-family: var(--font-m);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--stroke);
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(14, 22, 44, 0.65);
+    }
+    button.chip { cursor: pointer; color: var(--text); font: inherit; }
+    button.chip:hover { border-color: rgba(45, 212, 191, 0.45); color: var(--teal-hot); }
+
+    #overview {
+      position: fixed; inset: 0; z-index: 350;
+      background: rgba(2, 4, 10, 0.88);
+      backdrop-filter: blur(10px);
+      display: none; align-items: center; justify-content: center; padding: 1.5rem;
+    }
+    #overview.open { display: flex; }
+    .ov {
+      width: min(720px, 100%);
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: 18px;
+      padding: 1.25rem;
+      max-height: 88vh;
+      overflow: auto;
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.55);
+    }
+    .ov h3 { font-family: var(--font-h); font-size: 1.3rem; margin-bottom: 0.85rem; }
+    .ov-grid { display: grid; gap: 0.45rem; grid-template-columns: 1fr; }
+    @media (min-width: 520px) { .ov-grid { grid-template-columns: 1fr 1fr; } }
+    .ov-grid button {
+      text-align: left;
+      font: inherit;
+      font-size: 0.86rem;
+      padding: 0.55rem 0.65rem;
+      border-radius: 10px;
+      border: 1px solid var(--stroke);
+      background: var(--panel2);
+      color: var(--text);
+      cursor: pointer;
+    }
+    .ov-grid button:hover { border-color: rgba(13, 148, 136, 0.55); color: var(--teal-hot); }
+
+    main { position: relative; z-index: 2; padding-top: 4.5rem; }
+
+    section[data-moment] {
+      position: relative;
+      padding: clamp(3rem, 8vw, 5.5rem) clamp(1rem, 4vw, 2.75rem);
+    }
+    section[data-moment]::after {
+      content: attr(data-kicker);
+      position: absolute;
+      top: clamp(0.75rem, 2.5vw, 1.35rem);
+      left: clamp(1rem, 4vw, 2.75rem);
+      font-family: var(--font-m);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.85;
+    }
+
+    .wrap { width: min(1120px, 100%); margin: 0 auto; }
+
+    h1, h2, h3 { font-family: var(--font-h); font-weight: 700; line-height: 1.06; letter-spacing: -0.02em; }
+    h1 { font-size: clamp(2.1rem, 5.8vw, 3.6rem); }
+    h2 { font-size: clamp(1.45rem, 3.8vw, 2.45rem); margin-bottom: 0.75rem; }
+    .lede { color: var(--muted); font-size: clamp(0.95rem, 1.9vw, 1.08rem); max-width: 40rem; margin-top: 0.75rem; }
+    .fine {
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.45;
+      max-width: 46rem;
+      margin-top: 1rem;
+    }
+
+    [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity 0.65s var(--ease), transform 0.65s var(--ease); }
+    [data-reveal].in { opacity: 1; transform: none; }
+    [data-d="1"] { transition-delay: 0.08s; }
+    [data-d="2"] { transition-delay: 0.16s; }
+    [data-d="3"] { transition-delay: 0.24s; }
+
+    /* Hero */
+    #m-intro {
+      min-height: min(92vh, 820px);
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(ellipse 55% 50% at 88% 8%, rgba(13, 148, 136, 0.2), transparent 58%),
+        radial-gradient(ellipse 42% 42% at 6% 92%, rgba(245, 158, 11, 0.07), transparent 52%);
+    }
+    .hero-grid {
+      display: grid;
+      gap: 1.75rem;
+      grid-template-columns: 1fr;
+      align-items: end;
+    }
+    @media (min-width: 920px) {
+      .hero-grid { grid-template-columns: 1.12fr 0.88fr; align-items: stretch; }
+    }
+    .radar {
+      position: relative;
+      border: 1px solid var(--stroke);
+      border-radius: 20px;
+      background: linear-gradient(160deg, rgba(14, 22, 44, 0.95), rgba(7, 11, 20, 0.65));
+      padding: 1rem 1rem 1.05rem;
+      overflow: hidden;
+      min-height: 280px;
+      transform: rotate(-1.4deg);
+      box-shadow: 0 22px 65px rgba(0, 0, 0, 0.45);
+    }
+    .radar::before {
+      content: '';
+      position: absolute;
+      inset: -45%;
+      background: conic-gradient(from 200deg, transparent, rgba(45, 212, 191, 0.12), transparent 42%);
+      animation: sweep 16s linear infinite;
+    }
+    @keyframes sweep { to { transform: rotate(360deg); } }
+    .radar-inner { position: relative; z-index: 2; }
+    .radar-inner .t {
+      font-family: var(--font-m);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal-hot);
+    }
+    .radar-inner .sub {
+      margin-top: 0.35rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.4;
+      max-width: 26rem;
+    }
+    .radar-silos {
+      position: relative;
+      margin-top: 0.85rem;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.4rem;
+      z-index: 2;
+      padding-bottom: 0.15rem;
+    }
+    .radar .silo {
+      aspect-ratio: 1;
+      max-height: 64px;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 64px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: linear-gradient(145deg, rgba(18, 28, 56, 0.95), rgba(10, 16, 32, 0.85));
+      display: grid;
+      place-items: center;
+      font-size: 1.15rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    }
+    .radar .silo:nth-child(odd) { transform: rotate(-2deg); }
+    .radar .silo:nth-child(even) { transform: rotate(2.5deg); }
+    .radar-sweep {
+      position: absolute;
+      left: 5%;
+      right: 5%;
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.95), transparent);
+      box-shadow: 0 0 18px rgba(45, 212, 191, 0.55);
+      animation: radarSweep 3.2s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 4;
+      opacity: 0.85;
+    }
+    @keyframes radarSweep {
+      0% { top: 22%; opacity: 0; }
+      15% { opacity: 1; }
+      85% { opacity: 1; }
+      100% { top: 78%; opacity: 0; }
+    }
+    .radar-foot {
+      margin-top: 0.65rem;
+      font-family: var(--font-m);
+      font-size: 0.58rem;
+      letter-spacing: 0.06em;
+      color: var(--rose);
+      z-index: 2;
+      position: relative;
+    }
+
+    /* Flow diagram */
+    .flow-card {
+      margin-top: 1.5rem;
+      border-radius: 18px;
+      border: 1px solid var(--stroke);
+      background: rgba(14, 22, 44, 0.55);
+      padding: 1rem 0.75rem 0.85rem;
+      overflow: hidden;
+    }
+    .flow-svg { width: 100%; height: auto; display: block; max-height: 220px; }
+    .flow-legend {
+      display: grid;
+      gap: 0.35rem;
+      margin-top: 0.85rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 700px) { .flow-legend { grid-template-columns: repeat(3, 1fr); } }
+    .flow-legend b { color: var(--text); display: block; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; font-family: var(--font-m); margin-bottom: 0.15rem; }
+
+    /* Bento sources */
+    .bento {
+      display: grid;
+      gap: 0.6rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 1.35rem;
+    }
+    @media (min-width: 760px) { .bento { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    .b-card {
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      padding: 0.95rem 0.9rem;
+      background: linear-gradient(155deg, rgba(18, 28, 56, 0.92), rgba(10, 16, 32, 0.75));
+      min-height: 102px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      position: relative;
+      overflow: hidden;
+    }
+    .b-card:nth-child(1) { grid-column: span 2; }
+    @media (min-width: 760px) { .b-card:nth-child(1) { grid-column: span 1; } }
+    .b-card:nth-child(4) { transform: translateY(0.45rem); }
+    .b-card:nth-child(6) { transform: translateY(-0.35rem); }
+    .b-card h3 { font-family: var(--font-b); font-size: 0.92rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+    .b-card .g { font-size: 1.1rem; margin-bottom: 0.15rem; }
+
+    /* Figures / screenshots */
+    figure.shot {
+      margin: 1.25rem 0 0;
+      border-radius: 18px;
+      border: 1px solid var(--stroke);
+      overflow: hidden;
+      background: #0a0f1f;
+      box-shadow: 0 26px 70px rgba(0, 0, 0, 0.5);
+    }
+    figure.shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+      vertical-align: middle;
+    }
+    figcaption {
+      padding: 0.65rem 0.85rem 0.75rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      border-top: 1px solid var(--stroke);
+      background: rgba(14, 22, 44, 0.75);
+    }
+    .callout {
+      margin-top: 1rem;
+      padding: 0.85rem 1rem;
+      border-radius: 14px;
+      border: 1px solid rgba(13, 148, 136, 0.35);
+      background: linear-gradient(120deg, rgba(13, 148, 136, 0.12), rgba(14, 22, 44, 0.65));
+      font-size: 0.86rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+      max-width: 44rem;
+    }
+    .callout strong { color: var(--text); }
+
+    /* Evidence bars */
+    .ev-bars { margin-top: 1.15rem; display: grid; gap: 0.55rem; max-width: 36rem; }
+    .ev-row { display: grid; grid-template-columns: 3.2rem 1fr; gap: 0.5rem; align-items: center; font-family: var(--font-m); font-size: 0.68rem; color: var(--muted); }
+    .ev-bar { height: 10px; border-radius: 6px; background: rgba(148, 163, 184, 0.15); overflow: hidden; border: 1px solid var(--stroke); }
+    .ev-bar i { display: block; height: 100%; border-radius: 6px; }
+    .ev-row.a i { width: 100%; background: linear-gradient(90deg, var(--teal), var(--teal-hot)); }
+    .ev-row.b i { width: 72%; background: linear-gradient(90deg, rgba(13, 148, 136, 0.55), var(--teal)); }
+    .ev-row.c i { width: 38%; background: rgba(245, 158, 11, 0.55); }
+
+    .cta .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 1rem;
+      padding: 0.85rem 1.35rem;
+      border-radius: 12px;
+      border: 1px solid rgba(13, 148, 136, 0.45);
+      background: linear-gradient(100deg, rgba(13, 148, 136, 0.35), rgba(13, 148, 136, 0.08));
+      color: var(--text);
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.92rem;
+    }
+    .cta .btn:hover { border-color: var(--teal-hot); color: var(--teal-hot); }
+
+    .diag {
+      position: absolute;
+      width: 140%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(251, 113, 133, 0.35), transparent);
+      top: 40%;
+      left: -20%;
+      transform: rotate(-8deg);
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <div id="progress" aria-hidden="true"></div>
+
+  <header class="bar">
+    <div class="mark"><strong>Health Copilot</strong><span>клиника · спорт · один канал</span></div>
+    <div class="bar-actions">
+      <button class="chip" type="button" id="btn-overview">Оглавление · Esc</button>
+      <span class="chip">↓ пробел</span>
+    </div>
+  </header>
+
+  <div id="overview" aria-hidden="true">
+    <div class="ov" role="dialog" aria-labelledby="ov-h">
+      <h3 id="ov-h">По странице</h3>
+      <div class="ov-grid" id="overview-grid"></div>
+    </div>
+  </div>
+
+  <main id="deck">
+    <section data-moment data-kicker="старт" id="m-intro">
+      <div class="diag" aria-hidden="true"></div>
+      <div class="wrap hero-grid">
+        <div>
+          <h1 data-reveal>Здоровье разбросано по приложениям. <span style="color:var(--teal-hot)">Здесь — собрано.</span></h1>
+          <p class="lede" data-reveal data-d="1">Один спокойный канал в Telegram: утро, еда по фото, журнал дня, лист к врачу. Ниже — как это выглядит на практике — и зачем это полезно и вам, и тем, кто ведёт вас к результату: врачу, тренеру, нутрициологу.</p>
+        </div>
+        <div class="radar" data-reveal data-d="2">
+          <div class="radar-inner">
+            <div class="t">Радар · интеграция источников</div>
+            <p class="sub">Пять каналов данных по отдельности не «разговаривают» друг с другом. Внутри радара они сканируются в одном кадре — дальше это превращается в спокойные ответы: утро, еда, врач.</p>
+            <div class="radar-silos" aria-label="Источники данных">
+              <div class="silo" title="Анализы">🩸</div>
+              <div class="silo" title="Носимые">⌚</div>
+              <div class="silo" title="Генетика">🧬</div>
+              <div class="silo" title="Питание">🍽</div>
+              <div class="silo" title="Заметки">📓</div>
+            </div>
+            <p class="radar-foot">в приложениях: каждый источник сам по себе → в Health Copilot: один слой смысла</p>
+          </div>
+          <div class="radar-sweep" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <section data-moment data-kicker="мост" id="m-bridge">
+      <div class="wrap">
+        <h2 data-reveal>Одна щель — и у клиники, и у спорта</h2>
+        <p class="lede" data-reveal data-d="1">На приёме времени мало: сложно за несколько минут восстановить носимые, лаборатории и генетику как <em>одну историю</em> между визитами. В зале похожая картина: тренер видит сессию, но не держит в голове сон, питание и протокол добавок <em>между</em> тренировками. Когда эти нити разъезжаются, страдает не «красота отчётов», а последовательность решений.</p>
+        <p class="lede" data-reveal data-d="2" style="margin-top:0.65rem;">Health Copilot не подменяет специалистов: он даёт человеку один слой ясности и аккуратные артефакты, которые можно показать врачу или тренеру без папки «как получится».</p>
+      </div>
+    </section>
+
+    <section data-moment data-kicker="поток" id="m-flow" style="background:linear-gradient(180deg,transparent,rgba(13,148,136,0.05));">
+      <div class="wrap">
+        <h2 data-reveal>Один поток: <span style="color:var(--teal-hot)">input</span> → ядро → <span style="color:var(--amber)">output</span></h2>
+        <p class="lede" data-reveal data-d="1">Разные типы данных на входе превращаются в короткие, проверяемые ответы на выходе — без ручной «сборки» между пятью вкладками.</p>
+
+        <div class="flow-card" data-reveal data-d="2">
+          <svg class="flow-svg" viewBox="0 0 900 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+                <stop stop-color="#0d9488"/><stop offset="1" stop-color="#2dd4bf"/>
+              </linearGradient>
+            </defs>
+            <rect x="40" y="55" width="200" height="90" rx="14" stroke="rgba(148,163,184,0.35)" stroke-width="1.5" fill="rgba(14,22,44,0.65)"/>
+            <text x="140" y="88" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11">input</text>
+            <text x="140" y="112" text-anchor="middle" fill="#e8edf7" font-family="Spline Sans, sans-serif" font-size="13">лабы · носимые · ген · еда · заметки</text>
+            <path d="M250 100 H310" stroke="url(#g1)" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="318,100 300,92 300,108" fill="#2dd4bf"/>
+
+            <circle cx="450" cy="100" r="52" stroke="rgba(13,148,136,0.55)" stroke-width="2" fill="rgba(10,16,32,0.9)"/>
+            <text x="450" y="88" text-anchor="middle" fill="#2dd4bf" font-family="JetBrains Mono, monospace" font-size="11">core</text>
+            <text x="450" y="112" text-anchor="middle" fill="#e8edf7" font-family="Spline Sans, sans-serif" font-size="13">синтез + QC</text>
+
+            <path d="M510 100 H570" stroke="url(#g1)" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="578,100 560,92 560,108" fill="#f59e0b"/>
+            <rect x="590" y="55" width="270" height="90" rx="14" stroke="rgba(245,158,11,0.35)" stroke-width="1.5" fill="rgba(14,22,44,0.65)"/>
+            <text x="725" y="88" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11">output</text>
+            <text x="725" y="112" text-anchor="middle" fill="#e8edf7" font-family="Spline Sans, sans-serif" font-size="12">утро · еда · врач · дайджест</text>
+          </svg>
+          <div class="flow-legend">
+            <div><b>input</b> — файлы, часы, генотип, фото тарелки, голосовые в одном контуре хранения.</div>
+            <div><b>core</b> — сопоставление сигналов, осторожность по умолчанию, ссылки на литературу там, где это уместно.</div>
+            <div><b>output</b> — короткие сообщения и документы для врача или тренера «как есть».</div>
+          </div>
+        </div>
+
+        <div class="bento" data-reveal data-d="3">
+          <div class="b-card"><div class="g">🩸</div><h3>Лаборатории</h3><p>Тренды и контекст, без «пугающих» выводов вместо врача.</p></div>
+          <div class="b-card"><div class="g">⌚</div><h3>Носимые</h3><p>Сон, пульс, нагрузка — как фон для плана дня.</p></div>
+          <div class="b-card"><div class="g">🧬</div><h3>Генетика</h3><p>Осторожные формулировки и оговорки к обсуждению со специалистом.</p></div>
+          <div class="b-card"><div class="g">🍽</div><h3>Питание</h3><p>Фото и текст → макросы и смысл для вашего профиля.</p></div>
+          <div class="b-card"><div class="g">📓</div><h3>Журнал</h3><p>Симптомы и заметки не теряются между визитами.</p></div>
+          <div class="b-card"><div class="g">📎</div><h3>Документы</h3><p>PDF и снимки раскладываются по темам автоматически.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section data-moment data-kicker="утро" id="m-morning">
+      <div class="wrap">
+        <h2 data-reveal>Утро — один экран вместо пяти приложений</h2>
+        <p class="lede" data-reveal data-d="1">Брифинг склеивает восстановление, календарь нагрузки, погоду и лабораторный фон в одну повестку дня — чтобы вы не собирали это в голове с утра.</p>
+        <figure class="shot" data-reveal data-d="2">
+          <img src="assets/03-telegram-morning.png" alt="Пример утреннего Health Briefing в Telegram" loading="lazy" decoding="async">
+          <figcaption>Реальный пример из продукта: приветствие, ключевые метрики носимых, погода и окно для тренировки, блок «что учесть сегодня», протокол на день.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section data-moment data-kicker="еда" id="m-food">
+      <div class="wrap">
+        <h2 data-reveal>Еда по фото — не только калории</h2>
+        <p class="lede" data-reveal data-d="1">Сначала объективный разбор порции и качества, затем блок «персональный контекст»: как блюдо стыкуется с <em>вашим</em> профилем и с опубликованными данными — с грейдом силы и ссылкой на статью, когда это уместно.</p>
+        <figure class="shot" data-reveal data-d="2">
+          <img src="assets/02-telegram-food-fish.png" alt="Разбор приёма пищи по фотографии в Telegram с персональным контекстом" loading="lazy" decoding="async">
+          <figcaption>Один пример: описание блюда, макросы, оценка качества, запись в журнал питания и связка с лабораторным и электролитным фоном внизу сообщения.</figcaption>
+        </figure>
+        <div class="callout" data-reveal data-d="3">
+          <strong>Почему это важно именно в вашем случае.</strong> Когда цель — не «угадать калории», а удерживать последовательность между тренировками, сном и врачом, критично видеть <em>одну линию рассуждения</em>: что на тарелке усиливает или ослабляет то, что уже известно из анализов и трекера — без ручного поиска статей между приёмами пищи.
+        </div>
+      </div>
+    </section>
+
+    <section data-moment data-kicker="журнал" id="m-journal">
+      <div class="wrap">
+        <h2 data-reveal>Журнал дня — где появляются паттерны</h2>
+        <p class="lede" data-reveal data-d="1">Короткие голосовые и текстовые заметки складываются в структурированные записи: состояние, еда, сон днём, мотивация. Рядом с носимыми и питанием это даёт «мост» между субъективным самочувствием и объективными рядами — удобно ловить повторяющиеся сбои режима и энергии.</p>
+        <figure class="shot" data-reveal data-d="2">
+          <img src="assets/05-journal-daytime.png" alt="Запись дневного журнала в Telegram: состояние, еда, сон, мотивация" loading="lazy" decoding="async">
+          <figcaption>Фрагмент дневной записи: как связаны умственная ясность, обед, короткий отдых и план на спортзал — сырьё для поиска паттернов вместе с трекером и логом еды.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section data-moment data-kicker="врач" id="m-doctor">
+      <div class="wrap">
+        <h2 data-reveal>К врачу — с одним листом, а не с папкой «на память»</h2>
+        <p class="lede" data-reveal data-d="1">Документ собирает ключевые кластеры (лаборатория, визуальные исследования, липиды, фармакогенетика), текущий протокол добавок и вопросы, которые легко забыть за 10 минут приёма.</p>
+        <figure class="shot" data-reveal data-d="2">
+          <img src="assets/01-brief-doctor.png" alt="Пример структурированного брифа для визита к врачу" loading="lazy" decoding="async">
+          <figcaption>Реальный пример: краткий обзор находок, таблица добавок, генетические ограничения по препаратам, что обсудить дополнительно.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section data-moment data-kicker="доверие" id="m-trust">
+      <div class="wrap">
+        <h2 data-reveal>Почему этому можно доверять</h2>
+        <p class="lede" data-reveal data-d="1">Сила каждого нетривиального утверждения помечается градацией. Сильные утверждения опираются на руководства и исследования; слабые — честно помечаются как гипотезы.</p>
+        <div class="ev-bars" data-reveal data-d="2">
+          <div class="ev-row a"><span>A</span><div class="ev-bar"><i></i></div></div>
+          <div class="ev-row b"><span>B</span><div class="ev-bar"><i></i></div></div>
+          <div class="ev-row c"><span>C</span><div class="ev-bar"><i></i></div></div>
+        </div>
+        <p class="fine" data-reveal data-d="3">Health Copilot не заменяет врача и не ставит диагнозы. Это инструмент подготовки и ясности — решения остаются за вами и вашим врачом.</p>
+      </div>
+    </section>
+
+    <section data-moment data-kicker="связь" id="m-cta" style="background:radial-gradient(65% 50% at 100% 100%,rgba(245,158,11,0.1),transparent 55%);">
+      <div class="wrap cta">
+        <h2 data-reveal>Хотите понять, подходит ли вам такой формат?</h2>
+        <p class="lede" data-reveal data-d="1">Напишите коротко, чем вы пользуетесь сегодня (часы, лаборатории, генетика) — подскажем, как это может выглядеть в вашем Telegram.</p>
+        <a class="btn" data-reveal data-d="2" href="https://t.me/BKproduct" target="_blank" rel="noopener">Telegram — @BKproduct</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const sections = Array.from(document.querySelectorAll('section[data-moment]'));
+      const overview = document.getElementById('overview');
+      const grid = document.getElementById('overview-grid');
+      const progress = document.getElementById('progress');
+
+      const titles = {
+        'm-intro': 'Старт',
+        'm-bridge': 'Мост',
+        'm-flow': 'Поток',
+        'm-morning': 'Утро',
+        'm-food': 'Еда',
+        'm-journal': 'Журнал',
+        'm-doctor': 'Врач',
+        'm-trust': 'Доверие',
+        'm-cta': 'Связь'
+      };
+
+      sections.forEach((sec) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = titles[sec.id] || sec.id;
+        b.addEventListener('click', () => {
+          overview.classList.remove('open');
+          sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        grid.appendChild(b);
+      });
+
+      function currentIndex() {
+        const y = window.scrollY + window.innerHeight * 0.32;
+        let best = 0, bestDist = Infinity;
+        sections.forEach((s, i) => {
+          const d = Math.abs(s.offsetTop - y);
+          if (d < bestDist) { bestDist = d; best = i; }
+        });
+        return best;
+      }
+      function updateProgress() {
+        const doc = document.documentElement;
+        const max = doc.scrollHeight - doc.clientHeight;
+        const p = max > 0 ? window.scrollY / max : 0;
+        progress.style.transform = 'scaleX(' + Math.min(1, Math.max(0, p)) + ')';
+      }
+      function go(delta) {
+        const i = currentIndex();
+        const n = Math.max(0, Math.min(sections.length - 1, i + delta));
+        sections[n].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      document.getElementById('btn-overview').addEventListener('click', () => overview.classList.add('open'));
+      overview.addEventListener('click', (e) => { if (e.target === overview) overview.classList.remove('open'); });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { overview.classList.toggle('open'); return; }
+        if (overview.classList.contains('open')) return;
+        if (['ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); go(1); }
+        else if (['ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); go(-1); }
+      });
+
+      let ty = null;
+      window.addEventListener('touchstart', (e) => { ty = e.changedTouches[0].clientY; }, { passive: true });
+      window.addEventListener('touchend', (e) => {
+        if (ty == null) return;
+        const dy = ty - e.changedTouches[0].clientY;
+        if (Math.abs(dy) > 55) { e.preventDefault(); go(dy > 0 ? 1 : -1); }
+        ty = null;
+      }, { passive: false });
+
+      const io = new IntersectionObserver((ents) => {
+        ents.forEach((en) => {
+          if (!en.isIntersecting) return;
+          en.target.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('in'));
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+      sections.forEach((s) => io.observe(s));
+
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      updateProgress();
+    })();
+  </script>
+</body>
+</html>

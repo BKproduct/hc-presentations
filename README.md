@@ -26,6 +26,12 @@
 
 При устаревшем кэше HTML: увеличьте `?v=`.
 
+## Объединённая клиентская презентация (клиника + спорт)
+
+**https://bkproduct.github.io/hc-presentations/hc-combined-deck/?v=9**
+
+См. `docs/hc-combined-deck/README.md`.
+
 ## Репозиторий с кодом
 
 https://github.com/BKproduct/hc-presentations
