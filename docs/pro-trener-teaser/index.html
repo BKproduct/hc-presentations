@@ -195,9 +195,9 @@
       border: 1px solid var(--stroke);
       border-radius: 20px;
       background: linear-gradient(160deg, rgba(14, 22, 44, 0.95), rgba(7, 11, 20, 0.65));
-      padding: 1.05rem 1.1rem 0.95rem;
+      padding: 1rem 1rem 1.05rem;
       overflow: hidden;
-      min-height: 200px;
+      min-height: 280px;
       transform: rotate(-1.4deg);
       box-shadow: 0 22px 65px rgba(0, 0, 0, 0.45);
     }
@@ -205,11 +205,11 @@
       content: '';
       position: absolute;
       inset: -45%;
-      background: conic-gradient(from 200deg, transparent, rgba(45, 212, 191, 0.1), transparent 42%);
+      background: conic-gradient(from 200deg, transparent, rgba(45, 212, 191, 0.12), transparent 42%);
       animation: sweep 16s linear infinite;
     }
     @keyframes sweep { to { transform: rotate(360deg); } }
-    .radar-inner { position: relative; z-index: 1; }
+    .radar-inner { position: relative; z-index: 2; }
     .radar-inner .t {
       font-family: var(--font-m);
       font-size: 0.62rem;
@@ -217,36 +217,65 @@
       text-transform: uppercase;
       color: var(--teal-hot);
     }
-    .radar-inner p { margin-top: 0.5rem; font-size: 0.82rem; color: var(--muted); line-height: 1.45; }
-
-    /* Silo infographic */
-    .silo-strip {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      align-items: center;
-      justify-content: flex-start;
-      margin-top: 1.35rem;
+    .radar-inner .sub {
+      margin-top: 0.35rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.4;
+      max-width: 26rem;
     }
-    .silo {
-      flex: 0 0 auto;
-      width: 72px;
-      height: 72px;
-      border-radius: 16px;
-      border: 1px solid var(--stroke);
-      background: linear-gradient(145deg, var(--panel), var(--panel2));
+    .radar-silos {
+      position: relative;
+      margin-top: 0.85rem;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.4rem;
+      z-index: 2;
+      padding-bottom: 0.15rem;
+    }
+    .radar .silo {
+      aspect-ratio: 1;
+      max-height: 64px;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 64px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: linear-gradient(145deg, rgba(18, 28, 56, 0.95), rgba(10, 16, 32, 0.85));
       display: grid;
       place-items: center;
-      font-size: 1.35rem;
-      transform: rotate(-3deg);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+      font-size: 1.15rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
     }
-    .silo:nth-child(even) { transform: rotate(4deg) translateY(4px); }
-    .silo-x {
+    .radar .silo:nth-child(odd) { transform: rotate(-2deg); }
+    .radar .silo:nth-child(even) { transform: rotate(2.5deg); }
+    .radar-sweep {
+      position: absolute;
+      left: 5%;
+      right: 5%;
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.95), transparent);
+      box-shadow: 0 0 18px rgba(45, 212, 191, 0.55);
+      animation: radarSweep 3.2s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 4;
+      opacity: 0.85;
+    }
+    @keyframes radarSweep {
+      0% { top: 22%; opacity: 0; }
+      15% { opacity: 1; }
+      85% { opacity: 1; }
+      100% { top: 78%; opacity: 0; }
+    }
+    .radar-foot {
+      margin-top: 0.65rem;
       font-family: var(--font-m);
-      font-size: 0.75rem;
+      font-size: 0.58rem;
+      letter-spacing: 0.06em;
       color: var(--rose);
-      padding: 0 0.15rem;
+      z-index: 2;
+      position: relative;
     }
 
     /* Flow diagram */
@@ -318,13 +347,18 @@
       border-top: 1px solid var(--stroke);
       background: rgba(14, 22, 44, 0.75);
     }
-    .two-shots {
-      display: grid;
-      gap: 1rem;
-      margin-top: 1.15rem;
-      grid-template-columns: 1fr;
+    .callout {
+      margin-top: 1rem;
+      padding: 0.85rem 1rem;
+      border-radius: 14px;
+      border: 1px solid rgba(13, 148, 136, 0.35);
+      background: linear-gradient(120deg, rgba(13, 148, 136, 0.12), rgba(14, 22, 44, 0.65));
+      font-size: 0.86rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+      max-width: 44rem;
     }
-    @media (min-width: 900px) { .two-shots { grid-template-columns: 1fr 1fr; align-items: start; } }
+    .callout strong { color: var(--text); }
 
     /* Evidence bars */
     .ev-bars { margin-top: 1.15rem; display: grid; gap: 0.55rem; max-width: 36rem; }
@@ -388,30 +422,30 @@
       <div class="wrap hero-grid">
         <div>
           <h1 data-reveal>Здоровье разбросано по приложениям. <span style="color:var(--teal-hot)">Здесь — собрано.</span></h1>
-          <p class="lede" data-reveal data-d="1">Один спокойный канал в Telegram: утро, еда по фото, лист к врачу. Ниже — как это выглядит на практике, без лишних экранов.</p>
-          <div class="silo-strip" data-reveal data-d="2" aria-label="Схема: несколько источников">
-            <div class="silo" title="Анализы">🩸</div>
-            <div class="silo" title="Носимые">⌚</div>
-            <div class="silo" title="Генетика">🧬</div>
-            <div class="silo" title="Питание">🍽</div>
-            <div class="silo" title="Заметки">📓</div>
-            <span class="silo-x">≠</span>
-            <span class="lede" style="margin:0;max-width:14rem;font-size:0.85rem;">каждый источник говорит сам с собой</span>
-          </div>
+          <p class="lede" data-reveal data-d="1">Один спокойный канал в Telegram: утро, еда по фото, журнал дня, лист к врачу. Ниже — как это выглядит на практике.</p>
         </div>
         <div class="radar" data-reveal data-d="2">
           <div class="radar-inner">
-            <div class="t">Смысл на сегодня</div>
-            <p>Сводка связывает сон, нагрузку, погоду, лабораторию и ваши цели — чтобы вы принимали решения спокойно, а не по памяти между вкладками.</p>
+            <div class="t">Радар · интеграция источников</div>
+            <p class="sub">Пять каналов данных по отдельности не «разговаривают» друг с другом. Внутри радара они сканируются в одном кадре — дальше это превращается в спокойные ответы: утро, еда, врач.</p>
+            <div class="radar-silos" aria-label="Источники данных">
+              <div class="silo" title="Анализы">🩸</div>
+              <div class="silo" title="Носимые">⌚</div>
+              <div class="silo" title="Генетика">🧬</div>
+              <div class="silo" title="Питание">🍽</div>
+              <div class="silo" title="Заметки">📓</div>
+            </div>
+            <p class="radar-foot">в приложениях: каждый источник сам по себе → в Health Copilot: один слой смысла</p>
           </div>
+          <div class="radar-sweep" aria-hidden="true"></div>
         </div>
       </div>
     </section>
 
     <section data-moment data-kicker="поток" id="m-flow" style="background:linear-gradient(180deg,transparent,rgba(13,148,136,0.05));">
       <div class="wrap">
-        <h2 data-reveal>Один поток: входы → ядро → то, что вы читаете</h2>
-        <p class="lede" data-reveal data-d="1">Система держит разные типы данных и отдаёт наружу короткие, проверяемые ответы — утренний брифинг, разбор еды, подготовку к приёму.</p>
+        <h2 data-reveal>Один поток: <span style="color:var(--teal-hot)">input</span> → ядро → <span style="color:var(--amber)">output</span></h2>
+        <p class="lede" data-reveal data-d="1">Разные типы данных на входе превращаются в короткие, проверяемые ответы на выходе — без ручной «сборки» между пятью вкладками.</p>
 
         <div class="flow-card" data-reveal data-d="2">
           <svg class="flow-svg" viewBox="0 0 900 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -421,25 +455,25 @@
               </linearGradient>
             </defs>
             <rect x="40" y="55" width="200" height="90" rx="14" stroke="rgba(148,163,184,0.35)" stroke-width="1.5" fill="rgba(14,22,44,0.65)"/>
-            <text x="140" y="88" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11">ВХОДЫ</text>
+            <text x="140" y="88" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11">input</text>
             <text x="140" y="112" text-anchor="middle" fill="#e8edf7" font-family="Spline Sans, sans-serif" font-size="13">лабы · носимые · ген · еда · заметки</text>
             <path d="M250 100 H310" stroke="url(#g1)" stroke-width="2.5" stroke-linecap="round"/>
             <polygon points="318,100 300,92 300,108" fill="#2dd4bf"/>
 
             <circle cx="450" cy="100" r="52" stroke="rgba(13,148,136,0.55)" stroke-width="2" fill="rgba(10,16,32,0.9)"/>
-            <text x="450" y="88" text-anchor="middle" fill="#2dd4bf" font-family="JetBrains Mono, monospace" font-size="11">ЯДРО</text>
+            <text x="450" y="88" text-anchor="middle" fill="#2dd4bf" font-family="JetBrains Mono, monospace" font-size="11">core</text>
             <text x="450" y="112" text-anchor="middle" fill="#e8edf7" font-family="Spline Sans, sans-serif" font-size="13">синтез + QC</text>
 
             <path d="M510 100 H570" stroke="url(#g1)" stroke-width="2.5" stroke-linecap="round"/>
             <polygon points="578,100 560,92 560,108" fill="#f59e0b"/>
             <rect x="590" y="55" width="270" height="90" rx="14" stroke="rgba(245,158,11,0.35)" stroke-width="1.5" fill="rgba(14,22,44,0.65)"/>
-            <text x="725" y="88" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11">ВЫХОДЫ</text>
+            <text x="725" y="88" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11">output</text>
             <text x="725" y="112" text-anchor="middle" fill="#e8edf7" font-family="Spline Sans, sans-serif" font-size="12">утро · еда · врач · дайджест</text>
           </svg>
           <div class="flow-legend">
-            <div><b>Входы</b>ваши файлы, часы, генотип, фото тарелки, голосовые — в одном контуре хранения.</div>
-            <div><b>Ядро</b>сопоставление сигналов, политика осторожности, ссылки на литературу там, где это уместно.</div>
-            <div><b>Выходы</b>короткие сообщения и документы, которые можно показать врачу или тренеру как есть.</div>
+            <div><b>input</b> — файлы, часы, генотип, фото тарелки, голосовые в одном контуре хранения.</div>
+            <div><b>core</b> — сопоставление сигналов, осторожность по умолчанию, ссылки на литературу там, где это уместно.</div>
+            <div><b>output</b> — короткие сообщения и документы для врача или тренера «как есть».</div>
           </div>
         </div>
 
@@ -468,17 +502,25 @@
     <section data-moment data-kicker="еда" id="m-food">
       <div class="wrap">
         <h2 data-reveal>Еда по фото — не только калории</h2>
-        <p class="lede" data-reveal data-d="1">Бот распознаёт блюдо, оценивает состав и добавляет <strong>персональный контекст</strong>: как это сочетается с вашим профилем и с опубликованными данными (с грейдом силы доказательности и ссылкой на статью, когда это уместно).</p>
-        <div class="two-shots">
-          <figure class="shot" data-reveal data-d="2">
-            <img src="assets/02-telegram-food-fish.png" alt="Разбор основного приёма пищи по фотографии в Telegram" loading="lazy" decoding="async">
-            <figcaption>Основной приём: описание, макросы, качество, запись в журнал питания и блок персонального контекста.</figcaption>
-          </figure>
-          <figure class="shot" data-reveal data-d="3">
-            <img src="assets/04-telegram-food-yogurt.png" alt="Разбор перекуса по фотографии в Telegram" loading="lazy" decoding="async">
-            <figcaption>Перекус: та же логика — сначала объективная оценка порции, затем связка с вашими маркерами и литературой.</figcaption>
-          </figure>
+        <p class="lede" data-reveal data-d="1">Сначала объективный разбор порции и качества, затем блок «персональный контекст»: как блюдо стыкуется с <em>вашим</em> профилем и с опубликованными данными — с грейдом силы и ссылкой на статью, когда это уместно.</p>
+        <figure class="shot" data-reveal data-d="2">
+          <img src="assets/02-telegram-food-fish.png" alt="Разбор приёма пищи по фотографии в Telegram с персональным контекстом" loading="lazy" decoding="async">
+          <figcaption>Один пример: описание блюда, макросы, оценка качества, запись в журнал питания и связка с лабораторным и электролитным фоном внизу сообщения.</figcaption>
+        </figure>
+        <div class="callout" data-reveal data-d="3">
+          <strong>Почему это важно именно в вашем случае.</strong> Когда цель — не «угадать калории», а удерживать последовательность между тренировками, сном и врачом, критично видеть <em>одну линию рассуждения</em>: что на тарелке усиливает или ослабляет то, что уже известно из анализов и трекера — без ручного поиска статей между приёмами пищи.
         </div>
+      </div>
+    </section>
+
+    <section data-moment data-kicker="журнал" id="m-journal">
+      <div class="wrap">
+        <h2 data-reveal>Журнал дня — где появляются паттерны</h2>
+        <p class="lede" data-reveal data-d="1">Короткие голосовые и текстовые заметки складываются в структурированные записи: состояние, еда, сон днём, мотивация. Рядом с носимыми и питанием это даёт «мост» между субъективным самочувствием и объективными рядами — удобно ловить повторяющиеся сбои режима и энергии.</p>
+        <figure class="shot" data-reveal data-d="2">
+          <img src="assets/05-journal-daytime.png" alt="Запись дневного журнала в Telegram: состояние, еда, сон, мотивация" loading="lazy" decoding="async">
+          <figcaption>Фрагмент дневной записи: как связаны умственная ясность, обед, короткий отдых и план на спортзал — сырьё для поиска паттернов вместе с трекером и логом еды.</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -527,6 +569,7 @@
         'm-flow': 'Поток',
         'm-morning': 'Утро',
         'm-food': 'Еда',
+        'm-journal': 'Журнал',
         'm-doctor': 'Врач',
         'm-trust': 'Доверие',
         'm-cta': 'Связь'
