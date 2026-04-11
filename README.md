@@ -22,7 +22,7 @@
 
 ## Pro Trener — тизер Health Copilot (scroll)
 
-**https://bkproduct.github.io/hc-presentations/pro-trener-teaser/?v=6**
+**https://bkproduct.github.io/hc-presentations/pro-trener-teaser/?v=7**
 
 При устаревшем кэше HTML: увеличьте `?v=`.
 
