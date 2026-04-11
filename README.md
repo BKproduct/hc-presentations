@@ -20,6 +20,12 @@
 
 Корень сайта: **https://bkproduct.github.io/hc-presentations/**
 
+## Pro Trener — тизер Health Copilot (scroll)
+
+**https://bkproduct.github.io/hc-presentations/pro-trener-teaser/**
+
+При устаревшем кэше: `?v=1`.
+
 ## Репозиторий с кодом
 
 https://github.com/BKproduct/hc-presentations
