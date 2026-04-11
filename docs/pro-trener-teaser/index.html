@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Copilot × Pro Trener — тизер</title>
+  <meta name="description" content="Короткая презентация для сети персонального тренинга: что меняется, когда данные клиента перестают жить разрозненно.">
+  <meta property="og:title" content="Health Copilot — для команды Pro Trener">
+  <meta property="og:description" content="Между тренировками остаётся целая вселенная цифр. Покажем, как её собрать в одну линию — без нового «ещё одного приложения».">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A1A14;
+      --bg2: #0F2419;
+      --card: #132E22;
+      --green: #2D6A4F;
+      --green-light: #40916C;
+      --green-glow: rgba(64, 145, 108, 0.35);
+      --gold: #D4AF37;
+      --gold-soft: rgba(212, 175, 55, 0.14);
+      --text: #E8E4DF;
+      --muted: #9CA89F;
+      --dim: rgba(232, 228, 223, 0.38);
+      --radius: 14px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Manrope', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    /* Film grain */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 50;
+    }
+
+    #progress {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green-light), var(--gold));
+      transform-origin: left;
+      transform: scaleX(0);
+      z-index: 120;
+      transition: transform 0.12s linear;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem clamp(1.25rem, 4vw, 3rem);
+      background: linear-gradient(180deg, rgba(10, 26, 20, 0.92) 0%, rgba(10, 26, 20, 0.55) 70%, transparent 100%);
+      backdrop-filter: blur(12px);
+    }
+    .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .brand span { color: var(--gold); }
+    .slide-nav {
+      display: flex;
+      gap: 0.35rem;
+      align-items: center;
+    }
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--dim);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.25s var(--ease), background 0.25s;
+    }
+    .dot[aria-current="true"] {
+      background: var(--gold);
+      transform: scale(1.35);
+    }
+    .hint {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-left: 0.75rem;
+      display: none;
+    }
+    @media (min-width: 720px) { .hint { display: inline; } }
+
+    .deck {
+      scroll-snap-type: y mandatory;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .slide {
+      min-height: 100vh;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(5rem, 12vh, 7rem) clamp(1.25rem, 5vw, 4rem) 3rem;
+      position: relative;
+    }
+
+    .slide-inner {
+      width: min(920px, 100%);
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green-light);
+      margin-bottom: 1.25rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--green-light);
+    }
+
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+    h1 { font-size: clamp(2.35rem, 6.5vw, 4.1rem); }
+    h2 { font-size: clamp(1.85rem, 4.8vw, 3rem); margin-bottom: 1.25rem; }
+
+    p.lead {
+      font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 38rem;
+      margin-top: 1.5rem;
+    }
+
+    .mono-line {
+      font-variant-numeric: tabular-nums;
+      font-size: 0.85rem;
+      color: var(--dim);
+      margin-top: 2rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* Slide-specific backgrounds */
+    #s1 {
+      background:
+        radial-gradient(ellipse 70% 55% at 88% 12%, rgba(45, 106, 79, 0.22) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 45% at 8% 88%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+        var(--bg);
+    }
+    #s2 {
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg2) 45%, #0c1f16 100%);
+    }
+    #s2::before {
+      content: '';
+      position: absolute;
+      right: -18%;
+      top: 10%;
+      width: min(52vw, 420px);
+      height: min(52vw, 420px);
+      border: 1px solid rgba(212, 175, 55, 0.12);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    #s3 {
+      background: var(--bg);
+    }
+    #s3 .grid-split {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    @media (min-width: 768px) {
+      #s3 .grid-split { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    .tile {
+      background: var(--card);
+      border: 1px solid rgba(45, 106, 79, 0.28);
+      border-radius: var(--radius);
+      padding: 1.35rem 1.5rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+    .tile strong { color: var(--text); display: block; margin-bottom: 0.35rem; font-weight: 600; }
+
+    #s4 {
+      background:
+        linear-gradient(160deg, transparent 40%, rgba(13, 46, 34, 0.85) 100%),
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(64, 145, 108, 0.15), transparent 70%),
+        var(--bg);
+    }
+    .nameplate {
+      display: inline-block;
+      margin-top: 1.75rem;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      background: var(--gold-soft);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    #s5 .flow {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      max-width: 32rem;
+    }
+    .flow-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.85rem 1rem;
+      background: rgba(19, 46, 34, 0.65);
+      border-radius: 10px;
+      border-left: 3px solid var(--green-light);
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+    .flow-num {
+      font-weight: 700;
+      color: var(--gold);
+      font-size: 0.75rem;
+      margin-top: 0.15rem;
+      min-width: 1.5rem;
+    }
+
+    #s6 ul {
+      list-style: none;
+      margin-top: 1.75rem;
+      display: grid;
+      gap: 1rem;
+    }
+    #s6 li {
+      padding: 1rem 1.15rem;
+      background: linear-gradient(90deg, rgba(45, 106, 79, 0.18), transparent);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.98rem;
+      color: var(--muted);
+    }
+    #s6 li::before {
+      content: '→';
+      color: var(--green-light);
+      margin-right: 0.65rem;
+      font-weight: 600;
+    }
+
+    #s7 {
+      text-align: center;
+    }
+    #s7 .slide-inner { max-width: 34rem; }
+    #s7 p { color: var(--muted); margin-bottom: 1.75rem; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.95rem 1.85rem;
+      background: var(--gold);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 0.92rem;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: transform 0.2s var(--ease), box-shadow 0.2s;
+      box-shadow: 0 8px 28px rgba(212, 175, 55, 0.25);
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(212, 175, 55, 0.32); }
+    .fine {
+      margin-top: 2.5rem;
+      font-size: 0.75rem;
+      color: var(--dim);
+      line-height: 1.5;
+    }
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    [data-reveal].in {
+      opacity: 1;
+      transform: none;
+    }
+    [data-delay="1"] { transition-delay: 0.1s; }
+    [data-delay="2"] { transition-delay: 0.2s; }
+    [data-delay="3"] { transition-delay: 0.3s; }
+    [data-delay="4"] { transition-delay: 0.4s; }
+
+    footer {
+      padding: 1.5rem clamp(1.25rem, 4vw, 3rem) 2rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--dim);
+    }
+    footer a { color: var(--green-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div id="progress" aria-hidden="true"></div>
+
+  <nav>
+    <div class="brand">Health <span>Copilot</span></div>
+    <div style="display:flex;align-items:center;">
+      <div class="slide-nav" id="dots" aria-label="Слайды"></div>
+      <span class="hint">↑↓ или пробел</span>
+    </div>
+  </nav>
+
+  <main class="deck" id="deck" tabindex="0" aria-label="Презентация">
+    <section class="slide" id="s1" data-slide="0">
+      <div class="slide-inner">
+        <div class="eyebrow" data-reveal>Не про зал. Про недостающий слой.</div>
+        <h1 data-reveal data-delay="1">Что происходит с клиентом <em style="color:var(--gold);font-style:italic;">между</em> двумя тренировками?</h1>
+        <p class="lead" data-reveal data-delay="2">В зале вы держите качество сессии. Снаружи — сон, стресс, анализы и добавки живут отдельными историями. Эта презентация — про стык.</p>
+        <p class="mono-line" data-reveal data-delay="3">Листайте вниз · 7 экранов · ~2 минуты</p>
+      </div>
+    </section>
+
+    <section class="slide" id="s2" data-slide="1">
+      <div class="slide-inner">
+        <div class="eyebrow" data-reveal>Контекст</div>
+        <h2 data-reveal data-delay="1">У вас уже есть «система» — методика, команда, нутрициология, outdoor.</h2>
+        <p class="lead" data-reveal data-delay="2">Клиенту это ощущается как премиальный сервис. Но его организм не делит жизнь на «студия / не студия»: восстановление, микронутриенты и сон влияют на следующий результат так же, как работа в зале.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="s3" data-slide="2">
+      <div class="slide-inner">
+        <div class="eyebrow" data-reveal>Где теряется эффект</div>
+        <h2 data-reveal data-delay="1">Цифры есть. Связей — нет.</h2>
+        <div class="grid-split">
+          <div class="tile" data-reveal data-delay="2">
+            <strong>Носимый гаджет</strong>
+            говорит одним языком: зоны пульса, сон, нагрузка.
+          </div>
+          <div class="tile" data-reveal data-delay="3">
+            <strong>Лаборатория и добавки</strong>
+            — другим: ферритин, витамин D, щитовидка, креатинин…
+          </div>
+        </div>
+        <p class="lead" data-reveal data-delay="4" style="margin-top:1.75rem;">Между этими мирами редко кто-то аккуратно выстраивает причинно-следственные цепочки — особенно без лишнего шума для клиента.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="s4" data-slide="3">
+      <div class="slide-inner">
+        <div class="eyebrow" data-reveal>Впервые имя</div>
+        <h2 data-reveal data-delay="1">Health Copilot — связующее звено, а не «ещё одно приложение».</h2>
+        <p class="lead" data-reveal data-delay="2">Персональный AI-слой здоровья: собирает анализы, гаджеты, питание и добавки в одну картину и отдаёт её человеку в формате короткого ежедневного брифинга.</p>
+        <div class="nameplate" data-reveal data-delay="3">Прототип · реальные данные · не заменяет врача и тренера</div>
+      </div>
+    </section>
+
+    <section class="slide" id="s5" data-slide="4">
+      <div class="slide-inner">
+        <div class="eyebrow" data-reveal>Как это ощущается</div>
+        <h2 data-reveal data-delay="1">Без дашбордов, которые «надо не забыть открыть».</h2>
+        <div class="flow" data-reveal data-delay="2">
+          <div class="flow-row"><span class="flow-num">01</span><span>Клиент присылает PDF анализов или подключает источники — система структурирует.</span></div>
+          <div class="flow-row"><span class="flow-num">02</span><span>Утром в Telegram — сжатый брифинг: что смотреть, что перепроверить, что обсудить с тренером или врачом.</span></div>
+          <div class="flow-row"><span class="flow-num">03</span><span>Каждый нетривиальный вывод сопровождается уровнем доказательности и ссылкой на источник — не «магия нейросети».</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s6" data-slide="5">
+      <div class="slide-inner">
+        <div class="eyebrow" data-reveal>Зачем сети студий</div>
+        <h2 data-reveal data-delay="1">Не конкурировать с вашими тренерами — усилять их работу.</h2>
+        <ul data-reveal data-delay="2">
+          <li>Клиент приходит на сессию с более ясной картиной восстановления и «домашних» факторов.</li>
+          <li>Нутрициология и зал говорят на одном языке — меньше разрывов между рекомендациями.</li>
+          <li>Пилот на небольшой группе VIP — измеримый опыт до масштабирования.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide" id="s7" data-slide="6">
+      <div class="slide-inner">
+        <div class="eyebrow" data-reveal style="justify-content:center;margin-left:auto;margin-right:auto;">Следующий шаг</div>
+        <h2 data-reveal data-delay="1">20 минут — чтобы понять, есть ли fit.</h2>
+        <p data-reveal data-delay="2">Покажем живой сценарий брифинга и обсудим формат пилота под ваш бренд и аудиторию. Конфиденциально.</p>
+        <div data-reveal data-delay="3">
+          <a class="btn" href="https://t.me/BKproduct" target="_blank" rel="noopener">Написать в Telegram → @BKproduct</a>
+        </div>
+        <p class="fine" data-reveal data-delay="4">Health Copilot — инструмент организации информации о здоровье. Не медицинское устройство и не замена очной консультации специалиста.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Health Copilot · <a href="https://ai-automation.studio" target="_blank" rel="noopener">AI-Automation.Studio</a>
+    · Тизер подготовлен для диалога с <a href="https://pro-trener.ru/" target="_blank" rel="noopener">Pro Trener</a>
+  </footer>
+
+  <script>
+    (function () {
+      const deck = document.getElementById('deck');
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const dotsWrap = document.getElementById('dots');
+      const bar = document.getElementById('progress');
+      const dots = [];
+
+      slides.forEach((slide, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'dot';
+        b.setAttribute('aria-label', 'Экран ' + (i + 1));
+        b.addEventListener('click', () => slide.scrollIntoView({ behavior: 'smooth' }));
+        dotsWrap.appendChild(b);
+        dots.push(b);
+      });
+
+      function currentIndex() {
+        const mid = window.innerHeight * 0.45;
+        let best = 0, bestDist = Infinity;
+        slides.forEach((el, i) => {
+          const r = el.getBoundingClientRect();
+          const d = Math.abs(r.top + r.height / 2 - mid);
+          if (d < bestDist) { bestDist = d; best = i; }
+        });
+        return best;
+      }
+
+      function updateDots() {
+        const idx = currentIndex();
+        dots.forEach((d, i) => d.setAttribute('aria-current', i === idx ? 'true' : 'false'));
+      }
+
+      function updateProgress() {
+        const max = deck.scrollHeight - deck.clientHeight;
+        const pct = max > 0 ? deck.scrollTop / max : 0;
+        bar.style.transform = 'scaleX(' + Math.min(1, Math.max(0, pct)) + ')';
+      }
+
+      deck.addEventListener('scroll', () => {
+        updateDots();
+        updateProgress();
+      }, { passive: true });
+
+      deck.addEventListener('keydown', (e) => {
+        const idx = currentIndex();
+        if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          if (idx < slides.length - 1) slides[idx + 1].scrollIntoView({ behavior: 'smooth' });
+        } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+          e.preventDefault();
+          if (idx > 0) slides[idx - 1].scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => {
+          if (en.isIntersecting) {
+            en.target.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('in'));
+          }
+        });
+      }, { threshold: 0.25 });
+
+      slides.forEach((s) => io.observe(s));
+      updateDots();
+      updateProgress();
+
+      window.addEventListener('load', () => deck.focus({ preventScroll: true }));
+    })();
+  </script>
+</body>
+</html>
