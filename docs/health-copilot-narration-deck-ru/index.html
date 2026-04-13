@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Copilot — рассказ в одной прокрутке</title>
+  <meta name="description" content="Персональная ОС здоровья: данные, архитектура, генетика, брифинги, доказательность и go-to-market.">
+  <meta property="og:title" content="Health Copilot — презентация (RU)">
+  <meta property="og:description" content="Пять источников — одно ядро — форматы для вас и врача. Прокрутка вниз.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0D1B3E;
+      --card: #142047;
+      --card2: #162550;
+      --teal: #0D9488;
+      --amber: #F59E0B;
+      --green: #4ADE80;
+      --text: #E2E8F0;
+      --muted: #94A3B8;
+      --dim: #64748B;
+      --border-teal: 1px solid rgba(13, 148, 136, 0.35);
+      --border-card: 1px solid rgba(255, 255, 255, 0.08);
+      --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .section { animation: none !important; opacity: 1 !important; transform: none !important; }
+    }
+
+    body {
+      font-family: var(--font);
+      font-size: clamp(1rem, 1.05vw + 0.9rem, 1.125rem);
+      line-height: 1.55;
+      color: var(--text);
+      background: var(--navy);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 10px clamp(16px, 4vw, 32px);
+      background: rgba(13, 27, 62, 0.88);
+      backdrop-filter: saturate(160%) blur(16px);
+      -webkit-backdrop-filter: saturate(160%) blur(16px);
+      border-bottom: var(--border-card);
+    }
+    .topbar .brand {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .topbar .brand span { color: var(--text); }
+    .github-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: var(--border-teal);
+      background: rgba(13, 148, 136, 0.12);
+      color: var(--text);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+    }
+    .github-pill:hover {
+      background: rgba(13, 148, 136, 0.22);
+      border-color: rgba(13, 148, 136, 0.55);
+      text-decoration: none;
+    }
+    .github-pill svg { flex-shrink: 0; opacity: 0.95; }
+
+    .progress {
+      position: fixed;
+      top: 52px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(13, 148, 136, 0.2);
+      z-index: 99;
+      pointer-events: none;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--teal), var(--amber));
+      transition: width 0.12s linear;
+    }
+
+    .section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 5vw, 3rem);
+      position: relative;
+    }
+    .section.alt {
+      background: linear-gradient(180deg, var(--card) 0%, var(--card2) 100%);
+      border-top: var(--border-card);
+      border-bottom: var(--border-card);
+    }
+    .section.base {
+      background: radial-gradient(120% 80% at 50% 0%, #1a2a5c 0%, var(--navy) 55%);
+    }
+
+    .section-inner {
+      max-width: 44rem;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section.is-visible .section-inner > * {
+      animation: rise 0.65s var(--ease) both;
+    }
+    .section.is-visible .section-inner > *:nth-child(1) { animation-delay: 0.04s; }
+    .section.is-visible .section-inner > *:nth-child(2) { animation-delay: 0.1s; }
+    .section.is-visible .section-inner > *:nth-child(3) { animation-delay: 0.16s; }
+    .section.is-visible .section-inner > *:nth-child(4) { animation-delay: 0.22s; }
+
+    .picto {
+      width: clamp(4rem, 10vw, 5rem);
+      height: clamp(4rem, 10vw, 5rem);
+      margin-bottom: 1.75rem;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(13, 148, 136, 0.12);
+      border: var(--border-teal);
+    }
+    .picto svg {
+      width: 62%;
+      height: 62%;
+      display: block;
+      stroke: var(--teal);
+      fill: none;
+    }
+    .picto svg .fill-soft { fill: rgba(245, 158, 11, 0.2); stroke: none; }
+
+    h1 {
+      font-size: clamp(2rem, 4vw + 1rem, 3.25rem);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+    h2 {
+      font-size: clamp(1.5rem, 2.5vw + 0.85rem, 2.125rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.125rem;
+      color: #fff;
+    }
+
+    .kicker {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
+    }
+
+    .lead {
+      font-size: clamp(1.05rem, 1.2vw + 0.95rem, 1.25rem);
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--muted);
+      max-width: 40rem;
+    }
+
+    .body-copy {
+      margin-top: 1.5rem;
+      max-width: 40rem;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+    .body-copy p + p { margin-top: 1rem; }
+    .body-copy strong { color: var(--text); font-weight: 600; }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+    .pill {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.15);
+      color: #fde68a;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    footer {
+      background: #0a1228;
+      color: var(--dim);
+      padding: 3rem clamp(1.25rem, 5vw, 3rem) 4rem;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      border-top: var(--border-card);
+    }
+    footer .inner { max-width: 44rem; margin: 0 auto; }
+    footer a { color: var(--teal); }
+    footer strong { color: var(--muted); font-weight: 600; }
+    .scroll-hint {
+      margin-top: 2rem;
+      font-size: 0.8125rem;
+      color: var(--dim);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .scroll-hint svg { opacity: 0.7; }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+
+  <header class="topbar">
+    <p class="brand"><span>Health Copilot</span> · RU deck</p>
+    <a
+      class="github-pill"
+      href="https://github.com/BKproduct/hc-presentations/blob/main/docs/health-copilot-narration-deck-ru/index.html"
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Исходник на GitHub — можно открыть и «Raw» для просмотра"
+    >
+      <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+      </svg>
+      Открыть на GitHub
+    </a>
+  </header>
+
+  <!-- 1 -->
+  <section class="section base" data-section>
+    <div class="section-inner">
+      <div class="picto" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="24" cy="24" r="9"/>
+          <path d="M24 6v7M24 35v7M6 24h7M35 24h7"/>
+          <path d="M11 11l5 5M32 32l5 5M37 11l-5 5M16 32l-5 5"/>
+        </svg>
+      </div>
+      <p class="kicker">Идея</p>
+      <h1>Персональная ОС здоровья</h1>
+      <p class="lead">Лабораторные анализы, данные с носимых устройств, генетика, питание, лекарства и добавки, а также дневник самочувствия — обрабатываются в одном взаимосвязанном замкнутом контуре.</p>
+      <p class="body-copy">Система сверяет именно ваши данные с научными архивами топовых медицинских исследований.</p>
+      <div class="pill-row" aria-label="Типы данных">
+        <span class="pill">Лаборатория</span>
+        <span class="pill">Wearables</span>
+        <span class="pill">Генетика</span>
+        <span class="pill">Питание</span>
+        <span class="pill">Журнал</span>
+      </div>
+      <p class="scroll-hint" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        Листайте вниз по экрану
+      </p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="section alt" data-section>
+    <div class="section-inner">
+      <div class="picto" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="24" cy="26" r="14"/>
+          <path d="M24 18v8l6 4"/>
+          <path d="M10 10l4 4M34 10l-4 4"/>
+          <path d="M8 34h4M36 34h-4" opacity="0.6"/>
+        </svg>
+      </div>
+      <p class="kicker">Проблема</p>
+      <h2>Целостную картину сложно увидеть за 15 минут</h2>
+      <div class="body-copy">
+        <p>Обычная медицина почти не успевает собрать, увидеть и оценить целостную картину. На приёме у терапевта — порядка 15 минут: за это время нереально свести динамику с часов и кольца, анализы крови, полный генетический профиль и данные из журнала самочувствия.</p>
+        <p>Приложения к носимым устройствам дают шаблонные подсказки; универсальные чат-боты не видят ваш медицинский файл и могут ошибаться в клинических деталях, чаще выдавая очень общие рекомендации — вроде «больше спите и пейте больше воды».</p>
+        <p><strong>Итог:</strong> данные разбросаны по разным сервисам — метрики копятся, а совокупный смысл почти не проясняется.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="section base" data-section>
+    <div class="section-inner">
+      <div class="picto" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="24" r="4"/>
+          <circle cx="36" cy="14" r="4"/>
+          <circle cx="36" cy="34" r="4"/>
+          <circle cx="24" cy="8" r="3.5"/>
+          <circle cx="24" cy="40" r="3.5"/>
+          <circle cx="24" cy="24" r="7"/>
+          <path d="M16 22l5-3M32 18l-6 4M32 30l-6-4M16 26l5 3M24 15v-4M24 33v4"/>
+        </svg>
+      </div>
+      <p class="kicker">Архитектура</p>
+      <h2>Пять источников — один центр — много форматов вывода</h2>
+      <div class="body-copy">
+        <p><strong>На входе:</strong> анализы крови, данные с трекеров (Apple Watch и WHOOP), полный анализ генотипа, дневник питания и журнал самочувствия.</p>
+        <p><strong>В ядре:</strong> персонализированный поиск по топовому медицинскому архиву научных данных — PubMed, PharmCAT, нутригеномика, статистика и контроль качества.</p>
+        <p><strong>На выходе:</strong> утренний брифинг, генетический отчёт, подборка исследований и одностраничное резюме для врача.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="section alt" data-section>
+    <div class="section-inner">
+      <div class="picto" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 36c4-16 8-24 14-24s10 8 14 24"/>
+          <path d="M14 28h20"/>
+          <rect x="19" y="8" width="10" height="8" rx="2"/>
+          <path d="M16 20l4 4 8-10"/>
+        </svg>
+      </div>
+      <p class="kicker">Генетика</p>
+      <h2>Конвейер: от сырого генотипа к четырём панелям и агентам</h2>
+      <div class="body-copy">
+        <p>Генетический конвейер тщательно анализирует информацию от сырого генотипирования — к четырём независимым экспертным панелям: контроль качества, отобранные SNP, ClinVar, PharmCAT по 164 препаратам, нутригеномика.</p>
+        <p>Затем четыре независимых ИИ-агента-персоны — клиническая генетика, фармакогеномика, нутригеномика и биостатистика — для разбора конфликтов и красных флагов при противоречиях, слабой валидации или недостаточной глубине научных статей.</p>
+        <p>Отчёты уходят в Telegram и в Markdown; в третьей фазе — углублённый анализ вариантов.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="section base" data-section>
+    <div class="section-inner">
+      <div class="picto" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 32c6-14 10-20 16-20s10 6 16 20"/>
+          <path d="M12 28h24"/>
+          <circle cx="16" cy="36" r="3"/>
+          <circle cx="32" cy="36" r="3"/>
+          <path d="M22 10h4v6h-4z"/>
+        </svg>
+      </div>
+      <p class="kicker">Ежедневно</p>
+      <h2>Утренняя аналитика — конкретная, не «вода»</h2>
+      <div class="body-copy">
+        <p>Ежедневная утренняя аналитика — брифинг по SMS или email: конкретный, а не общий. Вчерашние показатели состояния тела и тренировка, рекомендации по активности с учётом погоды.</p>
+        <p>Контекст — более двух десятков метрик с носимых устройств, особенности персональной генетики и лабораторных маркеров. Цель — ваши данные и ваши варианты, а не усреднённые лозунги ChatGPT в духе «пейте больше воды и лучше спите».</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="section alt" data-section>
+    <div class="section-inner">
+      <div class="picto" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="10" y="8" width="28" height="34" rx="3"/>
+          <path d="M16 16h16M16 22h12M16 28h14"/>
+          <path d="M14 38l6 4 12-14"/>
+          <path d="M6 40V44h36v-4" opacity="0.5"/>
+        </svg>
+      </div>
+      <p class="kicker">Доказательность</p>
+      <h2>Реальные цифры и Grade A</h2>
+      <div class="body-copy">
+        <p>Доказательная часть на реальных цифрах: в подтверждённых изменениях генотипа и в анализах крови — с опорой на топовые медицинские статьи исследований с уровнем доказательности Grade A.</p>
+        <p>Пример для визита к врачу: APOE ε3/ε4 — чувствительность к ЛПНП и протокол по жирам; по стандартам CPIC отмечены пути варфарина и статинов. После изменения протокола питания — около 17% снижения ЛПНП на контрольном анализе.</p>
+        <p><strong>Клинические решения по-прежнему принимает врач.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="section base" data-section>
+    <div class="section-inner">
+      <div class="picto" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M24 8v6M24 34v6M8 24h6M34 24h6"/>
+          <rect x="16" y="16" width="16" height="16" rx="4"/>
+          <path d="M20 24l3 3 6-6"/>
+          <path d="M12 40c2-4 4-6 12-6s10 2 12 6" opacity="0.5"/>
+        </svg>
+      </div>
+      <p class="kicker">Доверие</p>
+      <h2>Грейды A/B/C, источники и локальная обработка</h2>
+      <div class="body-copy">
+        <p>У каждого тезиса — грейд доказательности A, B или C и ссылка на источник. Чтобы снизить риск «галлюцинаций» ИИ: детерминированная логика на Python; ИИ отвечает только за интерпретацию, которую можно проверить.</p>
+        <p>Политика 0% галлюцинаций: если опоры нет — высказывание отбрасывается или помечается как неверифицированное. Конфиденциальность: обработка локально на клиентском устройстве.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="section alt" data-section>
+    <div class="section-inner">
+      <div class="picto" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 8l4 10h10l-8 6 3 10-9-7-9 7 3-10-8-6h10z"/>
+          <path d="M8 40h32"/>
+          <path d="M14 34h20"/>
+        </svg>
+      </div>
+      <p class="kicker">Go-to-market</p>
+      <h2>Пилоты, клиники, контакты</h2>
+      <div class="body-copy">
+        <p><strong>B2C:</strong> два платных пилота по £250 в месяц для энтузиастов и биохакеров — полный онбординг и ежедневные рекомендации.</p>
+        <p><strong>B2B:</strong> канал клиник, студий здоровья и спортклубов — два лондонских wellness-центра; формат одностраничного саммари для врача; B2B-лицензия от £500 в месяц за клинику.</p>
+        <p>Контакт в Telegram — <a href="https://t.me/BKproduct">@BKproduct</a>, почта <a href="mailto:boris.korol@ai-automation.studio">boris.korol@ai-automation.studio</a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="inner">
+      <p><strong>Источник текста:</strong> сценарий <code style="font-size:0.85em;color:var(--muted)">HealthCopilot/remotion-deck-explainer/scripts/narration_ru.txt</code> (орфография выправлена для чтения).</p>
+      <p style="margin-top:12px;"><strong>Публичная страница (прокрутка вниз):</strong><br>
+        <a href="https://bkproduct.github.io/hc-presentations/health-copilot-narration-deck-ru/">https://bkproduct.github.io/hc-presentations/health-copilot-narration-deck-ru/</a>
+      </p>
+      <p style="margin-top:12px;"><strong>Репозиторий:</strong>
+        <a href="https://github.com/BKproduct/hc-presentations">github.com/BKproduct/hc-presentations</a>
+        · <a href="https://github.com/BKproduct/hc-presentations/blob/main/docs/health-copilot-narration-deck-ru/index.html">этот файл на GitHub</a>
+      </p>
+      <p style="margin-top:12px;opacity:0.85;">Last updated: 2026-04-13 · Токены: Health Copilot (<code style="font-size:0.85em">.design/tokens/health-copilot.css</code>)</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var sections = document.querySelectorAll("[data-section]");
+      var bar = document.getElementById("progressBar");
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) e.target.classList.add("is-visible");
+        });
+      }, { threshold: 0.2, rootMargin: "-8% 0px -8% 0px" });
+      sections.forEach(function (s) { obs.observe(s); });
+
+      function onScroll() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - doc.clientHeight;
+        var p = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+        bar.style.width = p + "%";
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
+</body>
+</html>
