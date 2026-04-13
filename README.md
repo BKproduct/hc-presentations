@@ -32,6 +32,12 @@
 
 См. `docs/hc-combined-deck/README.md`.
 
+## Health Copilot RU — для клиник, wellness и спортклубов
+
+Длинная прокрутка, текст по `narration_ru` (без привязки к одному клубу).
+
+**https://bkproduct.github.io/hc-presentations/health-copilot-ru/?v=2**
+
 ## Репозиторий с кодом
 
 https://github.com/BKproduct/hc-presentations
