@@ -42,7 +42,7 @@
 
 Таблица + четыре варианта оформления по `narration_ru.txt`:
 
-**https://bkproduct.github.io/hc-presentations/deck-skill-compare/?v=1**
+**https://bkproduct.github.io/hc-presentations/deck-skill-compare/?v=2**
 
 ## Репозиторий с кодом
 

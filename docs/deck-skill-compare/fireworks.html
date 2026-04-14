@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Health Copilot — Fireworks Tech Graph style</title>
+  <title>Health Copilot — наглядные схемы</title>
   <style>
     :root{--bg:#070b10;--panel:#0d1117;--line:#00e5ff;--line2:#ff00aa;--text:#e6f1ff;--muted:#7aa2c7;}
     *{box-sizing:border-box;margin:0;padding:0;}
     body{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:radial-gradient(1200px 600px at 10% -10%,#0f1a2a,var(--bg));color:var(--text);line-height:1.55;}
     header{padding:clamp(28px,6vw,56px) clamp(18px,4vw,40px) 20px;border-bottom:1px solid #152238;}
     h1{font-size:clamp(1.35rem,3vw,2rem);letter-spacing:-0.02em;}
-    .tag{font-size:0.75rem;color:var(--muted);margin-top:8px;text-transform:uppercase;letter-spacing:0.12em;}
+    .tag{font-size:0.8rem;color:var(--muted);margin-top:8px;max-width:40rem;}
     main{max-width:900px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(16px,3vw,28px) 80px;}
     section{margin-bottom:clamp(36px,6vw,56px);padding:22px;border:1px solid #1b2a44;border-radius:12px;background:linear-gradient(145deg,rgba(13,17,23,0.95),rgba(8,12,20,0.9));box-shadow:0 0 0 1px rgba(0,229,255,0.06);}
     h2{font-size:1.05rem;color:var(--line);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
@@ -19,19 +19,20 @@
     .svg-wrap{margin:16px 0;border-radius:8px;border:1px dashed #234;overflow:hidden;background:#050810;}
     svg{display:block;width:100%;height:auto;}
     a.back{display:inline-block;margin:16px 0;color:var(--line);}
+    figcaption{font-size:0.72rem;color:var(--muted);margin-top:6px;padding:0 4px;}
   </style>
 </head>
 <body>
   <header>
-    <a class="back" href="index.html?v=1">← К таблице сравнения</a>
+    <a class="back" href="index.html?v=2">← К таблице сравнения</a>
     <h1>Health Copilot</h1>
-    <p class="tag">Стиль: fireworks-tech-graph · SVG pipeline / tech graph</p>
+    <p class="tag">Один нарратив — акцент на схемах и читаемых связях. Оформление вдохновлено скиллом <a href="https://github.com/yizhiyanhua-ai/fireworks-tech-graph" style="color:var(--line)">fireworks-tech-graph</a> (тёмный неон, чёткие блоки). В тексте для клиентов не используем внутренние техно-ярлыки инструментов.</p>
   </header>
   <main>
     <section id="s1">
       <h2><span></span>Ввод</h2>
       <p>Health Copilot — персональная операционная система здоровья: лабораторные анализы, носимые устройства, генетика, питание, лекарства и добавки, дневник самочувствия — в одном взаимосвязанном контуре. Подходит и частному клиенту, и команде вокруг него в клинике, студии wellness или спортклубе. Система сверяет данные человека с опорой на научные архивы ведущих медицинских исследований — чтобы специалисту было проще опираться на факты, а не на разрозненные выгрузки.</p>
-      <div class="svg-wrap" aria-hidden="true">
+      <figure class="svg-wrap" aria-hidden="true">
         <svg viewBox="0 0 720 120" xmlns="http://www.w3.org/2000/svg">
           <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#ff00aa"/></linearGradient></defs>
           <rect x="10" y="40" width="120" height="44" rx="8" fill="#0a1628" stroke="url(#g)"/>
@@ -41,22 +42,164 @@
           <text x="230" y="68" text-anchor="middle" fill="#8ecae6" font-size="12">носимые</text>
           <path d="M290 62 H330" stroke="url(#g)" stroke-width="2"/>
           <rect x="330" y="28" width="160" height="68" rx="10" fill="#0d1526" stroke="#ff00aa" stroke-width="1.5"/>
-          <text x="410" y="58" text-anchor="middle" fill="#e6f1ff" font-size="13" font-weight="700">ЯДРО</text>
-          <text x="410" y="78" text-anchor="middle" fill="#7aa2c7" font-size="11">QC + архив</text>
+          <text x="410" y="58" text-anchor="middle" fill="#e6f1ff" font-size="13" font-weight="700">ядро</text>
+          <text x="410" y="78" text-anchor="middle" fill="#7aa2c7" font-size="11">архив · контроль</text>
           <path d="M490 62 H530" stroke="url(#g)" stroke-width="2"/>
           <rect x="530" y="40" width="180" height="44" rx="8" fill="#0a1628" stroke="url(#g)"/>
           <text x="620" y="68" text-anchor="middle" fill="#8ecae6" font-size="12">бриф · врач · команда</text>
         </svg>
-      </div>
+        <figcaption>Контур: источники → ядро → артефакты для человека и команды.</figcaption>
+      </figure>
     </section>
-    <section id="s2"><h2><span></span>Где ломается картина</h2><p>Обычная медицина почти не успевает собрать, увидеть и оценить целостную картину. На приёме у терапевта — порядка 15 минут: за это время нереально свести динамику с часов и кольца, анализы крови, полный генетический профиль и данные из журнала самочувствия.</p></section>
-    <section id="s3"><h2><span></span>Клиника · wellness · спортклуб</h2><p>В студии здоровья или спортклубе похожая щель: врач или тренер видят сессию или визит, но не держат в голове сон, питание, лабораторный фон и протокол добавок между встречами. Приложения к носимым устройствам дают шаблонные подсказки; универсальные чат-боты не видят полный файл и чаще ошибаются в клинических деталях. В итоге метрики копятся в разных сервисах, а совокупный смысл теряется.</p></section>
-    <section id="s4"><h2><span></span>Архитектура</h2><p>Архитектура: пять входов — одно ядро — много выходов. На входе: анализы крови, данные с трекеров (в том числе Apple Watch и WHOOP), полный анализ генотипа, дневник питания и журнал самочувствия. В ядре: персонализированный поиск по топовому медицинскому архиву — PubMed, PharmCAT, нутригеномика, статистика и контроль качества. На выходе: утренний брифинг, генетический отчёт, подборка исследований, одностраничное резюме для врача и аккуратные формулировки для команды вокруг клиента — в том формате, который удобен вашей клинике, студии или клубу, без привязки к названию партнёра.</p></section>
-    <section id="s5"><h2><span></span>Генетический конвейер</h2><p>Генетический конвейер. От сырого генотипирования — к четырём независимым экспертным панелям: контроль качества, отобранные SNP, ClinVar, PharmCAT по 164 препаратам, нутригеномика. Затем четыре независимых ИИ-агента-персоны: клиническая генетика, фармакогеномика, нутригеномика и биостатистика — для разбора конфликтов и красных флагов при противоречиях, слабой валидации или недостаточной глубине статей. Отчёты — в удобном канале (например Telegram) и в Markdown; при необходимости — углублённый разбор вариантов для обсуждения со специалистом.</p></section>
-    <section id="s6"><h2><span></span>Утро</h2><p>Ежедневная утренняя аналитика. Брифинг по SMS или email — конкретный, а не общий: вчерашние показатели тела и тренировка, рекомендации по активности с учётом погоды. Контекст — более двух десятков метрик с носимых устройств, особенности персональной генетики и лабораторных маркеров. Цель — ваши данные и ваши варианты, а не усреднённые лозунги в духе «пейте больше воды и лучше спите».</p></section>
-    <section id="s7"><h2><span></span>Доказательность</h2><p>Доказательная часть на реальных цифрах. Подтверждённые изменения в генотипе и в анализах крови с опорой на топовые статьи исследований с уровнем доказательности Grade A. Пример для визита к врачу: APOE ε3/ε4 — чувствительность к ЛПНП и протокол по жирам; по стандартам CPIC отмечены пути варфарина и статинов. После изменения протокола питания — около 17% снижения ЛПНП на контрольном анализе. Клинические решения по-прежнему принимает врач.</p></section>
-    <section id="s8"><h2><span></span>Доверие</h2><p>Доверие и прозрачность. У каждого тезиса — грейд доказательности A, B или C и ссылка на источник. Чтобы снизить риск «галлюцинаций» ИИ: детерминированная логика на Python; ИИ отвечает за интерпретацию, которую можно проверить. Политика 0% галлюцинаций: если опоры нет — высказывание отбрасывается или помечается как неверифицированное. Конфиденциальность: обработка локально на клиентском устройстве.</p></section>
-    <section id="s9"><h2><span></span>Партнёры</h2><p>Для клиник, студий wellness и спортклубов. Частные пользователи: полный онбординг и ежедневные персональные рекомендации — формат и условия обсуждаются индивидуально. Партнёры B2B: клиники здоровья и красоты, медицинские центры, студии восстановления и спортклубы — одностраничное резюме для врача, согласованные артефакты для команды, лицензирование под масштаб сети или одной точки. География и тарифы — по запросу, без привязки к конкретному городу или бренду в материалах для ваших клиентов. Контакты: Telegram @BKproduct, почта boris.korol@ai-automation.studio.</p></section>
+    <section id="s2">
+      <h2><span></span>Где ломается картина</h2>
+      <p>Обычная медицина почти не успевает собрать, увидеть и оценить целостную картину. На приёме у терапевта — порядка 15 минут: за это время нереально свести динамику с часов и кольца, анализы крови, полный генетический профиль и данные из журнала самочувствия.</p>
+      <figure class="svg-wrap" aria-hidden="true">
+        <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg">
+          <text x="360" y="22" text-anchor="middle" fill="#7aa2c7" font-size="12">данные в разных приложениях — без общей картины</text>
+          <rect x="40" y="44" width="110" height="52" rx="10" fill="#0a1628" stroke="#00e5ff" opacity="0.9"/>
+          <text x="95" y="76" text-anchor="middle" fill="#c8d7ea" font-size="11">часы</text>
+          <rect x="190" y="44" width="110" height="52" rx="10" fill="#0a1628" stroke="#00e5ff" opacity="0.65"/>
+          <text x="245" y="76" text-anchor="middle" fill="#c8d7ea" font-size="11">лабы PDF</text>
+          <rect x="340" y="44" width="110" height="52" rx="10" fill="#0a1628" stroke="#00e5ff" opacity="0.65"/>
+          <text x="395" y="76" text-anchor="middle" fill="#c8d7ea" font-size="11">генотип</text>
+          <rect x="490" y="44" width="110" height="52" rx="10" fill="#0a1628" stroke="#00e5ff" opacity="0.65"/>
+          <text x="545" y="76" text-anchor="middle" fill="#c8d7ea" font-size="11">журнал</text>
+          <path d="M95 96 Q360 118 545 96" stroke="#ff00aa" stroke-width="1.5" fill="none" stroke-dasharray="6 5" opacity="0.7"/>
+          <text x="360" y="118" text-anchor="middle" fill="#ff8ad0" font-size="11">связь «в голове врача» обрывается после приёма</text>
+        </svg>
+        <figcaption>Фрагментированные источники и разрыв между визитами.</figcaption>
+      </figure>
+    </section>
+    <section id="s3">
+      <h2><span></span>Клиника · wellness · спортклуб</h2>
+      <p>В студии здоровья или спортклубе похожая щель: врач или тренер видят сессию или визит, но не держат в голове сон, питание, лабораторный фон и протокол добавок между встречами. Приложения к носимым устройствам дают шаблонные подсказки; универсальные чат-боты не видят полный файл и чаще ошибаются в клинических деталях. В итоге метрики копятся в разных сервисах, а совокупный смысл теряется.</p>
+      <figure class="svg-wrap" aria-hidden="true">
+        <svg viewBox="0 0 720 140" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="30" width="300" height="90" rx="12" fill="#0a1628" stroke="#00e5ff"/>
+          <text x="180" y="58" text-anchor="middle" fill="#e6f1ff" font-size="13" font-weight="700">на приёме / в зале</text>
+          <text x="180" y="82" text-anchor="middle" fill="#8ecae6" font-size="11">видно сессию, вопросы, план на час</text>
+          <text x="180" y="104" text-anchor="middle" fill="#7aa2c7" font-size="10">мало контекста про «между»</text>
+          <rect x="390" y="30" width="300" height="90" rx="12" fill="#0d1526" stroke="#ff00aa"/>
+          <text x="540" y="58" text-anchor="middle" fill="#e6f1ff" font-size="13" font-weight="700">между визитами</text>
+          <text x="540" y="82" text-anchor="middle" fill="#8ecae6" font-size="11">сон · еда · лабы · добавки</text>
+          <text x="540" y="104" text-anchor="middle" fill="#7aa2c7" font-size="10">теряется в разных сервисах</text>
+          <path d="M330 75 H390" stroke="#00ffff" stroke-width="2" marker-end="url(#arr)"/>
+          <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#00ffff"/></marker></defs>
+        </svg>
+        <figcaption>Два окна реальности: «сейчас» и «между».</figcaption>
+      </figure>
+    </section>
+    <section id="s4">
+      <h2><span></span>Архитектура</h2>
+      <p>Архитектура: пять входов — одно ядро — много выходов. На входе: анализы крови, данные с трекеров (в том числе Apple Watch и WHOOP), полный анализ генотипа, дневник питания и журнал самочувствия. В ядре: персонализированный поиск по топовому медицинскому архиву — PubMed, PharmCAT, нутригеномика, статистика и контроль качества. На выходе: утренний брифинг, генетический отчёт, подборка исследований, одностраничное резюме для врача и аккуратные формулировки для команды вокруг клиента — в том формате, который удобен вашей клинике, студии или клубу, без привязки к названию партнёра.</p>
+      <figure class="svg-wrap" aria-hidden="true">
+        <svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="360" cy="100" r="52" fill="#0d1526" stroke="#ff00aa" stroke-width="2"/>
+          <text x="360" y="96" text-anchor="middle" fill="#e6f1ff" font-size="12" font-weight="700">ядро</text>
+          <text x="360" y="114" text-anchor="middle" fill="#7aa2c7" font-size="10">PubMed · PharmCAT · QC</text>
+          <g fill="#0a1628" stroke="#00e5ff">
+            <rect x="330" y="18" width="60" height="34" rx="8"/><text x="360" y="40" text-anchor="middle" fill="#c8d7ea" font-size="10">лабы</text>
+            <rect x="500" y="70" width="60" height="34" rx="8"/><text x="530" y="92" text-anchor="middle" fill="#c8d7ea" font-size="10">носимые</text>
+            <rect x="430" y="150" width="60" height="34" rx="8"/><text x="460" y="172" text-anchor="middle" fill="#c8d7ea" font-size="10">ген</text>
+            <rect x="230" y="150" width="60" height="34" rx="8"/><text x="260" y="172" text-anchor="middle" fill="#c8d7ea" font-size="10">еда</text>
+            <rect x="160" y="70" width="60" height="34" rx="8"/><text x="190" y="92" text-anchor="middle" fill="#c8d7ea" font-size="10">журнал</text>
+          </g>
+          <path d="M360 52 L360 48" stroke="#00ffff" stroke-width="1.2"/>
+          <path d="M412 100 L468 87" stroke="#00ffff" stroke-width="1.2"/>
+          <path d="M388 146 L430 167" stroke="#00ffff" stroke-width="1.2"/>
+          <path d="M332 146 L290 167" stroke="#00ffff" stroke-width="1.2"/>
+          <path d="M308 100 L220 92" stroke="#00ffff" stroke-width="1.2"/>
+          <rect x="288" y="168" width="144" height="28" rx="8" fill="#111827" stroke="url(#g2)" stroke-width="1"/>
+          <defs><linearGradient id="g2" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#ff00aa"/></linearGradient></defs>
+          <text x="360" y="187" text-anchor="middle" fill="#8ecae6" font-size="10">утро · отчёты · врач · команда</text>
+        </svg>
+        <figcaption>Пять входов сходятся в ядро; из ядра — несколько форматов вывода.</figcaption>
+      </figure>
+    </section>
+    <section id="s5">
+      <h2><span></span>Генетический конвейер</h2>
+      <p>Генетический конвейер. От сырого генотипирования — к четырём независимым экспертным панелям: контроль качества, отобранные SNP, ClinVar, PharmCAT по 164 препаратам, нутригеномика. Затем четыре независимых ИИ-агента-персоны: клиническая генетика, фармакогеномика, нутригеномика и биостатистика — для разбора конфликтов и красных флагов при противоречиях, слабой валидации или недостаточной глубине статей. Отчёты — в удобном канале (например Telegram) и в Markdown; при необходимости — углублённый разбор вариантов для обсуждения со специалистом.</p>
+      <figure class="svg-wrap" aria-hidden="true">
+        <svg viewBox="0 0 720 110" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="38" width="90" height="44" rx="8" fill="#0a1628" stroke="#7aa2c7"/><text x="65" y="66" text-anchor="middle" fill="#c8d7ea" font-size="10">сырой VCF</text>
+          <path d="M110 60 H130" stroke="#00e5ff" stroke-width="2"/>
+          <rect x="130" y="38" width="90" height="44" rx="8" fill="#0a1628" stroke="#00e5ff"/><text x="175" y="66" text-anchor="middle" fill="#c8d7ea" font-size="10">QC + SNP</text>
+          <path d="M220 60 H240" stroke="#00e5ff" stroke-width="2"/>
+          <rect x="240" y="38" width="100" height="44" rx="8" fill="#0a1628" stroke="#00e5ff"/><text x="290" y="62" text-anchor="middle" fill="#c8d7ea" font-size="10">ClinVar ·</text><text x="290" y="76" text-anchor="middle" fill="#c8d7ea" font-size="10">PharmCAT</text>
+          <path d="M340 60 H360" stroke="#00e5ff" stroke-width="2"/>
+          <rect x="360" y="30" width="120" height="60" rx="10" fill="#0d1526" stroke="#ff00aa"/><text x="420" y="55" text-anchor="middle" fill="#e6f1ff" font-size="11" font-weight="700">4 агента</text><text x="420" y="74" text-anchor="middle" fill="#8ecae6" font-size="9">конфликты · флаги</text>
+          <path d="M480 60 H500" stroke="#00e5ff" stroke-width="2"/>
+          <rect x="500" y="38" width="200" height="44" rx="8" fill="#0a1628" stroke="url(#g3)"/>
+          <defs><linearGradient id="g3"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#ff00aa"/></linearGradient></defs>
+          <text x="600" y="66" text-anchor="middle" fill="#c8d7ea" font-size="10">Telegram / Markdown → врач</text>
+        </svg>
+        <figcaption>Линейный конвейер: сырьё → контроль → панели → разбор → выдача.</figcaption>
+      </figure>
+    </section>
+    <section id="s6">
+      <h2><span></span>Утро</h2>
+      <p>Ежедневная утренняя аналитика. Брифинг по SMS или email — конкретный, а не общий: вчерашние показатели тела и тренировка, рекомендации по активности с учётом погоды. Контекст — более двух десятков метрик с носимых устройств, особенности персональной генетики и лабораторных маркеров. Цель — ваши данные и ваши варианты, а не усреднённые лозунги в духе «пейте больше воды и лучше спите».</p>
+      <figure class="svg-wrap" aria-hidden="true">
+        <svg viewBox="0 0 720 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="120" cy="50" r="28" fill="#0a1628" stroke="#00e5ff"/><text x="120" y="55" text-anchor="middle" fill="#c8d7ea" font-size="11">ночь</text>
+          <path d="M148 50 H220" stroke="#00ffff" stroke-width="2"/>
+          <rect x="220" y="22" width="140" height="56" rx="12" fill="#0d1526" stroke="#ff00aa"/><text x="290" y="48" text-anchor="middle" fill="#e6f1ff" font-size="12" font-weight="700">брифинг</text><text x="290" y="66" text-anchor="middle" fill="#8ecae6" font-size="10">метрики · погода · план дня</text>
+          <path d="M360 50 H432" stroke="#00ffff" stroke-width="2"/>
+          <rect x="432" y="22" width="160" height="56" rx="12" fill="#0a1628" stroke="#00e5ff"/><text x="512" y="48" text-anchor="middle" fill="#e6f1ff" font-size="12" font-weight="700">решения</text><text x="512" y="66" text-anchor="middle" fill="#8ecae6" font-size="10">ваши варианты, не шаблон</text>
+        </svg>
+        <figcaption>Утро: от сна и сырых метрик — к одному короткому решению.</figcaption>
+      </figure>
+    </section>
+    <section id="s7">
+      <h2><span></span>Доказательность</h2>
+      <p>Доказательная часть на реальных цифрах. Подтверждённые изменения в генотипе и в анализах крови с опорой на топовые статьи исследований с уровнем доказательности Grade A. Пример для визита к врачу: APOE ε3/ε4 — чувствительность к ЛПНП и протокол по жирам; по стандартам CPIC отмечены пути варфарина и статинов. После изменения протокола питания — около 17% снижения ЛПНП на контрольном анализе. Клинические решения по-прежнему принимает врач.</p>
+      <figure class="svg-wrap" aria-hidden="true">
+        <svg viewBox="0 0 720 120" xmlns="http://www.w3.org/2000/svg">
+          <text x="40" y="28" fill="#7aa2c7" font-size="11">грейд силы утверждений</text>
+          <rect x="40" y="40" width="60" height="70" rx="8" fill="#14532d" stroke="#4ade80"/><text x="70" y="78" text-anchor="middle" fill="#e6f1ff" font-size="14" font-weight="800">A</text><text x="70" y="98" text-anchor="middle" fill="#bbf7d0" font-size="9">р guidelines</text>
+          <rect x="120" y="52" width="60" height="58" rx="8" fill="#1e3a5f" stroke="#38bdf8"/><text x="150" y="88" text-anchor="middle" fill="#e6f1ff" font-size="14" font-weight="800">B</text>
+          <rect x="200" y="60" width="60" height="50" rx="8" fill="#3f3f46" stroke="#a1a1aa"/><text x="230" y="92" text-anchor="middle" fill="#e6f1ff" font-size="14" font-weight="800">C</text>
+          <rect x="320" y="40" width="360" height="70" rx="10" fill="#0a1628" stroke="#ff00aa"/>
+          <text x="500" y="68" text-anchor="middle" fill="#e6f1ff" font-size="12" font-weight="700">пример: ЛПНП после смены питания</text>
+          <rect x="340" y="78" width="200" height="22" rx="6" fill="#1e293b"/>
+          <rect x="340" y="78" width="34" height="22" rx="6" fill="#00e5ff" opacity="0.85"/>
+          <text x="500" y="94" text-anchor="middle" fill="#8ecae6" font-size="11">≈ −17% на контроле (иллюстрация)</text>
+        </svg>
+        <figcaption>Грейды A/B/C и отдельно — числовой пример для обсуждения с врачом.</figcaption>
+      </figure>
+    </section>
+    <section id="s8">
+      <h2><span></span>Доверие</h2>
+      <p>Доверие и прозрачность. У каждого тезиса — грейд доказательности A, B или C и ссылка на источник. Чтобы снизить риск «галлюцинаций» ИИ: детерминированная логика на Python; ИИ отвечает за интерпретацию, которую можно проверить. Политика 0% галлюцинаций: если опоры нет — высказывание отбрасывается или помечается как неверифицированное. Конфиденциальность: обработка локально на клиентском устройстве.</p>
+      <figure class="svg-wrap" aria-hidden="true">
+        <svg viewBox="0 0 720 100" xmlns="http://www.w3.org/2000/svg">
+          <rect x="40" y="30" width="160" height="44" rx="10" fill="#0a1628" stroke="#00e5ff"/><text x="120" y="58" text-anchor="middle" fill="#c8d7ea" font-size="11">черновик ИИ</text>
+          <path d="M200 52 H260" stroke="#00ffff" stroke-width="2"/>
+          <polygon points="280,30 340,52 280,74 220,52" fill="#0d1526" stroke="#ff00aa" stroke-width="1.5"/>
+          <text x="280" y="56" text-anchor="middle" fill="#e6f1ff" font-size="10">Python QC</text>
+          <path d="M340 52 H400" stroke="#00ffff" stroke-width="2"/>
+          <rect x="400" y="30" width="140" height="44" rx="10" fill="#0a1628" stroke="#4ade80"/><text x="470" y="58" text-anchor="middle" fill="#c8d7ea" font-size="11">проверяемый вывод</text>
+          <path d="M540 52 H580" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3"/>
+          <rect x="580" y="34" width="100" height="36" rx="8" fill="#1e1b2e" stroke="#64748b"/><text x="630" y="58" text-anchor="middle" fill="#94a3b8" font-size="10">нет опоры → отброс</text>
+        </svg>
+        <figcaption>Разделение: интерпретация проходит через проверяемый контур.</figcaption>
+      </figure>
+    </section>
+    <section id="s9">
+      <h2><span></span>Партнёры</h2>
+      <p>Для клиник, студий wellness и спортклубов. Частные пользователи: полный онбординг и ежедневные персональные рекомендации — формат и условия обсуждаются индивидуально. Партнёры B2B: клиники здоровья и красоты, медицинские центры, студии восстановления и спортклубы — одностраничное резюме для врача, согласованные артефакты для команды, лицензирование под масштаб сети или одной точки. География и тарифы — по запросу, без привязки к конкретному городу или бренду в материалах для ваших клиентов. Контакты: Telegram @BKproduct, почта boris.korol@ai-automation.studio.</p>
+      <figure class="svg-wrap" aria-hidden="true">
+        <svg viewBox="0 0 720 110" xmlns="http://www.w3.org/2000/svg">
+          <rect x="40" y="28" width="180" height="58" rx="12" fill="#0a1628" stroke="#00e5ff"/><text x="130" y="52" text-anchor="middle" fill="#e6f1ff" font-size="12" font-weight="700">B2C</text><text x="130" y="72" text-anchor="middle" fill="#8ecae6" font-size="10">онбординг · ежедневно</text>
+          <rect x="270" y="28" width="200" height="58" rx="12" fill="#0d1526" stroke="#ff00aa"/><text x="370" y="52" text-anchor="middle" fill="#e6f1ff" font-size="12" font-weight="700">B2B</text><text x="370" y="72" text-anchor="middle" fill="#8ecae6" font-size="10">клиника · клуб · сеть</text>
+          <rect x="520" y="28" width="160" height="58" rx="12" fill="#0a1628" stroke="#38bdf8"/><text x="600" y="52" text-anchor="middle" fill="#e6f1ff" font-size="12" font-weight="700">контакт</text><text x="600" y="72" text-anchor="middle" fill="#8ecae6" font-size="10">@BKproduct</text>
+          <path d="M220 57 H270" stroke="#00ffff" stroke-width="1.5" opacity="0.6"/>
+          <path d="M470 57 H520" stroke="#00ffff" stroke-width="1.5" opacity="0.6"/>
+        </svg>
+        <figcaption>Три опорных формата работы с продуктом.</figcaption>
+      </figure>
+    </section>
   </main>
 </body>
 </html>
