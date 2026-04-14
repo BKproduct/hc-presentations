@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AI Automation Studio — Apple-styled</title>
+<meta name="description" content="AI-Powered Automation for Professional Services Firms — Apple-styled clone."/>
+<style>
+  :root{
+    --black:#000;--near:#1d1d1f;--gray:#f5f5f7;--white:#fff;
+    --blue:#0071e3;--link:#0066cc;--link-d:#2997ff;
+    --t80:rgba(0,0,0,.8);--t48:rgba(0,0,0,.48);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+  html,body{background:var(--white);color:var(--near);
+    font-family:"SF Pro Text","SF Pro Icons","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size:17px;line-height:1.47;letter-spacing:-.374px;}
+  h1,h2,h3{font-family:"SF Pro Display","SF Pro Icons","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:600;}
+  a{color:var(--link);text-decoration:none}
+  img{max-width:100%;display:block}
+
+  /* Nav — translucent glass */
+  .nav{position:sticky;top:0;z-index:50;height:48px;
+       background:rgba(0,0,0,.8);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);
+       color:#fff;display:flex;align-items:center;justify-content:center;}
+  .nav-inner{max-width:980px;width:100%;padding:0 22px;display:flex;align-items:center;justify-content:space-between;font-size:12px;}
+  .nav-inner a{color:#fff;opacity:.88;margin:0 10px}
+  .nav-inner a:hover{opacity:1}
+  .logo{font-weight:600;letter-spacing:-.2px}
+
+  /* Sections */
+  section{padding:100px 22px;}
+  .wrap{max-width:980px;margin:0 auto}
+  .dark{background:var(--black);color:#fff}
+  .light{background:var(--gray);color:var(--near)}
+  .white{background:#fff;color:var(--near)}
+
+  /* Hero */
+  .hero{min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 22px 80px}
+  .hero h1{font-size:clamp(40px,6.2vw,64px);line-height:1.07;letter-spacing:-.28px;max-width:920px}
+  .hero .sub{margin-top:18px;font-size:21px;line-height:1.19;letter-spacing:.011em;font-weight:400;opacity:.92;max-width:760px}
+  .asterisk{color:var(--t48);font-size:14px;margin-top:28px;letter-spacing:-.224px}
+  .dark .asterisk{color:rgba(255,255,255,.56)}
+
+  /* CTA pair */
+  .ctas{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:32px}
+  .pill{display:inline-flex;align-items:center;height:32px;padding:0 18px;border-radius:980px;font-size:14px;letter-spacing:-.224px;transition:all .2s ease}
+  .pill.primary{background:var(--blue);color:#fff;border:1px solid var(--blue)}
+  .pill.primary:hover{background:#0077ed}
+  .pill.ghost{color:var(--link);border:1px solid var(--link);background:transparent}
+  .dark .pill.ghost{color:var(--link-d);border-color:var(--link-d)}
+  .pill.ghost:hover{text-decoration:underline}
+  .btn{display:inline-flex;align-items:center;justify-content:center;padding:8px 16px;border-radius:12px;background:var(--blue);color:#fff;font-size:17px;letter-spacing:-.374px}
+  .btn:hover{background:#0077ed;color:#fff}
+
+  /* Headline block */
+  .section-head{text-align:center;margin-bottom:56px}
+  .section-head h2{font-size:clamp(32px,4.2vw,48px);line-height:1.1;letter-spacing:-.003em}
+  .section-head p{margin-top:14px;font-size:19px;line-height:1.42;color:var(--t80);max-width:720px;margin-left:auto;margin-right:auto}
+  .dark .section-head p{color:rgba(255,255,255,.72)}
+
+  /* Grid cards */
+  .grid{display:grid;gap:20px;grid-template-columns:repeat(3,1fr)}
+  @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:600px){.grid{grid-template-columns:1fr}}
+  .card{background:#fff;border-radius:18px;padding:32px 28px;box-shadow:rgba(0,0,0,.06) 0 2px 12px;min-height:220px;display:flex;flex-direction:column}
+  .light .card{background:#fff}
+  .dark .card{background:#1d1d1f;color:#fff;box-shadow:none}
+  .card .ico{width:44px;height:44px;border-radius:12px;background:#f2f2f5;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px}
+  .dark .card .ico{background:#2a2a2d}
+  .card h3{font-size:21px;line-height:1.19;letter-spacing:.011em;margin-bottom:8px;font-weight:600}
+  .card p{font-size:15px;line-height:1.47;color:var(--t80)}
+  .dark .card p{color:rgba(255,255,255,.72)}
+
+  /* Stats strip */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:64px;text-align:center}
+  @media (max-width:700px){.stats{grid-template-columns:1fr}}
+  .stat .num{font-family:"SF Pro Display";font-size:56px;font-weight:600;line-height:1.07;letter-spacing:-.28px;color:var(--blue)}
+  .dark .stat .num{color:var(--link-d)}
+  .stat .lbl{font-size:17px;font-weight:600;margin-top:6px}
+  .stat .desc{font-size:14px;line-height:1.29;color:var(--t80);margin-top:6px;max-width:240px;margin-left:auto;margin-right:auto}
+  .dark .stat .desc{color:rgba(255,255,255,.72)}
+
+  /* Before/After */
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
+  @media (max-width:700px){.ba{grid-template-columns:1fr}}
+  .ba .col{background:#fff;border-radius:18px;padding:32px;min-height:300px}
+  .dark .ba .col{background:#1d1d1f}
+  .ba .tag{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--t48);margin-bottom:10px}
+  .dark .ba .tag{color:rgba(255,255,255,.5)}
+  .ba h3{font-size:28px;line-height:1.14;letter-spacing:.007em;margin-bottom:6px;font-weight:400}
+  .ba .big{font-size:48px;font-weight:600;letter-spacing:-.01em;color:var(--near);line-height:1.07;margin:6px 0 14px}
+  .dark .ba .big{color:#fff}
+  .ba ul{list-style:none;margin-top:12px}
+  .ba li{padding:10px 0;border-top:1px solid rgba(0,0,0,.08);font-size:15px;color:var(--t80)}
+  .dark .ba li{border-top-color:rgba(255,255,255,.12);color:rgba(255,255,255,.72)}
+  .ba li:first-child{border-top:0}
+
+  /* Three-col benefits (iconic) */
+  .benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media (max-width:900px){.benefits{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:600px){.benefits{grid-template-columns:1fr}}
+  .benefit{padding:28px;border-radius:18px;background:#fff;box-shadow:rgba(0,0,0,.06) 0 2px 12px}
+  .dark .benefit{background:#1d1d1f;box-shadow:none}
+
+  /* Footer / CTA band */
+  .cta-band{background:#fff;padding:120px 22px;text-align:center}
+  .cta-band h2{font-size:clamp(32px,5vw,56px);line-height:1.07;letter-spacing:-.01em}
+  .cta-band ul{list-style:none;display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin:26px 0;color:var(--t80);font-size:15px}
+  .cta-band ul li::before{content:"●";color:var(--blue);margin-right:8px;font-size:10px;position:relative;top:-2px}
+
+  footer{background:#f5f5f7;color:var(--t80);font-size:12px;padding:28px 22px;text-align:center;letter-spacing:-.12px}
+  footer a{color:var(--link)}
+
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+  .dark .eyebrow{color:var(--link-d)}
+  .fancy-num{font-family:"SF Pro Display";font-weight:600;font-size:64px;line-height:1.07;letter-spacing:-.01em}
+
+  /* Larger card row for pro-practice section */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media (max-width:800px){.two{grid-template-columns:1fr}}
+  .two .col{padding:48px;border-radius:18px;background:#fff}
+  .dark .two .col{background:#1d1d1f}
+  .two .col h3{font-size:32px;line-height:1.1;font-weight:600;letter-spacing:-.003em;margin-bottom:18px}
+  .two .col p{font-size:17px;color:var(--t80);line-height:1.47}
+  .dark .two .col p{color:rgba(255,255,255,.72)}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="logo">AI Automation Studio</span>
+    <div>
+      <a href="#problem">Problem</a>
+      <a href="#solution">Solution</a>
+      <a href="#cases">Case Studies</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="dark hero">
+  <div class="wrap">
+    <h1>AI-Powered Automation for Professional Services Firms</h1>
+    <p class="sub">Increase employee productivity by 1.3–1.5× while scaling your practice through intelligent automation that handles repetitive tasks and frees your team to focus on high-value client advisory work.</p>
+    <div class="ctas">
+      <a class="pill primary" href="#contact">Schedule a Call&nbsp;&nbsp;›</a>
+      <a class="pill ghost" href="#solution">Learn more&nbsp;&nbsp;›</a>
+    </div>
+    <p class="asterisk">* financial, accounting, legal, recruitment and others</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="light">
+  <div class="wrap section-head">
+    <p class="eyebrow">Outcome</p>
+    <h2>Achieve 1.3–1.5× productivity increase</h2>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem" class="white">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The Professional Services Firm Bottleneck</h2>
+      <p>Traditional workflows create friction at every turn, limiting growth and exhausting your team.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="ico">✎</div><h3>Manual Data Entry</h3><p>Document preparation and data entry consume hours daily, pulling senior staff away from strategic advisory work.</p></div>
+      <div class="card"><div class="ico">↻</div><h3>Repetitive Onboarding</h3><p>Client intake requires repetitive information gathering across multiple touchpoints, creating delays and frustration.</p></div>
+      <div class="card"><div class="ico">✓</div><h3>Compliance Burden</h3><p>Tracking deadlines, managing checklists, and coordinating follow-ups are incredibly time-intensive and error-prone.</p></div>
+      <div class="card"><div class="ico">↗</div><h3>Scaling Issues</h3><p>Growth requires hiring more junior staff for routine tasks, increasing overhead without improving margins.</p></div>
+      <div class="card"><div class="ico">⏱</div><h3>Delayed Responses</h3><p>Slow turnaround on client inquiries during peak seasons damages relationships and creates competitive disadvantages.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution" class="dark">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Intelligent Automation for Your Practice</h2>
+      <p>Transform your practice with AI-powered solutions designed specifically for mid-size firms. Our automation platform handles routine tasks while your team focuses on building deeper client relationships and delivering strategic insights.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="ico">🎧</div><h3>24/7 AI Chatbots</h3><p>AI-powered chatbots handle initial client consultations, capturing key information and scheduling follow-ups automatically.</p></div>
+      <div class="card"><div class="ico">📄</div><h3>Document Generation</h3><p>Automated document generation creates forms, business plans, and compliance reports in minutes instead of hours.</p></div>
+      <div class="card"><div class="ico">☑</div><h3>Compliance Tracking</h3><p>Automated compliance tracking and reminders ensure nothing falls through the cracks during busy season.</p></div>
+      <div class="card"><div class="ico">◓</div><h3>Smart Data Collection</h3><p>Intelligent data collection from clients eliminates back-and-forth emails and ensures you have what you need upfront.</p></div>
+      <div class="card"><div class="ico">✉</div><h3>Email Workflows</h3><p>Smart email and communication workflows route inquiries to the right team member and respond instantly to common questions.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILT FOR PROS -->
+<section class="light">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Built for Professionals, Not Developers</h2>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="ico">◎</div><h3>Visual Workflow Builders</h3><p>We use n8n for clear, visual logic — no complex coding required. See your entire process mapped out intuitively.</p></div>
+      <div class="card"><div class="ico">💡</div><h3>Easy Updates</h3><p>Any team member can understand and update the process without calling IT or waiting on developers.</p></div>
+      <div class="card"><div class="ico">👁</div><h3>Full Transparency</h3><p>See exactly how data moves through your firm, ensuring compliance and building confidence in your systems.</p></div>
+      <div class="card"><div class="ico">🚀</div><h3>Rapid Implementation</h3><p>Launch new automations in days, not months, allowing you to respond quickly to changing client needs.</p></div>
+      <div class="card"><div class="ico">🐖</div><h3>Cost Effective</h3><p>Reduces dependency on expensive senior developers and ongoing technical maintenance contracts.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE 1 -->
+<section id="cases" class="white">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Case Study</p>
+      <h2>Automated Client Onboarding</h2>
+      <p>An accounting firm struggled with inconsistent client intake, spending 2–3 hours per new client gathering basic information through phone calls, emails, and manual data entry. Here's how automation transformed their process.</p>
+    </div>
+    <div class="ba">
+      <div class="col">
+        <div class="tag">Before Automation</div>
+        <div class="big">2–3 hours</div>
+        <p style="color:var(--t80)">manual intake per client</p>
+        <ul>
+          <li>Multiple follow-up calls to gather missing information</li>
+          <li>Inconsistent data quality across clients</li>
+          <li>Staff frustration with repetitive questions</li>
+          <li>Delayed project kickoffs waiting for complete data</li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="tag" style="color:var(--blue)">After Automation</div>
+        <div class="big" style="color:var(--blue)">30 minutes</div>
+        <p style="color:var(--t80)">automated collection + human review</p>
+        <ul>
+          <li>AI chatbot guides clients through structured intake</li>
+          <li>Consistent, complete data every time</li>
+          <li>Instant validation and error checking</li>
+          <li>Same-day project kickoffs for most clients</li>
+        </ul>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">1.4×</div><div class="lbl">Productivity Increase</div><div class="desc">Staff onboard 40% more clients in the same timeframe.</div></div>
+      <div class="stat"><div class="num">30m</div><div class="lbl">Faster Setup</div><div class="desc">Average client setup time reduced from hours to minutes.</div></div>
+      <div class="stat"><div class="num">100%</div><div class="lbl">Data Consistency</div><div class="desc">Every client provides complete information on first submission.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE 2 -->
+<section class="light">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Case Study</p>
+      <h2>Intelligent Document Generation</h2>
+    </div>
+    <div class="two">
+      <div class="col">
+        <h3>Before</h3>
+        <p>Manual creation of tax forms, business plans, and compliance documents consumed <b>hours of billable time</b>. Senior accountants spent their expertise on formatting and data entry instead of analysis and advisory.</p>
+      </div>
+      <div class="col">
+        <h3>After</h3>
+        <p><b>AI generates near-perfect drafts</b> from client data, automatically populating forms and documents. Your team focuses exclusively on final review, quality control, and high-value customisation for complex situations.</p>
+      </div>
+    </div>
+    <div class="stats" style="grid-template-columns:repeat(4,1fr)">
+      <div class="stat"><div class="num">75%</div><div class="lbl">Time Savings</div><div class="desc">Document creation time reduced by three-quarters.</div></div>
+      <div class="stat"><div class="num">90%</div><div class="lbl">Fewer Errors</div><div class="desc">Automated validation catches mistakes before human review.</div></div>
+      <div class="stat"><div class="num">100%</div><div class="lbl">Consistency</div><div class="desc">Every document follows firm standards and best practices.</div></div>
+      <div class="stat"><div class="num">2×</div><div class="lbl">Faster Delivery</div><div class="desc">Client turnaround time cut in half across all document types.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE 3 -->
+<section class="dark">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Case Study</p>
+      <h2>24/7 Client Communication</h2>
+      <p>Traditional email-based communication meant clients waited hours or days for answers to routine questions. During high season, response times stretched even longer, creating frustration and service gaps.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="ico">🗓</div><h3>Before</h3><p>Team responds to emails only during business hours, leading to 24–48 hour delays. Simple questions require staff time away from complex work.</p></div>
+      <div class="card"><div class="ico">⚙</div><h3>Implementation</h3><p>AI chatbot deployed with knowledge base covering 80% of common inquiries. Smart routing escalates complex issues to appropriate team members.</p></div>
+      <div class="card"><div class="ico">✓</div><h3>After</h3><p>AI handles routine inquiries instantly 24/7. Complex issues routed to specialists within minutes. Client satisfaction scores increase significantly.</p></div>
+    </div>
+    <div class="stats" style="margin-top:56px">
+      <div class="stat"><div class="num">100%</div><div class="lbl">Instant Responses</div><div class="desc">Inquiries answered immediately, any time of day or night.</div></div>
+      <div class="stat"><div class="num">+2.8</div><div class="lbl">NPS</div><div class="desc">Clients appreciate immediate answers and faster resolution.</div></div>
+      <div class="stat"><div class="num">1.3–1.5×</div><div class="lbl">Productivity</div><div class="desc">Staff time freed from routine questions for advisory work.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSFORM -->
+<section class="white">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Transform Your Practice</h2>
+      <p>AI-powered automation delivers measurable improvements across every dimension of your professional practice.</p>
+    </div>
+    <div class="benefits">
+      <div class="benefit"><div class="ico">📊</div><h3>Scalability</h3><p>Grow your client base without proportional cost increases.</p></div>
+      <div class="benefit"><div class="ico">🐖</div><h3>Profitability</h3><p>Serve more clients without hiring additional staff.</p></div>
+      <div class="benefit"><div class="ico">◆</div><h3>Quality</h3><p>Fewer errors and consistent processes across all accounts.</p></div>
+      <div class="benefit"><div class="ico">🤝</div><h3>Retention</h3><p>Faster response times lead to better service and loyalty.</p></div>
+      <div class="benefit"><div class="ico">🛡</div><h3>Compliance</h3><p>Automated tracking significantly reduces regulatory risk.</p></div>
+      <div class="benefit"><div class="ico">👥</div><h3>Team Satisfaction</h3><p>Eliminate repetitive work so staff can focus on high-value tasks.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-band">
+  <div class="wrap">
+    <h2>Let's Automate Your Practice.</h2>
+    <ul>
+      <li>Free Consultation</li>
+      <li>Custom ROI Analysis</li>
+      <li>Implementation Roadmap</li>
+      <li>Ongoing Support</li>
+    </ul>
+    <div class="ctas" style="justify-content:center">
+      <a class="pill primary" href="https://calendly.com/dmir017" target="_blank" rel="noopener">Schedule a Call&nbsp;&nbsp;›</a>
+      <a class="pill ghost" href="mailto:boris.korol@ai-automation.studio">Email us&nbsp;&nbsp;›</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© AI Automation Studio · <a href="https://ai-automation.studio" target="_blank" rel="noopener">ai-automation.studio</a> · Apple-styled concept</p>
+</footer>
+
+</body>
+</html>
