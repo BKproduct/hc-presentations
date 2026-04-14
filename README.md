@@ -42,7 +42,7 @@
 
 Таблица и четыре визуальных варианта одной истории о продукте (без внутренних техно-ярлыков в клиентском тексте):
 
-**https://bkproduct.github.io/hc-presentations/deck-skill-compare/?v=3**
+**https://bkproduct.github.io/hc-presentations/deck-skill-compare/?v=4**
 
 ## Репозиторий с кодом
 

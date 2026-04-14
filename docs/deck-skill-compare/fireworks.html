@@ -10,7 +10,6 @@
     body{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:radial-gradient(1200px 600px at 10% -10%,#0f1a2a,var(--bg));color:var(--text);line-height:1.55;}
     header{padding:clamp(28px,6vw,56px) clamp(18px,4vw,40px) 20px;border-bottom:1px solid #152238;}
     h1{font-size:clamp(1.35rem,3vw,2rem);letter-spacing:-0.02em;}
-    .tag{font-size:0.8rem;color:var(--muted);margin-top:8px;max-width:40rem;}
     main{max-width:900px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(16px,3vw,28px) 80px;}
     section{margin-bottom:clamp(36px,6vw,56px);padding:22px;border:1px solid #1b2a44;border-radius:12px;background:linear-gradient(145deg,rgba(13,17,23,0.95),rgba(8,12,20,0.9));box-shadow:0 0 0 1px rgba(0,229,255,0.06);}
     h2{font-size:1.05rem;color:var(--line);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
@@ -18,55 +17,57 @@
     p{color:#c8d7ea;margin-bottom:10px;font-size:0.92rem;}
     .svg-wrap{margin:16px 0;border-radius:8px;border:1px dashed #234;overflow:hidden;background:#050810;}
     svg{display:block;width:100%;height:auto;}
-    a.back{display:inline-block;margin:16px 0;color:var(--line);}
     figcaption{font-size:0.72rem;color:var(--muted);margin-top:6px;padding:0 4px;}
   </style>
 </head>
 <body>
   <header>
-    <a class="back" href="index.html?v=3">← Другие варианты оформления</a>
     <h1>Health Copilot</h1>
-    <p class="tag">Один нарратив — акцент на схемах и читаемых связях. Тёмный фон и неоновые акценты подчёркивают блоки и направление связей без лишнего шума.</p>
   </header>
   <main>
     <section id="s1">
       <h2><span></span>Ввод</h2>
       <p>Health Copilot — персональная операционная система здоровья: лабораторные анализы, носимые устройства, генетика, питание, лекарства и добавки, дневник самочувствия — в одном взаимосвязанном контуре. Подходит и частному клиенту, и команде вокруг него в клинике, студии wellness или спортклубе. Система сверяет данные человека с опорой на научные архивы ведущих медицинских исследований — чтобы специалисту было проще опираться на факты, а не на разрозненные выгрузки.</p>
       <figure class="svg-wrap" aria-hidden="true">
-        <svg viewBox="0 0 720 120" xmlns="http://www.w3.org/2000/svg">
-          <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#ff00aa"/></linearGradient></defs>
-          <rect x="10" y="40" width="120" height="44" rx="8" fill="#0a1628" stroke="url(#g)"/>
-          <text x="70" y="68" text-anchor="middle" fill="#8ecae6" font-size="12">лабы</text>
-          <path d="M130 62 H170" stroke="url(#g)" stroke-width="2"/>
-          <rect x="170" y="40" width="120" height="44" rx="8" fill="#0a1628" stroke="#00e5ff"/>
-          <text x="230" y="68" text-anchor="middle" fill="#8ecae6" font-size="12">носимые</text>
-          <path d="M290 62 H330" stroke="url(#g)" stroke-width="2"/>
-          <rect x="330" y="28" width="160" height="68" rx="10" fill="#0d1526" stroke="#ff00aa" stroke-width="1.5"/>
-          <text x="410" y="58" text-anchor="middle" fill="#e6f1ff" font-size="13" font-weight="700">ядро</text>
-          <text x="410" y="78" text-anchor="middle" fill="#7aa2c7" font-size="11">архив · контроль</text>
-          <path d="M490 62 H530" stroke="url(#g)" stroke-width="2"/>
-          <rect x="530" y="40" width="180" height="44" rx="8" fill="#0a1628" stroke="url(#g)"/>
-          <text x="620" y="68" text-anchor="middle" fill="#8ecae6" font-size="12">бриф · врач · команда</text>
+        <svg viewBox="0 0 720 168" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#ff00aa"/></linearGradient>
+            <marker id="m1" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#00e5ff"/></marker>
+            <marker id="m2" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#ff00aa"/></marker>
+          </defs>
+          <rect x="24" y="28" width="132" height="48" rx="10" fill="#0a1628" stroke="url(#g)"/>
+          <text x="90" y="52" text-anchor="middle" fill="#8ecae6" font-size="12">лабы</text>
+          <text x="90" y="68" text-anchor="middle" fill="#7aa2c7" font-size="10">анализы</text>
+          <rect x="24" y="92" width="132" height="48" rx="10" fill="#0a1628" stroke="#00e5ff"/>
+          <text x="90" y="116" text-anchor="middle" fill="#8ecae6" font-size="12">трекеры</text>
+          <text x="90" y="132" text-anchor="middle" fill="#7aa2c7" font-size="10">носимые</text>
+          <path d="M156 52 L188 52 Q200 52 208 60 L268 78" fill="none" stroke="#00e5ff" stroke-width="2.2" marker-end="url(#m1)"/>
+          <path d="M156 116 L188 116 Q200 116 208 108 L268 90" fill="none" stroke="#00e5ff" stroke-width="2.2" marker-end="url(#m1)"/>
+          <rect x="268" y="44" width="188" height="80" rx="12" fill="#0d1526" stroke="#ff00aa" stroke-width="2"/>
+          <text x="362" y="82" text-anchor="middle" fill="#e6f1ff" font-size="15" font-weight="700">ядро</text>
+          <text x="362" y="104" text-anchor="middle" fill="#7aa2c7" font-size="11">архив · контроль</text>
+          <path d="M456 84 L492 84" fill="none" stroke="url(#g)" stroke-width="2.5" marker-end="url(#m2)"/>
+          <rect x="492" y="52" width="204" height="64" rx="12" fill="#0a1628" stroke="url(#g)" stroke-width="1.5"/>
+          <text x="594" y="88" text-anchor="middle" fill="#e6f1ff" font-size="15" font-weight="700">бриф</text>
+          <text x="594" y="106" text-anchor="middle" fill="#8ecae6" font-size="10">кратко, по делу</text>
         </svg>
-        <figcaption>Контур: источники → ядро → артефакты для человека и команды.</figcaption>
+        <figcaption>Лаборатории и трекеры сходятся в ядро; из ядра — бриф.</figcaption>
       </figure>
     </section>
     <section id="s2">
       <h2><span></span>Где ломается картина</h2>
       <p>Обычная медицина почти не успевает собрать, увидеть и оценить целостную картину. На приёме у терапевта — порядка 15 минут: за это время нереально свести динамику с часов и кольца, анализы крови, полный генетический профиль и данные из журнала самочувствия.</p>
       <figure class="svg-wrap" aria-hidden="true">
-        <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 720 108" xmlns="http://www.w3.org/2000/svg">
           <text x="360" y="22" text-anchor="middle" fill="#7aa2c7" font-size="12">данные в разных приложениях — без общей картины</text>
-          <rect x="40" y="44" width="110" height="52" rx="10" fill="#0a1628" stroke="#00e5ff" opacity="0.9"/>
-          <text x="95" y="76" text-anchor="middle" fill="#c8d7ea" font-size="11">часы</text>
-          <rect x="190" y="44" width="110" height="52" rx="10" fill="#0a1628" stroke="#00e5ff" opacity="0.65"/>
-          <text x="245" y="76" text-anchor="middle" fill="#c8d7ea" font-size="11">лабы PDF</text>
-          <rect x="340" y="44" width="110" height="52" rx="10" fill="#0a1628" stroke="#00e5ff" opacity="0.65"/>
-          <text x="395" y="76" text-anchor="middle" fill="#c8d7ea" font-size="11">генотип</text>
-          <rect x="490" y="44" width="110" height="52" rx="10" fill="#0a1628" stroke="#00e5ff" opacity="0.65"/>
-          <text x="545" y="76" text-anchor="middle" fill="#c8d7ea" font-size="11">журнал</text>
-          <path d="M95 96 Q360 118 545 96" stroke="#ff00aa" stroke-width="1.5" fill="none" stroke-dasharray="6 5" opacity="0.7"/>
-          <text x="360" y="118" text-anchor="middle" fill="#ff8ad0" font-size="11">связь «в голове врача» обрывается после приёма</text>
+          <rect x="40" y="38" width="110" height="52" rx="10" fill="#0a1628" stroke="#00e5ff" opacity="0.9"/>
+          <text x="95" y="70" text-anchor="middle" fill="#c8d7ea" font-size="11">часы</text>
+          <rect x="190" y="38" width="110" height="52" rx="10" fill="#0a1628" stroke="#00e5ff" opacity="0.65"/>
+          <text x="245" y="70" text-anchor="middle" fill="#c8d7ea" font-size="11">лабы PDF</text>
+          <rect x="340" y="38" width="110" height="52" rx="10" fill="#0a1628" stroke="#00e5ff" opacity="0.65"/>
+          <text x="395" y="70" text-anchor="middle" fill="#c8d7ea" font-size="11">генотип</text>
+          <rect x="490" y="38" width="110" height="52" rx="10" fill="#0a1628" stroke="#00e5ff" opacity="0.65"/>
+          <text x="545" y="70" text-anchor="middle" fill="#c8d7ea" font-size="11">журнал</text>
         </svg>
         <figcaption>Фрагментированные источники и разрыв между визитами.</figcaption>
       </figure>
@@ -94,25 +95,33 @@
       <h2><span></span>Архитектура</h2>
       <p>Архитектура: пять входов — одно ядро — много выходов. На входе: анализы крови, данные с трекеров (в том числе Apple Watch и WHOOP), полный анализ генотипа, дневник питания и журнал самочувствия. В ядре: персонализированный поиск по топовому медицинскому архиву — PubMed, PharmCAT, нутригеномика, статистика и контроль качества. На выходе: утренний брифинг, генетический отчёт, подборка исследований, одностраничное резюме для врача и аккуратные формулировки для команды вокруг клиента — в том формате, который удобен вашей клинике, студии или клубу, без привязки к названию партнёра.</p>
       <figure class="svg-wrap" aria-hidden="true">
-        <svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="360" cy="100" r="52" fill="#0d1526" stroke="#ff00aa" stroke-width="2"/>
-          <text x="360" y="96" text-anchor="middle" fill="#e6f1ff" font-size="12" font-weight="700">ядро</text>
-          <text x="360" y="114" text-anchor="middle" fill="#7aa2c7" font-size="10">PubMed · PharmCAT · контроль</text>
-          <g fill="#0a1628" stroke="#00e5ff">
-            <rect x="330" y="18" width="60" height="34" rx="8"/><text x="360" y="40" text-anchor="middle" fill="#c8d7ea" font-size="10">лабы</text>
-            <rect x="500" y="70" width="60" height="34" rx="8"/><text x="530" y="92" text-anchor="middle" fill="#c8d7ea" font-size="10">носимые</text>
-            <rect x="430" y="150" width="60" height="34" rx="8"/><text x="460" y="172" text-anchor="middle" fill="#c8d7ea" font-size="10">ген</text>
-            <rect x="230" y="150" width="60" height="34" rx="8"/><text x="260" y="172" text-anchor="middle" fill="#c8d7ea" font-size="10">еда</text>
-            <rect x="160" y="70" width="60" height="34" rx="8"/><text x="190" y="92" text-anchor="middle" fill="#c8d7ea" font-size="10">журнал</text>
-          </g>
-          <path d="M360 52 L360 48" stroke="#00ffff" stroke-width="1.2"/>
-          <path d="M412 100 L468 87" stroke="#00ffff" stroke-width="1.2"/>
-          <path d="M388 146 L430 167" stroke="#00ffff" stroke-width="1.2"/>
-          <path d="M332 146 L290 167" stroke="#00ffff" stroke-width="1.2"/>
-          <path d="M308 100 L220 92" stroke="#00ffff" stroke-width="1.2"/>
-          <rect x="288" y="168" width="144" height="28" rx="8" fill="#111827" stroke="url(#g2)" stroke-width="1"/>
-          <defs><linearGradient id="g2" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#ff00aa"/></linearGradient></defs>
-          <text x="360" y="187" text-anchor="middle" fill="#8ecae6" font-size="10">утро · отчёты · врач · команда</text>
+        <svg viewBox="0 0 760 268" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g2" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#ff00aa"/></linearGradient>
+            <marker id="ma" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#00e5ff"/></marker>
+          </defs>
+          <circle cx="380" cy="118" r="72" fill="#0d1526" stroke="#ff00aa" stroke-width="2.5"/>
+          <text x="380" y="112" text-anchor="middle" fill="#e6f1ff" font-size="16" font-weight="700">ядро</text>
+          <text x="380" y="132" text-anchor="middle" fill="#7aa2c7" font-size="11">PubMed · PharmCAT</text>
+          <text x="380" y="148" text-anchor="middle" fill="#7aa2c7" font-size="11">контроль качества</text>
+          <rect x="332" y="14" width="96" height="40" rx="10" fill="#0a1628" stroke="#00e5ff"/>
+          <text x="380" y="40" text-anchor="middle" fill="#c8d7ea" font-size="12">лабы</text>
+          <rect x="612" y="98" width="96" height="40" rx="10" fill="#0a1628" stroke="#00e5ff"/>
+          <text x="660" y="124" text-anchor="middle" fill="#c8d7ea" font-size="12">носимые</text>
+          <rect x="52" y="98" width="96" height="40" rx="10" fill="#0a1628" stroke="#00e5ff"/>
+          <text x="100" y="124" text-anchor="middle" fill="#c8d7ea" font-size="12">журнал</text>
+          <rect x="200" y="198" width="96" height="40" rx="10" fill="#0a1628" stroke="#00e5ff"/>
+          <text x="248" y="224" text-anchor="middle" fill="#c8d7ea" font-size="12">еда</text>
+          <rect x="464" y="198" width="96" height="40" rx="10" fill="#0a1628" stroke="#00e5ff"/>
+          <text x="512" y="224" text-anchor="middle" fill="#c8d7ea" font-size="12">ген</text>
+          <path d="M380 54 L380 46" fill="none" stroke="#00ffff" stroke-width="2" marker-end="url(#ma)"/>
+          <path d="M612 118 L452 118" fill="none" stroke="#00ffff" stroke-width="2" marker-end="url(#ma)"/>
+          <path d="M148 118 L308 118" fill="none" stroke="#00ffff" stroke-width="2" marker-end="url(#ma)"/>
+          <path d="M248 198 L328 168" fill="none" stroke="#00ffff" stroke-width="2" marker-end="url(#ma)"/>
+          <path d="M512 198 L432 168" fill="none" stroke="#00ffff" stroke-width="2" marker-end="url(#ma)"/>
+          <path d="M380 190 L380 228" fill="none" stroke="#00ffff" stroke-width="2" marker-end="url(#ma)"/>
+          <rect x="210" y="228" width="340" height="36" rx="10" fill="#111827" stroke="url(#g2)" stroke-width="1.5"/>
+          <text x="380" y="251" text-anchor="middle" fill="#8ecae6" font-size="12">утро · отчёты · врач · команда</text>
         </svg>
         <figcaption>Пять входов сходятся в ядро; из ядра — несколько форматов вывода.</figcaption>
       </figure>
@@ -141,30 +150,49 @@
       <h2><span></span>Утро</h2>
       <p>Ежедневная утренняя аналитика. Брифинг по SMS или email — конкретный, а не общий: вчерашние показатели тела и тренировка, рекомендации по активности с учётом погоды. Контекст — более двух десятков метрик с носимых устройств, особенности персональной генетики и лабораторных маркеров. Цель — ваши данные и ваши варианты, а не усреднённые лозунги в духе «пейте больше воды и лучше спите».</p>
       <figure class="svg-wrap" aria-hidden="true">
-        <svg viewBox="0 0 720 100" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="120" cy="50" r="28" fill="#0a1628" stroke="#00e5ff"/><text x="120" y="55" text-anchor="middle" fill="#c8d7ea" font-size="11">ночь</text>
-          <path d="M148 50 H220" stroke="#00ffff" stroke-width="2"/>
-          <rect x="220" y="22" width="140" height="56" rx="12" fill="#0d1526" stroke="#ff00aa"/><text x="290" y="48" text-anchor="middle" fill="#e6f1ff" font-size="12" font-weight="700">брифинг</text><text x="290" y="66" text-anchor="middle" fill="#8ecae6" font-size="10">метрики · погода · план дня</text>
-          <path d="M360 50 H432" stroke="#00ffff" stroke-width="2"/>
-          <rect x="432" y="22" width="160" height="56" rx="12" fill="#0a1628" stroke="#00e5ff"/><text x="512" y="48" text-anchor="middle" fill="#e6f1ff" font-size="12" font-weight="700">решения</text><text x="512" y="66" text-anchor="middle" fill="#8ecae6" font-size="10">ваши варианты, не шаблон</text>
+        <svg viewBox="0 0 760 118" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="mb" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#00e5ff"/></marker>
+          </defs>
+          <rect x="24" y="18" width="200" height="82" rx="14" fill="#0a1628" stroke="#00e5ff" stroke-width="1.5"/>
+          <text x="124" y="52" text-anchor="middle" fill="#e6f1ff" font-size="13" font-weight="700">данные активности</text>
+          <text x="124" y="74" text-anchor="middle" fill="#8ecae6" font-size="11">трекеры · нагрузка</text>
+          <text x="124" y="92" text-anchor="middle" fill="#7aa2c7" font-size="10">лабы · контекст дня</text>
+          <path d="M224 59 H258" fill="none" stroke="#00ffff" stroke-width="2.5" marker-end="url(#mb)"/>
+          <rect x="258" y="14" width="220" height="90" rx="14" fill="#0d1526" stroke="#ff00aa" stroke-width="1.5"/>
+          <text x="368" y="44" text-anchor="middle" fill="#e6f1ff" font-size="14" font-weight="700">брифинг</text>
+          <text x="368" y="66" text-anchor="middle" fill="#8ecae6" font-size="11">метрики · погода · план дня</text>
+          <text x="368" y="86" text-anchor="middle" fill="#7aa2c7" font-size="10">один короткий фокус на утро</text>
+          <path d="M478 59 H512" fill="none" stroke="#00ffff" stroke-width="2.5" marker-end="url(#mb)"/>
+          <rect x="512" y="14" width="224" height="90" rx="14" fill="#0a1628" stroke="#00e5ff" stroke-width="1.5"/>
+          <text x="624" y="48" text-anchor="middle" fill="#e6f1ff" font-size="14" font-weight="700">решения</text>
+          <text x="624" y="72" text-anchor="middle" fill="#8ecae6" font-size="11">ваши взаимосвязи,</text>
+          <text x="624" y="90" text-anchor="middle" fill="#8ecae6" font-size="11">а не шаблон</text>
         </svg>
-        <figcaption>Утро: от сна и сырых метрик — к одному короткому решению.</figcaption>
+        <figcaption>От сырых сигналов активности — к брифингу и к вашим взаимосвязям.</figcaption>
       </figure>
     </section>
     <section id="s7">
       <h2><span></span>Доказательность</h2>
       <p>Доказательная часть на реальных цифрах. Подтверждённые изменения в генотипе и в анализах крови с опорой на топовые статьи исследований с уровнем доказательности Grade A. Пример для визита к врачу: APOE ε3/ε4 — чувствительность к ЛПНП и протокол по жирам; по стандартам CPIC отмечены пути варфарина и статинов. После изменения протокола питания — около 17% снижения ЛПНП на контрольном анализе. Клинические решения по-прежнему принимает врач.</p>
       <figure class="svg-wrap" aria-hidden="true">
-        <svg viewBox="0 0 720 120" xmlns="http://www.w3.org/2000/svg">
-          <text x="40" y="28" fill="#7aa2c7" font-size="11">грейд силы утверждений</text>
-          <rect x="40" y="40" width="60" height="70" rx="8" fill="#14532d" stroke="#4ade80"/><text x="70" y="78" text-anchor="middle" fill="#e6f1ff" font-size="14" font-weight="800">A</text><text x="70" y="98" text-anchor="middle" fill="#bbf7d0" font-size="9">р guidelines</text>
-          <rect x="120" y="52" width="60" height="58" rx="8" fill="#1e3a5f" stroke="#38bdf8"/><text x="150" y="88" text-anchor="middle" fill="#e6f1ff" font-size="14" font-weight="800">B</text>
-          <rect x="200" y="60" width="60" height="50" rx="8" fill="#3f3f46" stroke="#a1a1aa"/><text x="230" y="92" text-anchor="middle" fill="#e6f1ff" font-size="14" font-weight="800">C</text>
-          <rect x="320" y="40" width="360" height="70" rx="10" fill="#0a1628" stroke="#ff00aa"/>
-          <text x="500" y="68" text-anchor="middle" fill="#e6f1ff" font-size="12" font-weight="700">пример: ЛПНП после смены питания</text>
-          <rect x="340" y="78" width="200" height="22" rx="6" fill="#1e293b"/>
-          <rect x="340" y="78" width="34" height="22" rx="6" fill="#00e5ff" opacity="0.85"/>
-          <text x="500" y="94" text-anchor="middle" fill="#8ecae6" font-size="11">≈ −17% на контроле (иллюстрация)</text>
+        <svg viewBox="0 0 760 132" xmlns="http://www.w3.org/2000/svg">
+          <text x="36" y="26" fill="#7aa2c7" font-size="12">грейд силы утверждений</text>
+          <rect x="36" y="36" width="76" height="86" rx="10" fill="#14532d" stroke="#4ade80"/>
+          <text x="74" y="72" text-anchor="middle" fill="#e6f1ff" font-size="18" font-weight="800">A</text>
+          <text x="74" y="92" text-anchor="middle" fill="#bbf7d0" font-size="10">мета-анализы</text>
+          <text x="74" y="108" text-anchor="middle" fill="#bbf7d0" font-size="10">и guidelines</text>
+          <rect x="128" y="50" width="68" height="72" rx="10" fill="#1e3a5f" stroke="#38bdf8"/>
+          <text x="162" y="92" text-anchor="middle" fill="#e6f1ff" font-size="18" font-weight="800">B</text>
+          <text x="162" y="112" text-anchor="middle" fill="#bae6fd" font-size="10">одна сильная</text>
+          <rect x="212" y="58" width="68" height="64" rx="10" fill="#3f3f46" stroke="#a1a1aa"/>
+          <text x="246" y="98" text-anchor="middle" fill="#e6f1ff" font-size="18" font-weight="800">C</text>
+          <text x="246" y="114" text-anchor="middle" fill="#d4d4d8" font-size="10">ограниченно</text>
+          <rect x="300" y="36" width="424" height="86" rx="12" fill="#0a1628" stroke="#ff00aa" stroke-width="1.5"/>
+          <text x="512" y="66" text-anchor="middle" fill="#e6f1ff" font-size="13" font-weight="700">пример: ЛПНП после смены питания</text>
+          <rect x="324" y="82" width="376" height="28" rx="8" fill="#1e293b"/>
+          <rect x="324" y="82" width="72" height="28" rx="8" fill="#00e5ff" opacity="0.88"/>
+          <text x="512" y="102" text-anchor="middle" fill="#c8d7ea" font-size="12">≈ −17% на контроле (иллюстрация)</text>
         </svg>
         <figcaption>Грейды A/B/C и отдельно — числовой пример для обсуждения с врачом.</figcaption>
       </figure>
