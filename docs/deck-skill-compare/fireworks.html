@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Copilot — Fireworks Tech Graph style</title>
+  <style>
+    :root{--bg:#070b10;--panel:#0d1117;--line:#00e5ff;--line2:#ff00aa;--text:#e6f1ff;--muted:#7aa2c7;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:radial-gradient(1200px 600px at 10% -10%,#0f1a2a,var(--bg));color:var(--text);line-height:1.55;}
+    header{padding:clamp(28px,6vw,56px) clamp(18px,4vw,40px) 20px;border-bottom:1px solid #152238;}
+    h1{font-size:clamp(1.35rem,3vw,2rem);letter-spacing:-0.02em;}
+    .tag{font-size:0.75rem;color:var(--muted);margin-top:8px;text-transform:uppercase;letter-spacing:0.12em;}
+    main{max-width:900px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(16px,3vw,28px) 80px;}
+    section{margin-bottom:clamp(36px,6vw,56px);padding:22px;border:1px solid #1b2a44;border-radius:12px;background:linear-gradient(145deg,rgba(13,17,23,0.95),rgba(8,12,20,0.9));box-shadow:0 0 0 1px rgba(0,229,255,0.06);}
+    h2{font-size:1.05rem;color:var(--line);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+    h2 span{display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--line2);box-shadow:0 0 12px var(--line2);}
+    p{color:#c8d7ea;margin-bottom:10px;font-size:0.92rem;}
+    .svg-wrap{margin:16px 0;border-radius:8px;border:1px dashed #234;overflow:hidden;background:#050810;}
+    svg{display:block;width:100%;height:auto;}
+    a.back{display:inline-block;margin:16px 0;color:var(--line);}
+  </style>
+</head>
+<body>
+  <header>
+    <a class="back" href="index.html?v=1">← К таблице сравнения</a>
+    <h1>Health Copilot</h1>
+    <p class="tag">Стиль: fireworks-tech-graph · SVG pipeline / tech graph</p>
+  </header>
+  <main>
+    <section id="s1">
+      <h2><span></span>Ввод</h2>
+      <p>Health Copilot — персональная операционная система здоровья: лабораторные анализы, носимые устройства, генетика, питание, лекарства и добавки, дневник самочувствия — в одном взаимосвязанном контуре. Подходит и частному клиенту, и команде вокруг него в клинике, студии wellness или спортклубе. Система сверяет данные человека с опорой на научные архивы ведущих медицинских исследований — чтобы специалисту было проще опираться на факты, а не на разрозненные выгрузки.</p>
+      <div class="svg-wrap" aria-hidden="true">
+        <svg viewBox="0 0 720 120" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#ff00aa"/></linearGradient></defs>
+          <rect x="10" y="40" width="120" height="44" rx="8" fill="#0a1628" stroke="url(#g)"/>
+          <text x="70" y="68" text-anchor="middle" fill="#8ecae6" font-size="12">лабы</text>
+          <path d="M130 62 H170" stroke="url(#g)" stroke-width="2"/>
+          <rect x="170" y="40" width="120" height="44" rx="8" fill="#0a1628" stroke="#00e5ff"/>
+          <text x="230" y="68" text-anchor="middle" fill="#8ecae6" font-size="12">носимые</text>
+          <path d="M290 62 H330" stroke="url(#g)" stroke-width="2"/>
+          <rect x="330" y="28" width="160" height="68" rx="10" fill="#0d1526" stroke="#ff00aa" stroke-width="1.5"/>
+          <text x="410" y="58" text-anchor="middle" fill="#e6f1ff" font-size="13" font-weight="700">ЯДРО</text>
+          <text x="410" y="78" text-anchor="middle" fill="#7aa2c7" font-size="11">QC + архив</text>
+          <path d="M490 62 H530" stroke="url(#g)" stroke-width="2"/>
+          <rect x="530" y="40" width="180" height="44" rx="8" fill="#0a1628" stroke="url(#g)"/>
+          <text x="620" y="68" text-anchor="middle" fill="#8ecae6" font-size="12">бриф · врач · команда</text>
+        </svg>
+      </div>
+    </section>
+    <section id="s2"><h2><span></span>Где ломается картина</h2><p>Обычная медицина почти не успевает собрать, увидеть и оценить целостную картину. На приёме у терапевта — порядка 15 минут: за это время нереально свести динамику с часов и кольца, анализы крови, полный генетический профиль и данные из журнала самочувствия.</p></section>
+    <section id="s3"><h2><span></span>Клиника · wellness · спортклуб</h2><p>В студии здоровья или спортклубе похожая щель: врач или тренер видят сессию или визит, но не держат в голове сон, питание, лабораторный фон и протокол добавок между встречами. Приложения к носимым устройствам дают шаблонные подсказки; универсальные чат-боты не видят полный файл и чаще ошибаются в клинических деталях. В итоге метрики копятся в разных сервисах, а совокупный смысл теряется.</p></section>
+    <section id="s4"><h2><span></span>Архитектура</h2><p>Архитектура: пять входов — одно ядро — много выходов. На входе: анализы крови, данные с трекеров (в том числе Apple Watch и WHOOP), полный анализ генотипа, дневник питания и журнал самочувствия. В ядре: персонализированный поиск по топовому медицинскому архиву — PubMed, PharmCAT, нутригеномика, статистика и контроль качества. На выходе: утренний брифинг, генетический отчёт, подборка исследований, одностраничное резюме для врача и аккуратные формулировки для команды вокруг клиента — в том формате, который удобен вашей клинике, студии или клубу, без привязки к названию партнёра.</p></section>
+    <section id="s5"><h2><span></span>Генетический конвейер</h2><p>Генетический конвейер. От сырого генотипирования — к четырём независимым экспертным панелям: контроль качества, отобранные SNP, ClinVar, PharmCAT по 164 препаратам, нутригеномика. Затем четыре независимых ИИ-агента-персоны: клиническая генетика, фармакогеномика, нутригеномика и биостатистика — для разбора конфликтов и красных флагов при противоречиях, слабой валидации или недостаточной глубине статей. Отчёты — в удобном канале (например Telegram) и в Markdown; при необходимости — углублённый разбор вариантов для обсуждения со специалистом.</p></section>
+    <section id="s6"><h2><span></span>Утро</h2><p>Ежедневная утренняя аналитика. Брифинг по SMS или email — конкретный, а не общий: вчерашние показатели тела и тренировка, рекомендации по активности с учётом погоды. Контекст — более двух десятков метрик с носимых устройств, особенности персональной генетики и лабораторных маркеров. Цель — ваши данные и ваши варианты, а не усреднённые лозунги в духе «пейте больше воды и лучше спите».</p></section>
+    <section id="s7"><h2><span></span>Доказательность</h2><p>Доказательная часть на реальных цифрах. Подтверждённые изменения в генотипе и в анализах крови с опорой на топовые статьи исследований с уровнем доказательности Grade A. Пример для визита к врачу: APOE ε3/ε4 — чувствительность к ЛПНП и протокол по жирам; по стандартам CPIC отмечены пути варфарина и статинов. После изменения протокола питания — около 17% снижения ЛПНП на контрольном анализе. Клинические решения по-прежнему принимает врач.</p></section>
+    <section id="s8"><h2><span></span>Доверие</h2><p>Доверие и прозрачность. У каждого тезиса — грейд доказательности A, B или C и ссылка на источник. Чтобы снизить риск «галлюцинаций» ИИ: детерминированная логика на Python; ИИ отвечает за интерпретацию, которую можно проверить. Политика 0% галлюцинаций: если опоры нет — высказывание отбрасывается или помечается как неверифицированное. Конфиденциальность: обработка локально на клиентском устройстве.</p></section>
+    <section id="s9"><h2><span></span>Партнёры</h2><p>Для клиник, студий wellness и спортклубов. Частные пользователи: полный онбординг и ежедневные персональные рекомендации — формат и условия обсуждаются индивидуально. Партнёры B2B: клиники здоровья и красоты, медицинские центры, студии восстановления и спортклубы — одностраничное резюме для врача, согласованные артефакты для команды, лицензирование под масштаб сети или одной точки. География и тарифы — по запросу, без привязки к конкретному городу или бренду в материалах для ваших клиентов. Контакты: Telegram @BKproduct, почта boris.korol@ai-automation.studio.</p></section>
+  </main>
+</body>
+</html>

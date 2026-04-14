@@ -38,10 +38,16 @@
 
 **https://bkproduct.github.io/hc-presentations/health-copilot-ru/?v=2**
 
+## Сравнение скиллов (один нарратив, четыре HTML)
+
+Таблица + четыре варианта оформления по `narration_ru.txt`:
+
+**https://bkproduct.github.io/hc-presentations/deck-skill-compare/?v=1**
+
 ## Репозиторий с кодом
 
 https://github.com/BKproduct/hc-presentations
 
 Основной проект Health Copilot остаётся приватным в `BKproduct/health-copilot`; здесь только то, что можно показать публично.
 
-*Обновлено: 2026-03-22*
+*Обновлено: 2026-04-14*
