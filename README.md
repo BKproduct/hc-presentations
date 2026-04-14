@@ -38,11 +38,11 @@
 
 **https://bkproduct.github.io/hc-presentations/health-copilot-ru/?v=2**
 
-## Сравнение скиллов (один нарратив, четыре HTML)
+## Сравнение вариантов оформления (один нарратив, четыре HTML)
 
-Таблица + четыре варианта оформления по `narration_ru.txt`:
+Таблица и четыре визуальных варианта одной истории о продукте (без внутренних техно-ярлыков в клиентском тексте):
 
-**https://bkproduct.github.io/hc-presentations/deck-skill-compare/?v=2**
+**https://bkproduct.github.io/hc-presentations/deck-skill-compare/?v=3**
 
 ## Репозиторий с кодом
 

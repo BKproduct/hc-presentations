@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Сравнение презентаций по скиллам — Health Copilot</title>
+  <title>Варианты оформления — Health Copilot</title>
   <style>
     :root { --bg:#0b0f14; --card:#121922; --text:#e8eef7; --muted:#8fa3b8; --accent:#22d3ee; --border:#1e293b; }
     *{box-sizing:border-box;margin:0;padding:0;}
@@ -21,49 +21,48 @@
   </style>
 </head>
 <body>
-  <h1>Сравнение HTML-презентаций по одному нарративу</h1>
-  <p class="sub">Источник текста: <code>PROJECTS/HealthCopilot/remotion-deck-explainer/scripts/narration_ru.txt</code>. Четыре варианта оформления — открывайте ссылки в новых вкладках и сравнивайте наглядность. Установленные репозитории скиллов: см. колонку «Скилл / связка».</p>
+  <h1>Один нарратив — четыре варианта оформления</h1>
+  <p class="sub">Один и тот же сюжет о продукте; отличается только подача и визуальный ритм. Откройте ссылки в новых вкладках и сравните, что удобнее для вашей аудитории.</p>
 
   <table>
     <thead>
       <tr>
         <th>Вариант</th>
         <th>Открыть</th>
-        <th>Репозиторий (GitHub)</th>
-        <th>Скилл / связка (как делали презентацию)</th>
+        <th>Визуальный характер</th>
+        <th>Заметки для команды</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><strong>Fireworks</strong><br><span class="pill">схемы · тёмный неон</span></td>
-        <td><a href="fireworks.html?v=2">fireworks.html</a></td>
-        <td><a href="https://github.com/yizhiyanhua-ai/fireworks-tech-graph">yizhiyanhua-ai/fireworks-tech-graph</a></td>
-        <td>Наглядные блок-схемы по идее скилла; в клиентском тексте без внутренних ярлыков инструмента. Локально: <code>.agents/skills/fireworks-tech-graph</code>.</td>
+        <td><strong>Схемы · тёмный неон</strong><br><span class="pill">рекомендуем для клиентов</span></td>
+        <td><a href="fireworks.html?v=3">Открыть</a></td>
+        <td>Крупные блок-схемы, чёткие стрелки, тёмный фон с бирюзовой и магентой.</td>
+        <td>Основной клиентский вариант: много inline-схем, без отсылок к внутренней разработке.</td>
       </tr>
       <tr>
-        <td><strong>Excalidraw Diagram</strong><br><span class="pill">sketch UI</span></td>
-        <td><a href="excalidraw.html?v=1">excalidraw.html</a></td>
-        <td><a href="https://github.com/coleam00/excalidraw-diagram-skill">coleam00/excalidraw-diagram-skill</a></td>
-        <td>Эстетика «ручного» Excalidraw (шрифт, обводки, лёгкий шум). Локально: <code>.agents/skills/excalidraw-diagram</code>. Рендер Playwright из скилла для этой страницы не запускался.</td>
+        <td><strong>Эскиз «на доске»</strong><br><span class="pill">светлый · рукописный шрифт</span></td>
+        <td><a href="excalidraw.html?v=3">Открыть</a></td>
+        <td>Линии и блоки как на белой доске; неформальный тон.</td>
+        <td>Подходит, если важна «человеческая» подача без технологического глянца.</td>
       </tr>
       <tr>
-        <td><strong>Visual Explainer</strong><br><span class="pill">Mermaid + TOC</span></td>
-        <td><a href="visual-explainer.html?v=1">visual-explainer.html</a></td>
-        <td><a href="https://github.com/nicobailon/visual-explainer">nicobailon/visual-explainer</a></td>
-        <td>Паттерн README: самодостаточный HTML, Mermaid, липкое оглавление. Локально: <code>.agents/skills/visual-explainer</code> (плагин).</td>
+        <td><strong>Длинная прокрутка + схемы</strong><br><span class="pill">липкая шапка</span></td>
+        <td><a href="visual-explainer.html?v=3">Открыть</a></td>
+        <td>Тёмный интерфейс, навигация по разделам сверху, встроенные диаграммы.</td>
+        <td>Удобно, когда читатель перескакивает между разделами.</td>
       </tr>
       <tr>
-        <td><strong>Awesome (curated)</strong><br><span class="pill">редакционный</span></td>
-        <td><a href="awesome-curated.html?v=1">awesome-curated.html</a></td>
-        <td><a href="https://github.com/travisvn/awesome-claude-skills">travisvn/awesome-claude-skills</a></td>
-        <td>Список — не генератор; оформление как «каталог»: <strong>frontend-design</strong> + палитра темы <strong>theme-factory · Tech Innovation</strong> из уже установленных скиллов в Boris OS.</td>
+        <td><strong>Редакционный тёмный</strong><br><span class="pill">карточки · герой-блок</span></td>
+        <td><a href="awesome-curated.html?v=3">Открыть</a></td>
+        <td>Крупный заголовок, сетка карточек, холодная палитра с синим и цианом.</td>
+        <td>Ближе к лендингу; меньше мелких схем, больше типографики.</td>
       </tr>
     </tbody>
   </table>
 
   <footer>
-    <p><strong>Last updated:</strong> 2026-04-14 · Публичный корень: <a href="https://bkproduct.github.io/hc-presentations/deck-skill-compare/?v=2">GitHub Pages</a></p>
-    <p>Скиллы установлены в <code>/Users/bk/Work/.agents/skills/</code> и продублированы симлинками в <code>/Users/bk/Work/.claude/skills/</code>.</p>
+    <p><strong>Обновлено:</strong> 2026-04-14 · <a href="https://bkproduct.github.io/hc-presentations/deck-skill-compare/?v=3">Публичная страница</a></p>
   </footer>
 </body>
 </html>
