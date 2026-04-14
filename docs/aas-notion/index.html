@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AI Automation Studio — Notion-styled</title>
+<meta name="description" content="AI-Powered Automation for Professional Services Firms — Notion-styled clone."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg-warm:#f6f5f4;
+    --ink:rgba(0,0,0,0.95);
+    --ink-soft:#615d59;
+    --ink-mute:#a39e98;
+    --dark:#31302e;
+    --blue:#0075de;
+    --blue-active:#005bab;
+    --blue-focus:#097fe8;
+    --badge-bg:#f2f9ff;
+    --navy:#213183;
+    --teal:#2a9d99;
+    --green:#1aae39;
+    --orange:#dd5b00;
+    --pink:#ff64c8;
+    --purple:#391c57;
+    --brown:#523410;
+    --border:rgba(0,0,0,0.1);
+    --border-soft:rgba(0,0,0,0.06);
+    --shadow-card:rgba(0,0,0,0.04) 0px 4px 18px,
+                  rgba(0,0,0,0.027) 0px 2.025px 7.84688px,
+                  rgba(0,0,0,0.02) 0px 0.8px 2.925px,
+                  rgba(0,0,0,0.01) 0px 0.175px 1.04062px;
+    --shadow-deep:rgba(0,0,0,0.01) 0px 1px 3px,
+                  rgba(0,0,0,0.02) 0px 3px 7px,
+                  rgba(0,0,0,0.02) 0px 7px 15px,
+                  rgba(0,0,0,0.04) 0px 14px 28px,
+                  rgba(0,0,0,0.05) 0px 23px 52px;
+    --font:"Inter","NotionInter",-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;font-feature-settings:"lnum","locl";}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:#d9ecff;color:var(--ink)}
+
+  /* ---------- NAV ---------- */
+  .nav{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(8px);-webkit-backdrop-filter:saturate(160%) blur(8px);background:rgba(255,255,255,.85)}
+  .nav-inner{max-width:1200px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .brand{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:600;letter-spacing:-.4px}
+  .brand-mark{width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#0075de,#213183);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;box-shadow:var(--shadow-card)}
+  .nav-links{display:flex;align-items:center;gap:22px}
+  .nav-links a{font-size:15px;font-weight:500;color:var(--ink);transition:color .2s ease}
+  .nav-links a:hover{color:var(--blue)}
+  @media (max-width:760px){.nav-links a:not(.btn){display:none}}
+
+  /* ---------- BUTTONS ---------- */
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:4px;font-weight:600;font-size:15px;border:1px solid transparent;cursor:pointer;transition:transform .12s ease,background .2s ease,box-shadow .2s ease,color .2s ease;white-space:nowrap}
+  .btn.primary{background:var(--blue);color:#fff}
+  .btn.primary:hover{background:var(--blue-active)}
+  .btn.primary:active{transform:scale(.96)}
+  .btn.secondary{background:rgba(0,0,0,.05);color:var(--ink)}
+  .btn.secondary:hover{background:rgba(0,0,0,.08)}
+  .btn.ghost{background:transparent;color:var(--ink)}
+  .btn.ghost:hover{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}
+  .btn .arrow{transition:transform .2s ease}
+  .btn:hover .arrow{transform:translateX(2px)}
+
+  /* ---------- BADGES ---------- */
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:var(--badge-bg);color:var(--blue-focus);font-size:12px;font-weight:600;letter-spacing:.125px}
+  .pill.dot::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue-focus);display:inline-block}
+  .pill.teal{background:#e8f6f5;color:#117a77}
+  .pill.orange{background:#fff0e3;color:#b44700}
+  .pill.pink{background:#ffe7f6;color:#b03b94}
+  .pill.purple{background:#ece7f6;color:#5b3e8f}
+  .pill.brown{background:#f5ede1;color:var(--brown)}
+
+  /* ---------- LAYOUT ---------- */
+  .wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+  section{padding:88px 0}
+  .warm{background:var(--bg-warm)}
+  .dark{background:var(--dark);color:#f6f5f4}
+  .dark .muted,.dark p{color:#c9c6c1}
+  .dark .h2,.dark h2{color:#fff}
+  .dark .pill{background:rgba(98,174,240,.15);color:#9cc9f5}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:110px 0 60px;position:relative;overflow:hidden}
+  .hero::before,.hero::after{content:"";position:absolute;pointer-events:none;z-index:0}
+  .hero::before{width:620px;height:620px;left:-240px;top:-120px;background:radial-gradient(closest-side,#fff0e3 0%,transparent 70%);filter:blur(10px)}
+  .hero::after{width:520px;height:520px;right:-200px;top:40px;background:radial-gradient(closest-side,#e8f6f5 0%,transparent 70%);filter:blur(10px)}
+  .hero-inner{position:relative;z-index:1;max-width:980px;margin:0 auto;text-align:center}
+  .hero .pill{margin-bottom:22px}
+  h1.display{font-size:clamp(40px,7vw,72px);line-height:1;letter-spacing:-2.125px;font-weight:700;color:var(--ink)}
+  h1.display em{font-style:normal;background:linear-gradient(120deg,#0075de 0%,#213183 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lead{margin:22px auto 0;max-width:760px;font-size:20px;line-height:1.45;font-weight:500;color:var(--ink-soft);letter-spacing:-.125px}
+  .hero .ctas{display:flex;justify-content:center;gap:12px;margin-top:32px;flex-wrap:wrap}
+  .hero .fine{margin-top:18px;color:var(--ink-mute);font-size:13px}
+
+  /* Decorative blocks (Notion character-feel) */
+  .deco{display:flex;justify-content:center;gap:14px;margin-top:48px;flex-wrap:wrap}
+  .deco .block{width:84px;height:84px;border-radius:16px;border:1px solid var(--border);background:#fff;box-shadow:var(--shadow-card);display:flex;align-items:center;justify-content:center;font-size:34px;transition:transform .3s ease;animation:floaty 8s ease-in-out infinite}
+  .deco .block:nth-child(1){animation-delay:.0s;background:linear-gradient(135deg,#fff 0%,#fff0e3 100%)}
+  .deco .block:nth-child(2){animation-delay:.8s;background:linear-gradient(135deg,#fff 0%,#e8f6f5 100%)}
+  .deco .block:nth-child(3){animation-delay:1.6s;background:linear-gradient(135deg,#fff 0%,#f2f9ff 100%)}
+  .deco .block:nth-child(4){animation-delay:2.4s;background:linear-gradient(135deg,#fff 0%,#ffe7f6 100%)}
+  .deco .block:nth-child(5){animation-delay:3.2s;background:linear-gradient(135deg,#fff 0%,#ece7f6 100%)}
+  .deco .block:hover{transform:translateY(-6px) rotate(-2deg)}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+  /* Trust row */
+  .trust{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#fff;padding:22px 0}
+  .trust-inner{display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap;color:var(--ink-soft);font-size:13px;font-weight:500}
+  .trust .chip{display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border-radius:8px;border:1px solid var(--border);background:#fff}
+  .trust .chip span{width:8px;height:8px;border-radius:50%;display:inline-block}
+
+  /* Section head */
+  .section-head{text-align:center;max-width:780px;margin:0 auto 56px}
+  .section-head .eyebrow{margin-bottom:14px}
+  .section-head h2{font-size:clamp(32px,4.4vw,48px);line-height:1.02;letter-spacing:-1.5px;font-weight:700;color:var(--ink)}
+  .section-head p{margin-top:18px;font-size:18px;color:var(--ink-soft);line-height:1.55}
+
+  /* Card grid */
+  .grid{display:grid;gap:20px;grid-template-columns:repeat(3,1fr)}
+  @media (max-width:960px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:600px){.grid{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:28px 26px;box-shadow:var(--shadow-card);transition:transform .25s ease,box-shadow .25s ease}
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-deep)}
+  .warm .card{background:#fff}
+  .dark .card{background:#3a3937;border-color:rgba(255,255,255,.08);color:#f6f5f4;box-shadow:none}
+  .card .ico{width:42px;height:42px;border-radius:10px;background:var(--bg-warm);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:18px;border:1px solid var(--border)}
+  .card.blue .ico{background:var(--badge-bg);color:var(--blue);border-color:#dceaff}
+  .card.teal .ico{background:#e8f6f5;color:#117a77;border-color:#c5e6e4}
+  .card.orange .ico{background:#fff0e3;color:#b44700;border-color:#f6ddc3}
+  .card.pink .ico{background:#ffe7f6;color:#b03b94;border-color:#f5cde8}
+  .card.purple .ico{background:#ece7f6;color:#5b3e8f;border-color:#d8cceb}
+  .card.brown .ico{background:#f5ede1;color:var(--brown);border-color:#e4d6bd}
+  .card h3{font-size:22px;line-height:1.22;letter-spacing:-.25px;font-weight:700;margin-bottom:8px}
+  .card p{font-size:15px;line-height:1.52;color:var(--ink-soft)}
+  .dark .card p{color:#cbc8c3}
+
+  /* Before/after */
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:40px}
+  @media (max-width:760px){.ba{grid-template-columns:1fr}}
+  .ba .col{background:#fff;border:1px solid var(--border);border-radius:16px;padding:34px;box-shadow:var(--shadow-card);position:relative;overflow:hidden}
+  .ba .col.after::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--blue)}
+  .ba .tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-mute);margin-bottom:10px}
+  .ba .col.after .tag{color:var(--blue)}
+  .ba .big{font-size:54px;font-weight:700;letter-spacing:-1.5px;line-height:1.02;color:var(--ink);margin:6px 0 10px}
+  .ba .col.after .big{color:var(--blue)}
+  .ba .label{color:var(--ink-soft);font-size:15px;margin-bottom:18px}
+  .ba ul{list-style:none;margin-top:12px}
+  .ba li{padding:12px 0;border-top:1px solid var(--border-soft);font-size:15px;color:var(--ink);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+  .ba li:first-child{border-top:0}
+  .ba li::before{content:"›";color:var(--ink-mute);font-weight:700;flex-shrink:0}
+  .ba .col.after li::before{content:"✓";color:var(--blue)}
+
+  /* Stat strip */
+  .stats{display:grid;gap:12px;grid-template-columns:repeat(3,1fr);margin-top:44px}
+  .stats.four{grid-template-columns:repeat(4,1fr)}
+  @media (max-width:900px){.stats,.stats.four{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:500px){.stats,.stats.four{grid-template-columns:1fr}}
+  .metric{background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px;box-shadow:var(--shadow-card)}
+  .warm .metric{background:#fff}
+  .dark .metric{background:#3a3937;border-color:rgba(255,255,255,.08);box-shadow:none}
+  .metric .num{font-size:40px;font-weight:700;letter-spacing:-1.25px;line-height:1.05;color:var(--ink)}
+  .dark .metric .num{color:#fff}
+  .metric .lbl{margin-top:8px;font-size:15px;font-weight:600;color:var(--ink)}
+  .dark .metric .lbl{color:#fff}
+  .metric .desc{margin-top:6px;font-size:14px;color:var(--ink-soft);line-height:1.45}
+  .dark .metric .desc{color:#c9c6c1}
+  .metric .num.accent{color:var(--blue)}
+
+  /* Two col feature */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media (max-width:800px){.two{grid-template-columns:1fr}}
+  .two .col{padding:40px;border-radius:16px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-card)}
+  .warm .two .col{background:#fff}
+  .two h3{font-size:26px;letter-spacing:-.625px;font-weight:700;line-height:1.23;margin-bottom:14px}
+  .two p{font-size:16px;line-height:1.55;color:var(--ink-soft)}
+  .two strong{color:var(--ink);font-weight:600}
+
+  /* CTA band */
+  .cta-band{background:linear-gradient(135deg,#fbfaf8 0%,#f2f9ff 60%,#fff0e3 120%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:120px 0;text-align:center;position:relative;overflow:hidden}
+  .cta-band::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 20% 40%,rgba(0,117,222,.06) 0,transparent 40%),radial-gradient(circle at 80% 60%,rgba(221,91,0,.05) 0,transparent 40%);pointer-events:none}
+  .cta-band .inner{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:0 28px}
+  .cta-band h2{font-size:clamp(40px,5.6vw,64px);line-height:1;letter-spacing:-2px;font-weight:700;margin:14px 0 14px}
+  .cta-band .checklist{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin:22px 0 30px;color:var(--ink-soft);font-size:15px;font-weight:500}
+  .cta-band .checklist li{list-style:none;display:inline-flex;align-items:center;gap:8px}
+  .cta-band .checklist li::before{content:"✓";display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700}
+
+  footer{background:#fff;border-top:1px solid var(--border);padding:28px;text-align:center;color:var(--ink-soft);font-size:13px}
+  footer a{color:var(--blue)}
+  footer a:hover{text-decoration:underline}
+
+  /* Reveal animation */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  .stagger > *{opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease}
+  .stagger.in > *:nth-child(1){transition-delay:.00s;opacity:1;transform:none}
+  .stagger.in > *:nth-child(2){transition-delay:.06s;opacity:1;transform:none}
+  .stagger.in > *:nth-child(3){transition-delay:.12s;opacity:1;transform:none}
+  .stagger.in > *:nth-child(4){transition-delay:.18s;opacity:1;transform:none}
+  .stagger.in > *:nth-child(5){transition-delay:.24s;opacity:1;transform:none}
+  .stagger.in > *:nth-child(6){transition-delay:.30s;opacity:1;transform:none}
+
+  /* Accessibility */
+  :focus-visible{outline:2px solid var(--blue-focus);outline-offset:3px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="brand">
+      <span class="brand-mark">A</span>
+      <span>AI Automation Studio</span>
+    </a>
+    <div class="nav-links">
+      <a href="#problem">Problem</a>
+      <a href="#solution">Solution</a>
+      <a href="#cases">Case studies</a>
+      <a href="#benefits">Benefits</a>
+      <a class="btn primary" href="#contact">Schedule a call</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-inner reveal">
+    <span class="pill dot">New · 1.3–1.5× productivity</span>
+    <h1 class="display">AI-Powered Automation<br/>for <em>Professional Services</em> Firms</h1>
+    <p class="lead">Increase employee productivity by 1.3–1.5× while scaling your practice through intelligent automation that handles repetitive tasks and frees your team to focus on high-value client advisory work.</p>
+    <div class="ctas">
+      <a class="btn primary" href="#contact">Schedule a call <span class="arrow">→</span></a>
+      <a class="btn secondary" href="#solution">See how it works</a>
+    </div>
+    <p class="fine">financial · accounting · legal · recruitment · and other professional firms</p>
+    <div class="deco" aria-hidden="true">
+      <div class="block">📊</div>
+      <div class="block">🧾</div>
+      <div class="block">🤖</div>
+      <div class="block">✉️</div>
+      <div class="block">🛡️</div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust">
+  <div class="wrap trust-inner">
+    <span>Trusted across practice types:</span>
+    <span class="chip"><span style="background:#0075de"></span>Financial</span>
+    <span class="chip"><span style="background:#2a9d99"></span>Accounting</span>
+    <span class="chip"><span style="background:#391c57"></span>Legal</span>
+    <span class="chip"><span style="background:#dd5b00"></span>Recruitment</span>
+    <span class="chip"><span style="background:#1aae39"></span>Advisory</span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem" class="warm">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="pill orange">The problem</span>
+      <h2>The Professional Services Firm Bottleneck</h2>
+      <p>Traditional workflows create friction at every turn, limiting growth and exhausting your team.</p>
+    </div>
+    <div class="grid stagger reveal">
+      <div class="card orange"><div class="ico">✎</div><h3>Manual Data Entry</h3><p>Document preparation and data entry consume hours daily, pulling senior staff away from strategic advisory work.</p></div>
+      <div class="card teal"><div class="ico">↻</div><h3>Repetitive Onboarding</h3><p>Client intake requires repetitive information gathering across multiple touchpoints, creating delays and frustration.</p></div>
+      <div class="card purple"><div class="ico">✓</div><h3>Compliance Burden</h3><p>Tracking deadlines, managing checklists, and coordinating follow-ups are incredibly time-intensive and error-prone.</p></div>
+      <div class="card pink"><div class="ico">↗</div><h3>Scaling Issues</h3><p>Growth requires hiring more junior staff for routine tasks, increasing overhead without improving margins.</p></div>
+      <div class="card brown"><div class="ico">⏱</div><h3>Delayed Responses</h3><p>Slow turnaround on client inquiries during peak seasons damages relationships and creates competitive disadvantages.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="pill">The approach</span>
+      <h2>Intelligent Automation for Your Practice</h2>
+      <p>Transform your practice with AI-powered solutions designed specifically for mid-size firms. Our platform handles routine tasks while your team focuses on building deeper client relationships and delivering strategic insights.</p>
+    </div>
+    <div class="grid stagger reveal">
+      <div class="card blue"><div class="ico">🎧</div><h3>24/7 AI Chatbots</h3><p>AI-powered chatbots handle initial client consultations, capturing key information and scheduling follow-ups automatically.</p></div>
+      <div class="card blue"><div class="ico">📄</div><h3>Document Generation</h3><p>Automated document generation creates forms, business plans, and compliance reports in minutes instead of hours.</p></div>
+      <div class="card blue"><div class="ico">☑</div><h3>Compliance Tracking</h3><p>Automated compliance tracking and reminders ensure nothing falls through the cracks during busy season.</p></div>
+      <div class="card blue"><div class="ico">◓</div><h3>Smart Data Collection</h3><p>Intelligent data collection from clients eliminates back-and-forth emails and ensures you have what you need upfront.</p></div>
+      <div class="card blue"><div class="ico">✉</div><h3>Email Workflows</h3><p>Smart email and communication workflows route inquiries to the right team member and respond instantly to common questions.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILT FOR PROS -->
+<section class="warm">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="pill teal">How we build</span>
+      <h2>Built for Professionals, Not Developers</h2>
+    </div>
+    <div class="grid stagger reveal">
+      <div class="card teal"><div class="ico">◎</div><h3>Visual Workflow Builders</h3><p>We use n8n for clear, visual logic — no complex coding required. See your entire process mapped out intuitively.</p></div>
+      <div class="card teal"><div class="ico">💡</div><h3>Easy Updates</h3><p>Any team member can understand and update the process without calling IT or waiting on developers.</p></div>
+      <div class="card teal"><div class="ico">👁</div><h3>Full Transparency</h3><p>See exactly how data moves through your firm, ensuring compliance and building confidence in your systems.</p></div>
+      <div class="card teal"><div class="ico">🚀</div><h3>Rapid Implementation</h3><p>Launch new automations in days, not months, allowing you to respond quickly to changing client needs.</p></div>
+      <div class="card teal"><div class="ico">🐖</div><h3>Cost Effective</h3><p>Reduces dependency on expensive senior developers and ongoing technical maintenance contracts.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE 1 -->
+<section id="cases">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="pill purple">Case study · 01</span>
+      <h2>Automated Client Onboarding</h2>
+      <p>An accounting firm struggled with inconsistent client intake, spending 2–3 hours per new client gathering basic information through phone calls, emails, and manual data entry. Here's how automation transformed their process.</p>
+    </div>
+    <div class="ba reveal">
+      <div class="col before">
+        <span class="tag">Before automation</span>
+        <div class="big">2–3 hours</div>
+        <p class="label">manual intake per client</p>
+        <ul>
+          <li>Multiple follow-up calls to gather missing information</li>
+          <li>Inconsistent data quality across clients</li>
+          <li>Staff frustration with repetitive questions</li>
+          <li>Delayed project kickoffs waiting for complete data</li>
+        </ul>
+      </div>
+      <div class="col after">
+        <span class="tag">After automation</span>
+        <div class="big">30 minutes</div>
+        <p class="label">automated collection + human review</p>
+        <ul>
+          <li>AI chatbot guides clients through structured intake</li>
+          <li>Consistent, complete data every time</li>
+          <li>Instant validation and error checking</li>
+          <li>Same-day project kickoffs for most clients</li>
+        </ul>
+      </div>
+    </div>
+    <div class="stats stagger reveal">
+      <div class="metric"><div class="num accent">1.4×</div><div class="lbl">Productivity Increase</div><div class="desc">Staff onboard 40% more clients in the same timeframe.</div></div>
+      <div class="metric"><div class="num">30m</div><div class="lbl">Faster Setup</div><div class="desc">Client setup time reduced from hours to minutes.</div></div>
+      <div class="metric"><div class="num">100%</div><div class="lbl">Data Consistency</div><div class="desc">Every client provides complete information on first submission.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE 2 -->
+<section class="warm">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="pill pink">Case study · 02</span>
+      <h2>Intelligent Document Generation</h2>
+    </div>
+    <div class="two reveal">
+      <div class="col">
+        <h3>Before</h3>
+        <p>Manual creation of tax forms, business plans, and compliance documents consumed <strong>hours of billable time</strong>. Senior accountants spent their expertise on formatting and data entry instead of analysis and advisory.</p>
+      </div>
+      <div class="col">
+        <h3>After</h3>
+        <p><strong>AI generates near-perfect drafts</strong> from client data, automatically populating forms and documents. Your team focuses exclusively on final review, quality control, and high-value customisation for complex situations.</p>
+      </div>
+    </div>
+    <div class="stats four stagger reveal">
+      <div class="metric"><div class="num accent">75%</div><div class="lbl">Time Savings</div><div class="desc">Document creation time reduced by three-quarters.</div></div>
+      <div class="metric"><div class="num accent">90%</div><div class="lbl">Fewer Errors</div><div class="desc">Automated validation catches mistakes before human review.</div></div>
+      <div class="metric"><div class="num accent">100%</div><div class="lbl">Consistency</div><div class="desc">Every document follows firm standards and best practices.</div></div>
+      <div class="metric"><div class="num accent">2×</div><div class="lbl">Faster Delivery</div><div class="desc">Client turnaround time cut in half across all document types.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE 3 (dark) -->
+<section class="dark">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="pill">Case study · 03</span>
+      <h2>24/7 Client Communication</h2>
+      <p>Traditional email-based communication meant clients waited hours or days for answers to routine questions. During high season, response times stretched even longer, creating frustration and service gaps.</p>
+    </div>
+    <div class="grid stagger reveal">
+      <div class="card"><div class="ico">🗓</div><h3>Before</h3><p>Team responds to emails only during business hours, leading to 24–48 hour delays. Simple questions require staff time away from complex work.</p></div>
+      <div class="card"><div class="ico">⚙</div><h3>Implementation</h3><p>AI chatbot deployed with knowledge base covering 80% of common inquiries. Smart routing escalates complex issues to appropriate team members.</p></div>
+      <div class="card"><div class="ico">✓</div><h3>After</h3><p>AI handles routine inquiries instantly 24/7. Complex issues routed to specialists within minutes. Client satisfaction scores increase significantly.</p></div>
+    </div>
+    <div class="stats stagger reveal" style="margin-top:44px">
+      <div class="metric"><div class="num accent">100%</div><div class="lbl">Instant Responses</div><div class="desc">Inquiries answered immediately, any time of day or night.</div></div>
+      <div class="metric"><div class="num accent">+2.8</div><div class="lbl">NPS Points</div><div class="desc">Clients appreciate immediate answers and faster resolution.</div></div>
+      <div class="metric"><div class="num accent">1.3–1.5×</div><div class="lbl">Productivity</div><div class="desc">Staff time freed from routine questions for advisory work.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section id="benefits">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="pill brown">The benefits</span>
+      <h2>Transform Your Practice</h2>
+      <p>AI-powered automation delivers measurable improvements across every dimension of your professional practice.</p>
+    </div>
+    <div class="grid stagger reveal">
+      <div class="card blue"><div class="ico">📊</div><h3>Scalability</h3><p>Grow your client base without proportional cost increases.</p></div>
+      <div class="card teal"><div class="ico">🐖</div><h3>Profitability</h3><p>Serve more clients without hiring additional staff.</p></div>
+      <div class="card purple"><div class="ico">◆</div><h3>Quality</h3><p>Fewer errors and consistent processes across all accounts.</p></div>
+      <div class="card pink"><div class="ico">🤝</div><h3>Retention</h3><p>Faster response times lead to better service and loyalty.</p></div>
+      <div class="card orange"><div class="ico">🛡</div><h3>Compliance</h3><p>Automated tracking significantly reduces regulatory risk.</p></div>
+      <div class="card brown"><div class="ico">👥</div><h3>Team Satisfaction</h3><p>Eliminate repetitive work so staff can focus on high-value tasks.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-band">
+  <div class="inner reveal">
+    <span class="pill dot">Free intro call</span>
+    <h2>Let's automate your practice.</h2>
+    <ul class="checklist">
+      <li>Free Consultation</li>
+      <li>Custom ROI Analysis</li>
+      <li>Implementation Roadmap</li>
+      <li>Ongoing Support</li>
+    </ul>
+    <div class="ctas" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a class="btn primary" href="https://calendly.com/dmir017" target="_blank" rel="noopener">Schedule a call <span class="arrow">→</span></a>
+      <a class="btn secondary" href="mailto:boris.korol@ai-automation.studio">Email us</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© AI Automation Studio · <a href="https://ai-automation.studio" target="_blank" rel="noopener">ai-automation.studio</a> · Notion-styled concept</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:.14,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal, .stagger').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
