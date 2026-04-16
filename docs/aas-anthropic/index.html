@@ -45,7 +45,20 @@
   .narrow{max-width:880px;margin:0 auto}
 
   /* HERO */
-  .hero{padding:120px 32px 80px;text-align:center}
+  .hero{position:relative;padding:120px 32px 80px;text-align:center;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden;
+    background:radial-gradient(ellipse 120% 80% at 50% 0%,rgba(250,249,245,.55),transparent 55%)}
+  .hero-blob{position:absolute;width:clamp(280px,70vmin,640px);height:clamp(280px,70vmin,640px);border-radius:50%;
+    filter:blur(72px);opacity:.5;mix-blend-mode:multiply;will-change:transform}
+  .hero-blob.a{top:-18%;left:-12%;background:radial-gradient(circle at 40% 40%,rgba(201,100,66,.32),rgba(201,100,66,0) 68%);animation:hbA 32s ease-in-out infinite}
+  .hero-blob.b{bottom:-22%;right:-8%;background:radial-gradient(circle at 50% 50%,rgba(232,230,220,.95),rgba(232,230,220,0) 70%);animation:hbB 40s ease-in-out infinite}
+  .hero-blob.c{top:38%;left:28%;width:clamp(220px,55vmin,480px);height:clamp(220px,55vmin,480px);
+    background:radial-gradient(circle at 50% 50%,rgba(217,119,87,.2),rgba(217,119,87,0) 72%);animation:hbC 24s ease-in-out infinite}
+  @keyframes hbA{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(6%,4%) scale(1.08)}}
+  @keyframes hbB{0%,100%{transform:translate(0,0) scale(1.02)}50%{transform:translate(-5%,-6%) scale(1.12)}}
+  @keyframes hbC{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-4%,5%) scale(1.06)}66%{transform:translate(5%,-3%) scale(.98)}}
+  @media (prefers-reduced-motion:reduce){.hero-blob{animation:none!important}}
+  .hero .wrap{position:relative;z-index:1}
   .hero h1{font-size:clamp(44px,6.6vw,72px);line-height:1.1}
   .hero .sub{margin:22px auto 0;font-size:20px;line-height:1.6;color:var(--olive);max-width:780px}
   .hero .ctas{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
@@ -149,6 +162,11 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <span class="hero-blob a"></span>
+    <span class="hero-blob b"></span>
+    <span class="hero-blob c"></span>
+  </div>
   <div class="wrap narrow">
     <div class="orn">❖ ❖ ❖</div>
     <h1>AI-Powered Automation<br/>for Professional Services Firms</h1>
