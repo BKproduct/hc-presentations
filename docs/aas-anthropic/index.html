@@ -53,41 +53,56 @@
   section:not(.hero):not(.dark):not(.cta-band)::before,
   section:not(.hero):not(.dark):not(.cta-band)::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0}
   section:not(.hero):not(.dark):not(.cta-band)::before{
-    opacity:.5;mix-blend-mode:multiply;
-    background:linear-gradient(108deg,rgba(245,244,237,0) 0%,rgba(212,175,95,.14) 28%,rgba(232,230,220,.58) 48%,rgba(212,175,95,.12) 68%,rgba(245,244,237,0) 88%);
-    background-size:240% 240%;animation:sandVeil 38s ease-in-out infinite}
+    opacity:.62;mix-blend-mode:multiply;
+    background:linear-gradient(108deg,rgba(245,244,237,0) 0%,rgba(212,175,95,.2) 22%,rgba(232,230,220,.66) 46%,rgba(212,175,95,.18) 68%,rgba(245,244,237,0) 88%);
+    background-size:260% 260%;animation:sandVeil 24s ease-in-out infinite}
   section:not(.hero):not(.dark):not(.cta-band)::after{
-    opacity:.38;
+    opacity:.48;
     background:radial-gradient(ellipse 85% 55% at 42% 8%,rgba(255,250,230,.82),transparent 58%),
       radial-gradient(ellipse 78% 55% at 78% 92%,rgba(232,230,220,.46),transparent 52%),
-      radial-gradient(ellipse 55% 40% at 62% 40%,rgba(212,175,95,.18),transparent 60%);
-    animation:sandBloom 26s ease-in-out infinite}
+      radial-gradient(ellipse 55% 40% at 62% 40%,rgba(212,175,95,.25),transparent 60%);
+    animation:sandBloom 18s ease-in-out infinite}
   @keyframes sandVeil{0%,100%{background-position:0% 48%}50%{background-position:100% 52%}}
-  @keyframes sandBloom{0%,100%{opacity:.29;transform:translateY(0) scale(1)}50%{opacity:.46;transform:translateY(1.2%) scale(1.02)}}
+  @keyframes sandBloom{0%,100%{opacity:.34;transform:translateY(0) scale(1)}50%{opacity:.58;transform:translateY(1.6%) scale(1.035)}}
   section:not(.hero):not(.dark):not(.cta-band) .wrap{position:relative;z-index:1}
 
   .dark,.cta-band{position:relative;isolation:isolate;overflow:hidden}
   .dark::before,.dark::after,.cta-band::before,.cta-band::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0}
   .dark::before,.cta-band::before{
-    opacity:.66;
+    opacity:.78;
     background-image:
       radial-gradient(circle at 12% 18%,rgba(255,255,255,.11) 0 1px,transparent 2px),
       radial-gradient(circle at 63% 44%,rgba(255,255,255,.09) 0 1px,transparent 2px),
-      radial-gradient(circle at 38% 72%,rgba(212,175,95,.09) 0 1px,transparent 2px),
+      radial-gradient(circle at 38% 72%,rgba(212,175,95,.14) 0 1px,transparent 2px),
       radial-gradient(circle at 81% 28%,rgba(176,174,165,.14) 0 1px,transparent 2px),
       radial-gradient(circle at 52% 55%,rgba(255,255,255,.06) 0 1px,transparent 2px);
-    background-size:140px 140px,180px 180px,160px 160px,200px 170px,150px 150px;
+    background-size:120px 120px,150px 150px,130px 130px,170px 145px,115px 115px;
     background-position:0 0,40px 20px,80px 60px,20px 90px,60px 40px;
-    animation:epoxySpeckle 32s linear infinite;
+    animation:epoxySpeckle 20s linear infinite;
     mix-blend-mode:overlay}
   .dark::after,.cta-band::after{
-    opacity:.34;
-    background:linear-gradient(128deg,rgba(48,48,46,.62),transparent 38%,rgba(212,175,95,.1) 52%,rgba(176,174,165,.16) 62%,transparent);
-    background-size:320% 320%;animation:resinSheen 44s ease-in-out infinite;
+    opacity:.44;
+    background:linear-gradient(128deg,rgba(48,48,46,.7),transparent 34%,rgba(212,175,95,.15) 50%,rgba(176,174,165,.22) 62%,transparent);
+    background-size:340% 340%;animation:resinSheen 26s ease-in-out infinite;
     mix-blend-mode:soft-light}
   @keyframes epoxySpeckle{0%{transform:translate(0,0)}100%{transform:translate(-140px,-90px)}}
-  @keyframes resinSheen{0%,100%{background-position:0% 50%;opacity:.26}50%{background-position:100% 48%;opacity:.41}}
+  @keyframes resinSheen{0%,100%{background-position:0% 50%;opacity:.32}50%{background-position:100% 48%;opacity:.56}}
   .dark .wrap,.cta-band .wrap{position:relative;z-index:1}
+  .card,.ba .col,.two .col{position:relative;overflow:hidden}
+  .card::before,.ba .col::before,.two .col::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0}
+  .card>*,.ba .col>*,.two .col>*{position:relative;z-index:1}
+  .card::before,.ba .col::before,.two .col::before{
+    opacity:.34;mix-blend-mode:multiply;
+    background:linear-gradient(112deg,transparent 0%,rgba(212,175,95,.14) 34%,rgba(232,230,220,.42) 52%,rgba(212,175,95,.12) 70%,transparent 92%);
+    background-size:230% 230%;animation:sandVeil 20s ease-in-out infinite}
+  .dark .card::before{
+    opacity:.48;mix-blend-mode:overlay;
+    background:
+      radial-gradient(circle at 16% 20%,rgba(255,255,255,.14) 0 1px,transparent 2px),
+      radial-gradient(circle at 62% 48%,rgba(212,175,95,.14) 0 1px,transparent 2px),
+      linear-gradient(130deg,rgba(48,48,46,.46),transparent 40%,rgba(212,175,95,.12) 58%,transparent);
+    background-size:110px 110px,130px 130px,260% 260%;
+    animation:epoxySpeckle 18s linear infinite,resinSheen 20s ease-in-out infinite}
 
   footer{position:relative;isolation:isolate;overflow:hidden}
   footer::before,footer::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0}
