@@ -1,919 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Faberge Demand Pulse — Buyer Intent Intelligence</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Faberge Demand Pulse — Proposal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=EB+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
-/* ─── Reset ─── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#bda95f;color:#1e1a12;font-family:'EB Garamond',serif}
+@page{size:A4;margin:0}
+body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 
-/* ─── Tokens ─── */
-:root {
-  --gold:        #a07820;
-  --gold-mid:    #c49a35;
-  --gold-light:  #d8c07a;
-  --gold-pale:   #ecdfa0;
-  --gold-dark:   #6b4f10;
-  --paper:       #f7f3ea;
-  --surface:     #fdfaf0;
-  --surface2:    #f9f5e7;
-  --ink:         #1a1814;
-  --muted:       #5a5547;
-  --rule:        #c8c0a8;
-  --c1:          #a07820; /* phase 1 */
-  --c2:          #1a5f9a; /* phase 2 */
-  --c3:          #623282; /* phase 3 */
-  --c4:          #a84018; /* phase 4 */
+.sheet{
+  width:210mm;
+  height:297mm;
+  margin:0 auto;
+  padding:5mm;
+  background:linear-gradient(145deg,#6d520f 0%,#b7933c 14%,#e7d791 48%,#c5a854 77%,#7e6118 100%);
+  page-break-after:auto;
+  break-after:auto;
 }
+.sheet + .sheet{page-break-before:always;break-before:page}
+.paper{
+  height:287mm;
+  background:#f7f3e8;
+  border:1px solid rgba(160,130,50,.2);
+  padding:10mm 11mm 9mm;
+}
+.topbar{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #d6ccaf;padding-bottom:2.5mm;margin-bottom:4.5mm}
+.docid{font:500 8pt 'DM Sans',sans-serif;letter-spacing:1.2pt;text-transform:uppercase;color:#927123}
+.pg{font:500 8pt 'DM Sans',sans-serif;color:#6b6150}
+h1{font:600 31pt 'Cormorant Garamond',serif;line-height:1.05;margin:0;color:#1a1812}
+.subtitle{font:500 10pt 'DM Sans',sans-serif;letter-spacing:1.8pt;text-transform:uppercase;color:#5f5644;margin-top:2.5mm}
+hr.gold{border:0;height:1.5px;background:linear-gradient(90deg,#a17d24,#d7be76,transparent);margin:3mm 0 0}
+h2{font:600 18pt 'Cormorant Garamond',serif;letter-spacing:1.2pt;text-transform:uppercase;color:#9d7921;border-bottom:1px solid #d8cfb6;padding-bottom:1.4mm;margin:4mm 0 2.6mm}
+p{font-size:12.6pt;line-height:1.45;margin:0 0 2.2mm}
+.small{font-size:10pt;color:#645b49}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+.card{background:#fcf8ee;border:1px solid #d7ccb0;border-left:3px solid #a17d24;padding:2.8mm 3.2mm}
+.card h3{margin:0 0 1.1mm;font:600 10.2pt 'DM Sans',sans-serif;letter-spacing:.5pt;text-transform:uppercase;color:#9b7822}
+.card p{font-size:11.6pt;line-height:1.4;margin:0}
+.diagram-wrap{background:#fcf8ee;border:1px solid #d7ccb0;padding:2.6mm;margin-top:2mm}
+.cap{font:500 9pt 'DM Sans',sans-serif;color:#625a48;text-align:center;margin-top:1.5mm}
+.sources{display:grid;grid-template-columns:1fr 1fr;gap:2.6mm}
+.sblk{background:#fcf8ee;border-left:3px solid #ceb56f;padding:2.5mm 3mm}
+.lbl{font:600 8.8pt 'DM Sans',sans-serif;letter-spacing:.8pt;text-transform:uppercase;color:#9b7822;margin-bottom:1.1mm}
+.what{font-size:11.4pt;font-weight:600;margin-bottom:1mm}
+.why{font-size:11.2pt;color:#5c5445;line-height:1.35}
+.logic{display:grid;grid-template-columns:1fr 1fr;gap:2.5mm}
+.step{background:#fcf8ee;border-left:3px solid #a17d24;padding:2.5mm 3mm}
+.step .n{float:right;font:600 16pt 'Cormorant Garamond',serif;color:#d8c27f;line-height:1}
+.step .nm{font-weight:600;font-size:11.2pt;margin-bottom:.7mm}
+.step .bd{font-size:10.7pt;color:#5c5445;line-height:1.33}
+ul{margin:1.8mm 0 0 4mm;padding:0}
+li{margin-bottom:1.3mm;font-size:11.7pt;line-height:1.36}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:2.4mm}
+.ph{background:#fcf8ee;border:2px solid #cfbf92;border-radius:1.2mm;padding:2.5mm 2.8mm}
+.ph.p1{border-color:#a17d24}.ph.p2{border-color:#1f5f95}.ph.p3{border-color:#613085}.ph.p4{border-color:#ab3f1a}
+.wk{font:600 8.3pt 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.8pt;margin-bottom:.8mm}
+.p1 .wk{color:#a17d24}.p2 .wk{color:#1f5f95}.p3 .wk{color:#613085}.p4 .wk{color:#ab3f1a}
+.pnm{font-size:11.2pt;font-weight:600;margin-bottom:.9mm}
+.pbd{font-size:10.5pt;color:#5c5445;line-height:1.32}
+.price{margin-top:1.6mm;font:600 13pt 'DM Sans',sans-serif}
+table{width:100%;border-collapse:collapse;font-size:11.4pt}
+th{font:600 8.4pt 'DM Sans',sans-serif;letter-spacing:.7pt;text-transform:uppercase;color:#655d4d;padding:1.9mm 2.3mm;border-bottom:1px solid #d3c18c;text-align:left}
+td{padding:2.2mm 2.3mm;border-bottom:1px solid #dfd5be;vertical-align:top;line-height:1.35}
+.amt{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.total td{font-weight:600;border-top:1.4px solid #a17d24;border-bottom:none}
+.callout{background:#f9f4e5;border:1px solid #d9cfb6;border-left:3px solid #a17d24;padding:2.6mm 3mm;font-size:11.3pt;line-height:1.35;margin-top:2mm}
+.footer{margin-top:4mm;padding-top:2.8mm;border-top:1px solid #d8cfb5;display:flex;justify-content:space-between;font:500 8.6pt 'DM Sans',sans-serif;color:#605847}
 
-/* ─── Print / PDF ─── */
-@media print {
-  @page { size: A4; margin: 0; }
-  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-}
-
-/* ─── Body ─── */
-html, body {
-  background: #c8b870;
-  font-family: 'EB Garamond', Garamond, 'Times New Roman', serif;
-  font-size: 11.5pt;
-  line-height: 1.52;
-  color: var(--ink);
-}
-
-/* ═══════════════════════════════════════════
-   PAGE FRAME — gradient mat + paper inset
-   ═══════════════════════════════════════════ */
-.page {
-  width: 210mm;
-  height: 297mm;
-  position: relative;
-  page-break-after: always;
-  break-after: page;
-  /* Gold gradient frame */
-  background: linear-gradient(
-    150deg,
-    var(--gold-dark)  0%,
-    var(--gold)       18%,
-    var(--gold-light) 38%,
-    var(--gold-pale)  50%,
-    var(--gold-light) 62%,
-    var(--gold)       82%,
-    var(--gold-dark)  100%
-  );
-  padding: 5.5mm;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Inner paper area */
-.inner {
-  flex: 1;
-  background: var(--paper);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
-}
-
-/* Subtle inner top/bottom accent lines */
-.inner::before {
-  content: '';
-  display: block;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--gold-light), var(--gold), var(--gold-light), transparent);
-  flex-shrink: 0;
-}
-.inner::after {
-  content: '';
-  display: block;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--gold-light), var(--gold), var(--gold-light), transparent);
-  flex-shrink: 0;
-  margin-top: auto;
-}
-
-.content {
-  padding: 9mm 13mm 7mm;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-/* ─── Corner ornaments ─── */
-.corner {
-  position: absolute;
-  font-size: 10pt;
-  color: var(--gold-light);
-  line-height: 1;
-  pointer-events: none;
-  z-index: 10;
-}
-.corner.tl { top: 1.5mm; left: 1.5mm; }
-.corner.tr { top: 1.5mm; right: 1.5mm; transform: scaleX(-1); }
-.corner.bl { bottom: 1.5mm; left: 1.5mm; transform: scaleY(-1); }
-.corner.br { bottom: 1.5mm; right: 1.5mm; transform: scale(-1); }
-
-/* ─── Page header strip ─── */
-.pg-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 6mm;
-  padding-bottom: 3mm;
-  border-bottom: 0.5px solid var(--rule);
-}
-.pg-header .doc-id {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 7.5pt;
-  letter-spacing: 1.6pt;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-.pg-header .pg-num {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 7.5pt;
-  color: var(--muted);
-  letter-spacing: 0.5pt;
-}
-
-/* ─── Masthead (page 1 only) ─── */
-.masthead {
-  margin-bottom: 7mm;
-}
-.masthead .title {
-  font-family: 'Cormorant Garamond', Garamond, serif;
-  font-weight: 600;
-  font-size: 30pt;
-  letter-spacing: 0.5pt;
-  line-height: 1.1;
-  color: var(--ink);
-}
-.masthead .rule-gold {
-  height: 1.5px;
-  background: linear-gradient(90deg, var(--gold), var(--gold-light), transparent);
-  margin: 3mm 0;
-}
-.masthead .sub {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 9.5pt;
-  letter-spacing: 1.8pt;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.masthead .date-line {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 9pt;
-  color: var(--gold);
-  margin-top: 2mm;
-}
-
-/* ─── Section headings ─── */
-h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 600;
-  font-size: 15pt;
-  letter-spacing: 1.5pt;
-  text-transform: uppercase;
-  color: var(--gold);
-  border-bottom: 0.5px solid var(--rule);
-  padding-bottom: 2mm;
-  margin: 6mm 0 3.5mm;
-}
-h2:first-child { margin-top: 0; }
-
-h3 {
-  font-size: 12pt;
-  font-weight: 600;
-  color: var(--ink);
-  margin: 0 0 1.5mm;
-}
-
-p { margin: 0 0 2.5mm; }
-
-ul {
-  margin: 0 0 3mm 4.5mm;
-  padding: 0;
-}
-li { margin-bottom: 1.5mm; font-size: 11pt; }
-
-/* ─── Two-column WHY cards ─── */
-.why {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4mm;
-  margin-bottom: 5mm;
-}
-.why .card {
-  border: 0.5px solid var(--rule);
-  border-left: 2.5px solid var(--gold);
-  padding: 3.5mm 4.5mm;
-  background: var(--surface);
-}
-.why .card h3 {
-  font-size: 9pt;
-  text-transform: uppercase;
-  letter-spacing: 0.9pt;
-  color: var(--gold);
-  margin-bottom: 2mm;
-}
-.why .card p {
-  font-size: 11pt;
-  margin: 0;
-}
-
-/* ─── Architecture diagram wrapper ─── */
-.diagram-wrap {
-  border: 0.5px solid var(--rule);
-  background: var(--surface);
-  padding: 4mm 3mm 2.5mm;
-  flex: 1;
-}
-.diagram-wrap .cap {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 8.5pt;
-  color: var(--muted);
-  text-align: center;
-  margin-top: 2mm;
-  letter-spacing: 0.3pt;
-}
-
-/* ─── Sources grid ─── */
-.sources {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3.5mm;
-  flex: 1;
-}
-.sources .blk {
-  border-left: 2.5px solid var(--gold-light);
-  background: var(--surface);
-  padding: 3mm 4mm;
-}
-.sources .blk .label {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 8.5pt;
-  text-transform: uppercase;
-  letter-spacing: 0.8pt;
-  color: var(--gold);
-  font-weight: 600;
-  margin-bottom: 1.5mm;
-}
-.sources .blk .what {
-  font-weight: 600;
-  color: var(--ink);
-  font-size: 11pt;
-  margin-bottom: 1.5mm;
-}
-.sources .blk .why2 {
-  color: var(--muted);
-  font-size: 10.5pt;
-  line-height: 1.42;
-}
-
-/* ─── Processing logic steps ─── */
-.logic {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 3mm;
-  margin-bottom: 4mm;
-}
-.logic .step {
-  border-left: 2.5px solid var(--gold);
-  background: var(--surface);
-  padding: 3mm 4mm 3mm 4mm;
-  position: relative;
-}
-.logic .step .n {
-  position: absolute;
-  top: 2mm;
-  right: 3.5mm;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 16pt;
-  color: var(--gold-light);
-  font-weight: 600;
-  line-height: 1;
-}
-.logic .step .name {
-  font-weight: 600;
-  font-size: 11pt;
-  color: var(--ink);
-  margin-bottom: 1mm;
-  padding-right: 10mm;
-}
-.logic .step .body {
-  color: var(--muted);
-  font-size: 10pt;
-  line-height: 1.42;
-}
-
-/* ─── Advantages list ─── */
-.advantages li { font-size: 11pt; margin-bottom: 2mm; }
-.advantages li strong { color: var(--ink); }
-
-/* ─── Timeline (phases) ─── */
-.timeline {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 3mm;
-  margin-bottom: 3mm;
-}
-.ph {
-  background: var(--surface);
-  padding: 3mm 3.5mm;
-  border-radius: 1.5mm;
-  border: 1.8px solid var(--rule);
-  display: flex;
-  flex-direction: column;
-}
-.ph.p1 { border-color: var(--c1); }
-.ph.p2 { border-color: var(--c2); }
-.ph.p3 { border-color: var(--c3); }
-.ph.p4 { border-color: var(--c4); }
-.ph .week {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 8.5pt;
-  text-transform: uppercase;
-  letter-spacing: 0.8pt;
-  font-weight: 700;
-  margin-bottom: 1.5mm;
-}
-.ph.p1 .week { color: var(--c1); }
-.ph.p2 .week { color: var(--c2); }
-.ph.p3 .week { color: var(--c3); }
-.ph.p4 .week { color: var(--c4); }
-.ph .ph-name { font-weight: 600; font-size: 11pt; color: var(--ink); margin-bottom: 1.5mm; }
-.ph .ph-body { color: var(--muted); font-size: 10pt; line-height: 1.42; flex: 1; }
-.ph .price {
-  margin-top: 3mm;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 600;
-  font-size: 13pt;
-  color: var(--ink);
-}
-
-/* ─── Cost table ─── */
-table.cost {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 3mm;
-  font-size: 11pt;
-}
-table.cost thead th {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 8.5pt;
-  text-transform: uppercase;
-  letter-spacing: 0.7pt;
-  color: var(--muted);
-  font-weight: 600;
-  text-align: left;
-  padding: 2mm 3mm;
-  border-bottom: 1px solid var(--gold-light);
-}
-table.cost thead th.amt { text-align: right; }
-table.cost tbody td {
-  padding: 2.5mm 3mm;
-  border-bottom: 0.4px solid var(--rule);
-  vertical-align: top;
-  line-height: 1.45;
-}
-table.cost td.note {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 8.5pt;
-  color: var(--muted);
-  font-style: italic;
-  padding-top: 0;
-  padding-bottom: 2.5mm;
-  border-bottom: 0.4px solid var(--rule);
-}
-table.cost td.amt {
-  text-align: right;
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
-table.cost tr.total td {
-  border-top: 1.2px solid var(--gold);
-  border-bottom: none;
-  font-weight: 600;
-  padding-top: 2.5mm;
-}
-table.cost tr.total td.amt { font-size: 12pt; }
-
-/* ─── Comparison callout ─── */
-.callout {
-  background: var(--surface2);
-  border: 0.5px solid var(--rule);
-  border-left: 3px solid var(--gold);
-  padding: 3.5mm 4.5mm;
-  margin-bottom: 4mm;
-  font-size: 11pt;
-}
-
-/* ─── Next Steps ─── */
-.steps-list {
-  counter-reset: step;
-  list-style: none;
-  margin: 0 0 4mm;
-}
-.steps-list li {
-  counter-increment: step;
-  display: flex;
-  gap: 3.5mm;
-  align-items: flex-start;
-  padding: 3mm 0;
-  border-bottom: 0.4px solid var(--rule);
-  font-size: 11.5pt;
-}
-.steps-list li::before {
-  content: counter(step);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 18pt;
-  font-weight: 600;
-  color: var(--gold-light);
-  line-height: 1;
-  min-width: 7mm;
-  flex-shrink: 0;
-}
-
-/* ─── Page footer ─── */
-.pg-footer {
-  margin-top: auto;
-  padding-top: 3.5mm;
-  border-top: 0.5px solid var(--rule);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 8pt;
-  color: var(--muted);
-  flex-shrink: 0;
-}
-.pg-footer .conf {
-  font-style: italic;
-}
-
-/* ─── VAT note ─── */
-.vat {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 8.5pt;
-  color: var(--muted);
-  margin-top: 2mm;
-}
-
-/* ═══════════════════════════════════════════
-   WEB VIEW (screen) — scrollable, centred
-   ═══════════════════════════════════════════ */
-@media screen {
-  body {
-    background: #c8b870;
-    padding: 20px 0 40px;
-  }
-  .page {
-    margin: 0 auto 18px;
-    box-shadow: 0 4px 40px rgba(0,0,0,0.35), 0 1px 6px rgba(0,0,0,0.2);
-  }
+@media screen{
+  body{padding:14px 0 28px}
+  .sheet{margin:0 auto 14px;box-shadow:0 6px 36px rgba(0,0,0,.28)}
 }
 </style>
 </head>
 <body>
 
-<!-- ════════════════════ PAGE 1 ════════════════════ -->
-<div class="page">
-  <span class="corner tl">✦</span>
-  <span class="corner tr">✦</span>
-  <span class="corner bl">✦</span>
-  <span class="corner br">✦</span>
-  <div class="inner">
-    <div class="content">
+<section class="sheet"><div class="paper">
+  <div class="topbar"><div class="docid">Faberge Demand Pulse · Proposal</div><div class="pg">1 / 4</div></div>
+  <h1>Faberge Demand Pulse</h1>
+  <hr class="gold" />
+  <div class="subtitle">Buyer Intent Intelligence · Weekly · Custom Built</div>
 
-      <div class="pg-header">
-        <span class="doc-id">Faberge Demand Pulse · Proposal</span>
-        <span class="pg-num">AI Automation Studio · 27 April 2026 · 1 / 5</span>
-      </div>
-
-      <div class="masthead">
-        <div class="title">Faberge Demand Pulse</div>
-        <div class="rule-gold"></div>
-        <div class="sub">Buyer Intent Intelligence &nbsp;·&nbsp; Weekly &nbsp;·&nbsp; Custom Built</div>
-      </div>
-
-      <h2>Why current pilots cannot answer your question</h2>
-      <div class="why">
-        <div class="card">
-          <h3>What they measure</h3>
-          <p>Existing social monitoring platforms count brand <strong>mentions</strong>, share of voice, and sentiment around the press wave. That tells you about your peer set, not about your buyer.</p>
-        </div>
-        <div class="card">
-          <h3>What you actually need</h3>
-          <p>The signal of <strong>purchase intent</strong> — what people search for, what they discuss before deciding, what they save as reference, what truly sells. Aesthetic shifts spotted two to six months before they appear in trend reports.</p>
-        </div>
-      </div>
-
-      <h2>System architecture</h2>
-      <div class="diagram-wrap" style="flex:1;">
-        <svg viewBox="0 0 760 356" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; display:block;">
-          <defs>
-            <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M0,0 L10,5 L0,10 Z" fill="#a07820"/>
-            </marker>
-            <linearGradient id="cell" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#fdfaf0"/>
-              <stop offset="100%" stop-color="#f3eeda"/>
-            </linearGradient>
-          </defs>
-
-          <!-- Column headers -->
-          <text x="20"  y="18" font-family="Cormorant Garamond,serif" font-size="13" fill="#a07820" letter-spacing="1.4">SIGNAL LAYERS</text>
-          <text x="284" y="18" font-family="Cormorant Garamond,serif" font-size="13" fill="#a07820" letter-spacing="1.4">PROCESSING</text>
-          <text x="536" y="18" font-family="Cormorant Garamond,serif" font-size="13" fill="#a07820" letter-spacing="1.4">OUTPUTS</text>
-
-          <!-- Signal layers (solid = phase 1, dashed = later) -->
-          <g font-family="EB Garamond,serif" font-size="11.5" fill="#1a1814">
-            <rect x="20" y="30" width="218" height="36" fill="url(#cell)" stroke="#a07820" stroke-width="1.5" rx="2"/>
-            <text x="30" y="47">Search intent layer</text>
-            <text x="30" y="60" font-size="10" fill="#5a5547">what buyers query, by geography</text>
-
-            <rect x="20" y="76" width="218" height="36" fill="url(#cell)" stroke="#a07820" stroke-width="1.5" rx="2"/>
-            <text x="30" y="93">Community discourse layer</text>
-            <text x="30" y="106" font-size="10" fill="#5a5547">real conversations before decisions</text>
-
-            <rect x="20" y="122" width="218" height="36" fill="url(#cell)" stroke="#a07820" stroke-width="1.5" rx="2"/>
-            <text x="30" y="139">Reaction layer</text>
-            <text x="30" y="152" font-size="10" fill="#5a5547">response to peer house collections</text>
-
-            <rect x="20" y="168" width="218" height="36" fill="url(#cell)" stroke="#a07820" stroke-width="1.5" rx="2"/>
-            <text x="30" y="185">Aesthetic search layer</text>
-            <text x="30" y="198" font-size="10" fill="#5a5547">imagery saved as reference of desire</text>
-
-            <rect x="20" y="214" width="218" height="36" fill="url(#cell)" stroke="#1a5f9a" stroke-width="1.5" rx="2" stroke-dasharray="3,3"/>
-            <text x="30" y="231">Aesthetic velocity layer</text>
-            <text x="30" y="244" font-size="10" fill="#5a5547">speed of taste propagation, phase 2</text>
-
-            <rect x="20" y="260" width="218" height="36" fill="url(#cell)" stroke="#1a5f9a" stroke-width="1.5" rx="2" stroke-dasharray="3,3"/>
-            <text x="30" y="277">Asia early warning layer</text>
-            <text x="30" y="290" font-size="10" fill="#5a5547">Asian aesthetics, 6–12 months ahead, phase 2</text>
-
-            <rect x="20" y="306" width="218" height="36" fill="url(#cell)" stroke="#623282" stroke-width="1.5" rx="2" stroke-dasharray="3,3"/>
-            <text x="30" y="323">Realised sales layer</text>
-            <text x="30" y="336" font-size="10" fill="#5a5547">auction and resale data, phase 3</text>
-          </g>
-
-          <!-- Processing -->
-          <g font-family="EB Garamond,serif" font-size="11.5" fill="#1a1814">
-            <rect x="284" y="48" width="178" height="34" fill="url(#cell)" stroke="#a07820" stroke-width="1.4" rx="2"/>
-            <text x="294" y="64">Normalisation</text>
-            <text x="294" y="77" font-size="10" fill="#5a5547">unified signal schema</text>
-
-            <rect x="284" y="92" width="178" height="34" fill="url(#cell)" stroke="#a07820" stroke-width="1.4" rx="2"/>
-            <text x="294" y="108">Vibe clustering</text>
-            <text x="294" y="121" font-size="10" fill="#5a5547">embeddings group aesthetics</text>
-
-            <rect x="284" y="136" width="178" height="34" fill="url(#cell)" stroke="#a07820" stroke-width="1.4" rx="2"/>
-            <text x="294" y="152">Surge and decline engine</text>
-            <text x="294" y="165" font-size="10" fill="#5a5547">spikes and fades against baseline</text>
-
-            <rect x="284" y="180" width="178" height="34" fill="url(#cell)" stroke="#a07820" stroke-width="1.4" rx="2"/>
-            <text x="294" y="196">Signal strength scoring</text>
-            <text x="294" y="209" font-size="10" fill="#5a5547">volume, intent, recency</text>
-
-            <rect x="284" y="224" width="178" height="34" fill="url(#cell)" stroke="#a07820" stroke-width="1.4" rx="2"/>
-            <text x="294" y="240">Buyer cohort tagging</text>
-            <text x="294" y="253" font-size="10" fill="#5a5547">UHNW, HENRY, Asia UHNW, Gen Z</text>
-
-            <rect x="284" y="268" width="178" height="34" fill="url(#cell)" stroke="#a07820" stroke-width="1.4" rx="2"/>
-            <text x="294" y="284">Synthesis engine, Opus 4.7</text>
-            <text x="294" y="297" font-size="10" fill="#5a5547">narrative, briefs, upgradeable</text>
-          </g>
-
-          <!-- Outputs -->
-          <g font-family="EB Garamond,serif" font-size="11.5" fill="#1a1814">
-            <rect x="536" y="48"  width="196" height="42" fill="url(#cell)" stroke="#a07820" stroke-width="1.6" rx="2"/>
-            <text x="546" y="66">Weekly bulletin (PDF, email)</text>
-            <text x="546" y="80" font-size="10" fill="#5a5547">marketing, sales, design</text>
-
-            <rect x="536" y="102" width="196" height="42" fill="url(#cell)" stroke="#a07820" stroke-width="1.6" rx="2"/>
-            <text x="546" y="120">Design briefs</text>
-            <text x="546" y="134" font-size="10" fill="#5a5547">what to create, for whom</text>
-
-            <rect x="536" y="156" width="196" height="42" fill="url(#cell)" stroke="#a07820" stroke-width="1.6" rx="2"/>
-            <text x="546" y="174">Sales triggers</text>
-            <text x="546" y="188" font-size="10" fill="#5a5547">what to remerchandise, retarget</text>
-
-            <rect x="536" y="210" width="196" height="42" fill="url(#cell)" stroke="#623282" stroke-width="1.6" rx="2" stroke-dasharray="3,3"/>
-            <text x="546" y="228">Live dashboard, phase 3</text>
-            <text x="546" y="242" font-size="10" fill="#5a5547">history, drill-down</text>
-
-            <rect x="536" y="264" width="196" height="42" fill="url(#cell)" stroke="#a84018" stroke-width="1.6" rx="2" stroke-dasharray="3,3"/>
-            <text x="546" y="282">Surge alerts, phase 4</text>
-            <text x="546" y="296" font-size="10" fill="#5a5547">midweek anomaly pings</text>
-          </g>
-
-          <!-- Arrows: Signal → Processing -->
-          <g stroke="#a07820" stroke-width="0.8" fill="none" marker-end="url(#arr)">
-            <path d="M240 47  C252 47,  262 62,  282 62"/>
-            <path d="M240 93  C252 93,  262 100, 282 100"/>
-            <path d="M240 139 C252 139, 262 142, 282 148"/>
-            <path d="M240 185 C252 185, 262 188, 282 192"/>
-            <path d="M240 231 C252 231, 262 240, 282 240"/>
-            <path d="M240 277 C252 277, 262 278, 282 280"/>
-            <path d="M240 323 C252 323, 262 294, 282 290"/>
-          </g>
-          <!-- Arrows: Processing → Outputs -->
-          <g stroke="#a07820" stroke-width="0.8" fill="none" marker-end="url(#arr)">
-            <path d="M464 66  C490 66,  510 69,  534 69"/>
-            <path d="M464 109 C490 109, 510 120, 534 122"/>
-            <path d="M464 152 C490 152, 510 172, 534 174"/>
-            <path d="M464 196 C490 202, 510 224, 534 228"/>
-            <path d="M464 240 C490 248, 510 274, 534 282"/>
-          </g>
-        </svg>
-        <div class="cap">Architecture overview. Solid borders: Phase 1 (MVP). Dashed borders: Phases 2 – 4.</div>
-      </div>
-
-    </div>
-    <div class="pg-footer" style="padding: 3mm 13mm;">
-      <span>AI Automation Studio &nbsp;·&nbsp; boris.korol@ai-automation.studio</span>
-      <span class="conf">Confidential — for Faberge leadership only</span>
-    </div>
+  <h2>Why current pilots cannot answer your question</h2>
+  <div class="grid2">
+    <div class="card"><h3>What they measure</h3><p>Most social monitoring platforms count <b>mentions</b>, share of voice, and sentiment around the press wave. That describes peer visibility, not buyer demand.</p></div>
+    <div class="card"><h3>What you actually need</h3><p>Direct <b>purchase-intent signal</b>: what people search, compare, save, and buy. Plus aesthetic shifts appearing 2–6 months before trend reports.</p></div>
   </div>
-</div>
 
-<!-- ════════════════════ PAGE 2 ════════════════════ -->
-<div class="page">
-  <span class="corner tl">✦</span>
-  <span class="corner tr">✦</span>
-  <span class="corner bl">✦</span>
-  <span class="corner br">✦</span>
-  <div class="inner">
-    <div class="content">
-
-      <div class="pg-header">
-        <span class="doc-id">Faberge Demand Pulse · Proposal</span>
-        <span class="pg-num">2 / 5 &nbsp;·&nbsp; Sources of Intelligence</span>
-      </div>
-
-      <h2 style="margin-top:0">Sources of intelligence</h2>
-      <div class="sources" style="flex:1;">
-        <div class="blk">
-          <div class="label">Search intent</div>
-          <div class="what">Public search demand across six geographies</div>
-          <div class="why2">UK, US, UAE, Singapore, Hong Kong, France. Reveals what buyers are actively looking for, with regional momentum.</div>
-        </div>
-        <div class="blk">
-          <div class="label">Community discourse</div>
-          <div class="why2">Long-form discussions in jewellery, engagement, and luxury communities. Captures objections, comparisons, and the language of intent before purchase.</div>
-        </div>
-        <div class="blk">
-          <div class="label">Reaction signal</div>
-          <div class="what">Public reactions on peer house releases</div>
-          <div class="why2">Cartier, Tiffany, Van Cleef &amp; Arpels, Buccellati, Boucheron, Vernier, and others. Tells you which collections resonate and why.</div>
-        </div>
-        <div class="blk">
-          <div class="label">Aesthetic search</div>
-          <div class="why2">Reference imagery saved by buyers and influencers, three to nine months ahead of a purchase decision (especially bridal). Velocity of save behaviour, not brand presence.</div>
-        </div>
-        <div class="blk">
-          <div class="label">Aesthetic velocity &nbsp;<span style="font-size:8.5pt;font-family:DM Sans,sans-serif;letter-spacing:0;text-transform:none;color:var(--muted)">phase 2</span></div>
-          <div class="why2">Short-form video and visual platforms where Gen Z and millennial taste accelerates. Catches micro shifts (old money, quiet luxury, heirloom) before mainstream press.</div>
-        </div>
-        <div class="blk">
-          <div class="label">Asia early warning &nbsp;<span style="font-size:8.5pt;font-family:DM Sans,sans-serif;letter-spacing:0;text-transform:none;color:var(--muted)">phase 2</span></div>
-          <div class="why2">Chinese aesthetic platforms preceding Western publication by six to twelve months. The single highest-leverage signal for a heritage house with imperial codes.</div>
-        </div>
-        <div class="blk">
-          <div class="label">Realised sales &nbsp;<span style="font-size:8.5pt;font-family:DM Sans,sans-serif;letter-spacing:0;text-transform:none;color:var(--muted)">phase 3</span></div>
-          <div class="why2">Auction houses and authenticated resale, vintage and contemporary. Confirms which forms, stones, and metals truly transact at scale and price band.</div>
-        </div>
-        <div class="blk">
-          <div class="label">Editorial signal &nbsp;<span style="font-size:8.5pt;font-family:DM Sans,sans-serif;letter-spacing:0;text-transform:none;color:var(--muted)">phase 3</span></div>
-          <div class="why2">Specialist luxury and Asia luxury journalism. Provides analytical interpretation rather than chatter, useful for boardroom narratives.</div>
-        </div>
-      </div>
-
-    </div>
-    <div class="pg-footer" style="padding: 3mm 13mm;">
-      <span>AI Automation Studio &nbsp;·&nbsp; boris.korol@ai-automation.studio</span>
-      <span class="conf">Confidential — for Faberge leadership only</span>
-    </div>
+  <h2>System architecture</h2>
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#a07820"/></marker>
+        <linearGradient id="cell" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fdfaf0"/><stop offset="100%" stop-color="#f3eeda"/></linearGradient>
+      </defs>
+      <text x="18" y="18" font-family="Cormorant Garamond" font-size="14" fill="#a07820" letter-spacing="1.4">SIGNAL LAYERS</text>
+      <text x="282" y="18" font-family="Cormorant Garamond" font-size="14" fill="#a07820" letter-spacing="1.4">PROCESSING</text>
+      <text x="534" y="18" font-family="Cormorant Garamond" font-size="14" fill="#a07820" letter-spacing="1.4">OUTPUTS</text>
+      <g font-family="EB Garamond" font-size="12" fill="#1a1814">
+        <rect x="18" y="30" width="220" height="36" fill="url(#cell)" stroke="#a07820" stroke-width="1.5" rx="2"/><text x="28" y="48">Search intent layer</text><text x="28" y="61" font-size="10" fill="#5a5547">what buyers query, by geography</text>
+        <rect x="18" y="76" width="220" height="36" fill="url(#cell)" stroke="#a07820" stroke-width="1.5" rx="2"/><text x="28" y="94">Community discourse layer</text><text x="28" y="107" font-size="10" fill="#5a5547">real conversations before decisions</text>
+        <rect x="18" y="122" width="220" height="36" fill="url(#cell)" stroke="#a07820" stroke-width="1.5" rx="2"/><text x="28" y="140">Reaction layer</text><text x="28" y="153" font-size="10" fill="#5a5547">response to peer house collections</text>
+        <rect x="18" y="168" width="220" height="36" fill="url(#cell)" stroke="#a07820" stroke-width="1.5" rx="2"/><text x="28" y="186">Aesthetic search layer</text><text x="28" y="199" font-size="10" fill="#5a5547">imagery saved as reference of desire</text>
+        <rect x="18" y="214" width="220" height="36" fill="url(#cell)" stroke="#1f5f95" stroke-width="1.5" rx="2" stroke-dasharray="3,3"/><text x="28" y="232">Aesthetic velocity layer</text><text x="28" y="245" font-size="10" fill="#5a5547">speed of taste propagation, phase 2</text>
+        <rect x="18" y="260" width="220" height="36" fill="url(#cell)" stroke="#1f5f95" stroke-width="1.5" rx="2" stroke-dasharray="3,3"/><text x="28" y="278">Asia early warning layer</text><text x="28" y="291" font-size="10" fill="#5a5547">Asian aesthetics, 6–12 months ahead, phase 2</text>
+        <rect x="18" y="306" width="220" height="36" fill="url(#cell)" stroke="#613085" stroke-width="1.5" rx="2" stroke-dasharray="3,3"/><text x="28" y="324">Realised sales layer</text><text x="28" y="337" font-size="10" fill="#5a5547">auction and resale data, phase 3</text>
+      </g>
+      <g font-family="EB Garamond" font-size="12" fill="#1a1814">
+        <rect x="282" y="48" width="180" height="34" fill="url(#cell)" stroke="#a07820" stroke-width="1.4" rx="2"/><text x="292" y="65">Normalisation</text><text x="292" y="78" font-size="10" fill="#5a5547">unified signal schema</text>
+        <rect x="282" y="92" width="180" height="34" fill="url(#cell)" stroke="#a07820" stroke-width="1.4" rx="2"/><text x="292" y="109">Vibe clustering</text><text x="292" y="122" font-size="10" fill="#5a5547">embeddings group aesthetics</text>
+        <rect x="282" y="136" width="180" height="34" fill="url(#cell)" stroke="#a07820" stroke-width="1.4" rx="2"/><text x="292" y="153">Surge and decline engine</text><text x="292" y="166" font-size="10" fill="#5a5547">spikes and fades against baseline</text>
+        <rect x="282" y="180" width="180" height="34" fill="url(#cell)" stroke="#a07820" stroke-width="1.4" rx="2"/><text x="292" y="197">Signal strength scoring</text><text x="292" y="210" font-size="10" fill="#5a5547">volume, intent, recency</text>
+        <rect x="282" y="224" width="180" height="34" fill="url(#cell)" stroke="#a07820" stroke-width="1.4" rx="2"/><text x="292" y="241">Buyer cohort tagging</text><text x="292" y="254" font-size="10" fill="#5a5547">UHNW, HENRY, Asia UHNW, Gen Z</text>
+        <rect x="282" y="268" width="180" height="34" fill="url(#cell)" stroke="#a07820" stroke-width="1.4" rx="2"/><text x="292" y="285">Synthesis engine, Opus 4.7</text><text x="292" y="298" font-size="10" fill="#5a5547">narrative, briefs, upgradeable</text>
+      </g>
+      <g font-family="EB Garamond" font-size="12" fill="#1a1814">
+        <rect x="534" y="48" width="200" height="42" fill="url(#cell)" stroke="#a07820" stroke-width="1.6" rx="2"/><text x="544" y="66">Weekly bulletin (PDF, email)</text><text x="544" y="80" font-size="10" fill="#5a5547">marketing, sales, design</text>
+        <rect x="534" y="102" width="200" height="42" fill="url(#cell)" stroke="#a07820" stroke-width="1.6" rx="2"/><text x="544" y="120">Design briefs</text><text x="544" y="134" font-size="10" fill="#5a5547">what to create, for whom</text>
+        <rect x="534" y="156" width="200" height="42" fill="url(#cell)" stroke="#a07820" stroke-width="1.6" rx="2"/><text x="544" y="174">Sales triggers</text><text x="544" y="188" font-size="10" fill="#5a5547">what to remerchandise, retarget</text>
+        <rect x="534" y="210" width="200" height="42" fill="url(#cell)" stroke="#613085" stroke-width="1.6" rx="2" stroke-dasharray="3,3"/><text x="544" y="228">Live dashboard, phase 3</text><text x="544" y="242" font-size="10" fill="#5a5547">history, drill-down</text>
+        <rect x="534" y="264" width="200" height="42" fill="url(#cell)" stroke="#ab3f1a" stroke-width="1.6" rx="2" stroke-dasharray="3,3"/><text x="544" y="282">Surge alerts, phase 4</text><text x="544" y="296" font-size="10" fill="#5a5547">midweek anomaly pings</text>
+      </g>
+      <g stroke="#a07820" stroke-width="0.8" fill="none" marker-end="url(#arr)">
+        <path d="M240 47 C252 47,262 62,280 62"/><path d="M240 93 C252 93,262 100,280 100"/><path d="M240 139 C252 139,262 142,280 148"/><path d="M240 185 C252 185,262 188,280 192"/><path d="M240 231 C252 231,262 240,280 240"/><path d="M240 277 C252 277,262 278,280 280"/><path d="M240 323 C252 323,262 294,280 290"/>
+        <path d="M464 66 C490 66,510 69,532 69"/><path d="M464 109 C490 109,510 120,532 122"/><path d="M464 152 C490 152,510 172,532 174"/><path d="M464 196 C490 202,510 224,532 228"/><path d="M464 240 C490 248,510 274,532 282"/>
+      </g>
+    </svg>
+    <div class="cap">Architecture overview. Solid borders: Phase 1 (MVP). Dashed borders: Phases 2–4.</div>
   </div>
-</div>
+  <div class="footer"><span>AI Automation Studio · boris.korol@ai-automation.studio</span><span>Confidential — for Faberge leadership only</span></div>
+</div></section>
 
-<!-- ════════════════════ PAGE 3 ════════════════════ -->
-<div class="page">
-  <span class="corner tl">✦</span>
-  <span class="corner tr">✦</span>
-  <span class="corner bl">✦</span>
-  <span class="corner br">✦</span>
-  <div class="inner">
-    <div class="content">
-
-      <div class="pg-header">
-        <span class="doc-id">Faberge Demand Pulse · Proposal</span>
-        <span class="pg-num">3 / 5 &nbsp;·&nbsp; Processing Logic</span>
-      </div>
-
-      <h2 style="margin-top:0">Processing logic, eight steps</h2>
-      <p style="font-size:10.5pt; color:var(--muted); margin-bottom:3.5mm;">
-        Most platforms stop at counting. We carry every signal through eight stages so that what reaches your team is not data, but a decision input. The synthesis stage runs on Opus 4.7, the most capable reasoning model currently available, with an upgrade path built in for stronger successor models.
-      </p>
-
-      <div class="logic">
-        <div class="step"><span class="n">1</span><div class="name">Parallel collection</div><div class="body">Each source runs in its own worker every week. Raw output is stored verbatim, with full provenance, so any conclusion can be retraced to the original data point.</div></div>
-        <div class="step"><span class="n">2</span><div class="name">Normalisation and lexicon tagging</div><div class="body">Every signal is mapped onto one schema and tagged against a curated jewellery lexicon (product, style, technique, stones, cuts, metals). This makes signals comparable across very different platforms.</div></div>
-        <div class="step"><span class="n">3</span><div class="name">Signal strength scoring</div><div class="body">Each signal carries a score combining volume, intent purity (research vs comparison vs purchase), recency, and source trustworthiness. High volume with weak intent ranks below low volume with strong intent.</div></div>
-        <div class="step"><span class="n">4</span><div class="name">Theme aggregation</div><div class="body">Individual signals collapse into themes by lexicon category. The top thirty themes per week represent the demand surface for that week.</div></div>
-        <div class="step"><span class="n">5</span><div class="name">Surge and decline detection</div><div class="body">Each theme is compared against its own rolling baseline (8 to 26 weeks). Z-scores classify themes as surge, rising, stable, fading, or collapsing. The system learns what is normal for your category.</div></div>
-        <div class="step"><span class="n">6</span><div class="name">Buyer cohort tagging</div><div class="body">Every theme is attributed to the most likely buyer cohort: UHNW collectors, aspirational affluent (HENRY), Asia UHNW, or Gen Z aesthetic. Every insight addresses a real buyer, not an average.</div></div>
-        <div class="step"><span class="n">7</span><div class="name">Synthesis on Opus 4.7</div><div class="body">A reasoning model converts the week of evidence into editorial output: headline, scorecard, top signals, design briefs, sales triggers, marketing angles, risks, watch list. The synthesis layer upgrades automatically when stronger models release.</div></div>
-        <div class="step"><span class="n">8</span><div class="name">Render and deliver</div><div class="body">Weekly PDF bulletin with consistent typography, plain-text summary for inbox skim, and a draft email lodged in your account for review before send. Human in the loop is preserved by design.</div></div>
-      </div>
-
-      <h2>Why this is stronger than current pilots</h2>
-      <ul class="advantages">
-        <li><strong>Intent rather than mentions.</strong> Eight signal layers about the buyer, not three about the press wave around your peer set.</li>
-        <li><strong>Aesthetic foresight, two to six months ahead.</strong> Embedding-based clustering of taste micro-shifts that platform tools do not run.</li>
-        <li><strong>Asia signal, six to twelve months ahead.</strong> An early warning layer that mass platforms cover poorly — especially relevant for a heritage house with imperial codes.</li>
-        <li><strong>Design brief layer.</strong> Each week hands the design team a concrete remit: what to create, for which segment, with what saturation window.</li>
-        <li><strong>Owned by you.</strong> Built on Opus 4.7 today, scheduled to inherit successor reasoning models with no contract renegotiation.</li>
-        <li><strong>AAS as steward.</strong> Connector maintenance, quarterly research, and adaptation to your team feedback are built into the monthly fee.</li>
-      </ul>
-
-    </div>
-    <div class="pg-footer" style="padding: 3mm 13mm;">
-      <span>AI Automation Studio &nbsp;·&nbsp; boris.korol@ai-automation.studio</span>
-      <span class="conf">Confidential — for Faberge leadership only</span>
-    </div>
+<section class="sheet"><div class="paper">
+  <div class="topbar"><div class="docid">Faberge Demand Pulse · Proposal</div><div class="pg">2 / 4</div></div>
+  <h2 style="margin-top:0">Sources of intelligence</h2>
+  <div class="sources">
+    <div class="sblk"><div class="lbl">Search intent</div><div class="what">Public search demand across geographies</div><div class="why">UK/EU, USA, UAE/SAUDI, Asia.</div></div>
+    <div class="sblk"><div class="lbl">Community discourse</div><div class="why">Long-form discussions in jewellery and luxury communities. Captures objections, comparisons, and intent language before purchase.</div></div>
+    <div class="sblk"><div class="lbl">Reaction signal</div><div class="what">Public reactions on peer house releases</div><div class="why">Cartier, Tiffany, Van Cleef & Arpels, Buccellati, Boucheron, Vernier, and others.</div></div>
+    <div class="sblk"><div class="lbl">Aesthetic search</div><div class="why">Reference imagery saved by buyers and influencers 3–9 months before purchase. Measures save velocity, not brand visibility.</div></div>
+    <div class="sblk"><div class="lbl">Aesthetic velocity · phase 2</div><div class="why">Short-form visual platforms where Gen Z and millennial taste accelerates. Detects micro-shifts before mainstream press.</div></div>
+    <div class="sblk"><div class="lbl">Asia early warning · phase 2</div><div class="why">Chinese aesthetic platforms often preceding Western publication by 6–12 months. High leverage for a heritage house with imperial codes.</div></div>
+    <div class="sblk"><div class="lbl">Realised sales · phase 3</div><div class="why">Auction and authenticated resale data (vintage + contemporary). Confirms what truly transacts and at what price band.</div></div>
+    <div class="sblk"><div class="lbl">Editorial signal · phase 3</div><div class="why">Specialist luxury journalism for analytical boardroom framing, not chatter.</div></div>
   </div>
-</div>
 
-<!-- ════════════════════ PAGE 4 ════════════════════ -->
-<div class="page">
-  <span class="corner tl">✦</span>
-  <span class="corner tr">✦</span>
-  <span class="corner bl">✦</span>
-  <span class="corner br">✦</span>
-  <div class="inner">
-    <div class="content">
-
-      <div class="pg-header">
-        <span class="doc-id">Faberge Demand Pulse · Proposal</span>
-        <span class="pg-num">4 / 5 &nbsp;·&nbsp; Build Timeline &amp; Price</span>
-      </div>
-
-      <h2 style="margin-top:0">Build timeline and price</h2>
-      <div class="timeline">
-        <div class="ph p1">
-          <div class="week">Weeks 1–2</div>
-          <div class="ph-name">Phase 1<br>MVP Report</div>
-          <div class="ph-body">Four signal layers wired. First weekly bulletin issued for format calibration with your team.</div>
-          <div class="price">£6,000</div>
-        </div>
-        <div class="ph p2">
-          <div class="week">Weeks 3–4</div>
-          <div class="ph-name">Phase 2<br>Aesthetic &amp; Asia</div>
-          <div class="ph-body">Aesthetic velocity and Asia early warning layers added. Vibe clustering activated on the embedding stack.</div>
-          <div class="price">£6,000</div>
-        </div>
-        <div class="ph p3">
-          <div class="week">Weeks 5–6</div>
-          <div class="ph-name">Phase 3<br>Sales &amp; Dashboard</div>
-          <div class="ph-body">Realised sales and editorial layers added. Design brief module separated. Live dashboard delivered.</div>
-          <div class="price">£6,000</div>
-        </div>
-        <div class="ph p4">
-          <div class="week">Weeks 7–8</div>
-          <div class="ph-name">Phase 4<br>Midweek Alerts</div>
-          <div class="ph-body">Anomaly detection runs midweek. Telegram or email alerts when a signal surges sharply.</div>
-          <div class="price">£3,500</div>
-        </div>
-      </div>
-      <p style="font-size:10.5pt; color:var(--muted); margin-bottom: 6mm;">
-        Total build, eight weeks: <strong style="color:var(--ink); font-size:12pt;">£21,500, one off.</strong> Phase 1 alone is a viable starting point; the decision to proceed to Phases 2–4 is taken after the first bulletin lands.
-      </p>
-
-      <h2>Monthly running cost</h2>
-      <table class="cost">
-        <thead>
-          <tr>
-            <th style="width:68%">Line</th>
-            <th class="amt">GBP / month</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>API tokens and data subscriptions<br>
-              <span style="font-size:9.5pt; color:var(--muted);">(LLM inference tokens — Opus 4.7 synthesis; search API calls; data platform subscriptions)</span>
-            </td>
-            <td class="amt">£200 – £400</td>
-          </tr>
-          <tr>
-            <td>AAS stewardship: monitoring, connector fixes when source APIs change, quarterly research, adaptation, upgrades to new models and new sources</td>
-            <td class="amt">£800 – £1,000</td>
-          </tr>
-          <tr class="total">
-            <td>Total</td>
-            <td class="amt">£1,000 – £1,400</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="callout">
-        For comparison, a stack of Meltwater, Brandwatch, and Sprout Social Enterprise sits at <strong>£4,000 to £8,000 per month</strong> — and does not address your buyer question.
-      </div>
-
-      <p style="font-size:10.5pt; color:var(--muted);">
-        The infrastructure line is driven by actual usage: token counts scale with the number of signal layers active. Phase 1 usage sits toward the lower end of the range; full eight-layer operation toward the upper end. Costs are passed through at actuals and reported monthly.
-      </p>
-
-    </div>
-    <div class="pg-footer" style="padding: 3mm 13mm;">
-      <span>AI Automation Studio &nbsp;·&nbsp; boris.korol@ai-automation.studio</span>
-      <span class="conf">Confidential — for Faberge leadership only</span>
-    </div>
+  <h2>Processing logic, eight steps</h2>
+  <div class="logic">
+    <div class="step"><span class="n">1</span><div class="nm">Parallel collection</div><div class="bd">Each source runs in a separate worker weekly with full provenance.</div></div>
+    <div class="step"><span class="n">2</span><div class="nm">Normalisation and tagging</div><div class="bd">One schema + curated jewellery lexicon for cross-platform comparability.</div></div>
+    <div class="step"><span class="n">3</span><div class="nm">Signal strength scoring</div><div class="bd">Combines volume, intent purity, recency, and source quality.</div></div>
+    <div class="step"><span class="n">4</span><div class="nm">Theme aggregation</div><div class="bd">Top demand themes grouped by lexicon categories each week.</div></div>
+    <div class="step"><span class="n">5</span><div class="nm">Surge / decline detection</div><div class="bd">Rolling baseline and z-scores classify rising vs fading signals.</div></div>
+    <div class="step"><span class="n">6</span><div class="nm">Buyer cohort tagging</div><div class="bd">UHNW, HENRY, Asia UHNW, and Gen Z mapped on each theme.</div></div>
+    <div class="step"><span class="n">7</span><div class="nm">Synthesis on Opus 4.7</div><div class="bd">Turns raw evidence into design, sales, and marketing decisions.</div></div>
+    <div class="step"><span class="n">8</span><div class="nm">Render and deliver</div><div class="bd">Weekly PDF bulletin + executive summary + draft email.</div></div>
   </div>
-</div>
+  <div class="footer"><span>AI Automation Studio · boris.korol@ai-automation.studio</span><span>Confidential — for Faberge leadership only</span></div>
+</div></section>
 
-<!-- ════════════════════ PAGE 5 ════════════════════ -->
-<div class="page">
-  <span class="corner tl">✦</span>
-  <span class="corner tr">✦</span>
-  <span class="corner bl">✦</span>
-  <span class="corner br">✦</span>
-  <div class="inner">
-    <div class="content">
+<section class="sheet"><div class="paper">
+  <div class="topbar"><div class="docid">Faberge Demand Pulse · Proposal</div><div class="pg">3 / 4</div></div>
 
-      <div class="pg-header">
-        <span class="doc-id">Faberge Demand Pulse · Proposal</span>
-        <span class="pg-num">5 / 5 &nbsp;·&nbsp; Next Steps</span>
-      </div>
+  <h2 style="margin-top:0">Why this is stronger than current pilots</h2>
+  <ul>
+    <li><b>Intent, not mentions.</b> Eight signal layers focused on buyer demand rather than press-wave visibility.</li>
+    <li><b>Aesthetic foresight.</b> Embedding-based clustering spots 2–6 month taste shifts before standard trend tools.</li>
+    <li><b>Asia early warning.</b> Dedicated signal layer for earlier pattern detection and collection planning.</li>
+    <li><b>Action-ready outputs.</b> Weekly design briefs and sales triggers, not raw dashboards.</li>
+    <li><b>Future-proof model layer.</b> Built on Opus 4.7 with upgrade path to stronger models.</li>
+    <li><b>AAS stewardship included.</b> Monitoring, connector maintenance, adaptation, and upgrades in monthly support.</li>
+  </ul>
 
-      <h2 style="margin-top:0">Next steps</h2>
-      <ol class="steps-list">
-        <li>Fifteen-minute call to align on report format and internal recipients.</li>
-        <li>Phase 1 begins. Within fourteen days the first bulletin lands in the inboxes you nominate.</li>
-        <li>After the first bulletin we agree whether and at what cadence to proceed to Phases 2 to 4.</li>
-      </ol>
-
-      <p class="vat" style="margin-bottom: 6mm;">All prices above are exclusive of VAT. VAT is applied at the prevailing UK rate.</p>
-
-      <!-- Summary recap box -->
-      <div style="border: 0.5px solid var(--rule); background: var(--surface); padding: 5mm 6mm; margin-bottom: 6mm;">
-        <div style="font-family: 'DM Sans', sans-serif; font-size: 8.5pt; text-transform: uppercase; letter-spacing: 1.2pt; color: var(--gold); font-weight: 600; margin-bottom: 3mm;">Investment summary</div>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm;">
-          <div>
-            <div style="font-family: 'Cormorant Garamond', serif; font-size: 22pt; font-weight: 600; color: var(--ink); line-height: 1;">£21,500</div>
-            <div style="font-family: 'DM Sans', sans-serif; font-size: 8.5pt; color: var(--muted); margin-top: 1mm;">One-off build, 8 weeks</div>
-          </div>
-          <div>
-            <div style="font-family: 'Cormorant Garamond', serif; font-size: 22pt; font-weight: 600; color: var(--ink); line-height: 1;">£1,000–1,400</div>
-            <div style="font-family: 'DM Sans', sans-serif; font-size: 8.5pt; color: var(--muted); margin-top: 1mm;">Monthly running (incl. upgrades)</div>
-          </div>
-          <div>
-            <div style="font-family: 'Cormorant Garamond', serif; font-size: 22pt; font-weight: 600; color: var(--ink); line-height: 1;">8</div>
-            <div style="font-family: 'DM Sans', sans-serif; font-size: 8.5pt; color: var(--muted); margin-top: 1mm;">Signal layers at full build</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- What you receive each week -->
-      <div style="border: 0.5px solid var(--rule); background: var(--surface); padding: 5mm 6mm; margin-bottom: 6mm;">
-        <div style="font-family: 'DM Sans', sans-serif; font-size: 8.5pt; text-transform: uppercase; letter-spacing: 1.2pt; color: var(--gold); font-weight: 600; margin-bottom: 3mm;">What you receive each week (from Phase 1)</div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2mm 6mm;">
-          <div style="font-size: 11pt; display: flex; gap: 2mm;"><span style="color:var(--gold);">→</span> PDF bulletin: top 30 demand themes, scored</div>
-          <div style="font-size: 11pt; display: flex; gap: 2mm;"><span style="color:var(--gold);">→</span> Design briefs with saturation windows</div>
-          <div style="font-size: 11pt; display: flex; gap: 2mm;"><span style="color:var(--gold);">→</span> Sales triggers: remerchandising &amp; retargeting</div>
-          <div style="font-size: 11pt; display: flex; gap: 2mm;"><span style="color:var(--gold);">→</span> Draft email ready for your review and send</div>
-          <div style="font-size: 11pt; display: flex; gap: 2mm;"><span style="color:var(--gold);">→</span> Buyer cohort attribution on every insight</div>
-          <div style="font-size: 11pt; display: flex; gap: 2mm;"><span style="color:var(--gold);">→</span> Surge alerts midweek (from Phase 4)</div>
-        </div>
-      </div>
-
-      <!-- Spacer -->
-      <div style="flex:1;"></div>
-
-      <!-- Contact block -->
-      <div style="border-top: 1px solid var(--gold-light); padding-top: 5mm; display: flex; justify-content: space-between; align-items: flex-end;">
-        <div>
-          <div style="font-family: 'Cormorant Garamond', serif; font-size: 16pt; font-weight: 600; color: var(--gold);">AI Automation Studio</div>
-          <div style="font-family: 'DM Sans', sans-serif; font-size: 9pt; color: var(--muted); margin-top: 1.5mm;">boris.korol@ai-automation.studio &nbsp;·&nbsp; @BKproduct</div>
-        </div>
-        <div style="text-align: right; font-family: 'DM Sans', sans-serif; font-size: 8.5pt; color: var(--muted); line-height: 1.5;">
-          Prepared: 27 April 2026<br>
-          <em>Confidential — for Faberge leadership only</em>
-        </div>
-      </div>
-
-    </div>
-    <div class="pg-footer" style="padding: 3mm 13mm; border-top: none; margin-top: 0;">
-      <span>AI Automation Studio &nbsp;·&nbsp; boris.korol@ai-automation.studio</span>
-      <span class="conf">Confidential — for Faberge leadership only</span>
-    </div>
+  <h2>Build timeline and price</h2>
+  <div class="timeline">
+    <div class="ph p1"><div class="wk">Weeks 1–2</div><div class="pnm">Phase 1<br/>MVP Report</div><div class="pbd">Four signal layers wired. First weekly bulletin issued for calibration.</div><div class="price">£6,000</div></div>
+    <div class="ph p2"><div class="wk">Weeks 3–4</div><div class="pnm">Phase 2<br/>Aesthetic & Asia</div><div class="pbd">Aesthetic velocity + Asia early warning layers added.</div><div class="price">£6,000</div></div>
+    <div class="ph p3"><div class="wk">Weeks 5–6</div><div class="pnm">Phase 3<br/>Sales & Dashboard</div><div class="pbd">Realised sales and editorial layers. Live dashboard delivered.</div><div class="price">£6,000</div></div>
+    <div class="ph p4"><div class="wk">Weeks 7–8</div><div class="pnm">Phase 4<br/>Midweek Alerts</div><div class="pbd">Anomaly detection and alerting in Telegram or email.</div><div class="price">£3,500</div></div>
   </div>
-</div>
+  <p class="small" style="margin-top:2.5mm">Total build, eight weeks: <b style="font-size:12pt;color:#1f1b14">£21,500 one-off</b>.</p>
+
+  <h2>Monthly running cost</h2>
+  <table>
+    <thead><tr><th style="width:72%">Line</th><th class="amt">GBP / month</th></tr></thead>
+    <tbody>
+      <tr><td>Signal sources, processing, infrastructure, synthesis<br><span class="small">(LLM tokens + API calls + data platform subscriptions)</span></td><td class="amt">£200–£400</td></tr>
+      <tr><td>AAS stewardship, monitoring, connector fixes, quarterly research, adaptation, upgrades to new models/sources</td><td class="amt">£800–£1,000</td></tr>
+      <tr class="total"><td>Total</td><td class="amt">£1,000–£1,400</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">For comparison, Meltwater + Brandwatch + Sprout Social Enterprise is typically <b>£4,000–£8,000 per month</b> and still does not answer the buyer-intent question directly.</div>
+
+  <div class="footer"><span>AI Automation Studio · boris.korol@ai-automation.studio</span><span>Confidential — for Faberge leadership only</span></div>
+</div></section>
+
+<section class="sheet"><div class="paper">
+  <div class="topbar"><div class="docid">Faberge Demand Pulse · Proposal</div><div class="pg">4 / 4</div></div>
+
+  <h2 style="margin-top:0">Next steps</h2>
+  <ul>
+    <li>15-minute alignment call on report format and recipient list.</li>
+    <li>Phase 1 starts immediately after approval.</li>
+    <li>First bulletin delivered within 14 days.</li>
+    <li>Decision gate after first bulletin: continue into Phases 2–4 or hold at MVP cadence.</li>
+  </ul>
+
+  <h2>Investment summary</h2>
+  <div class="grid2">
+    <div class="card"><h3>Build</h3><p><b style="font-size:18pt">£21,500</b><br/>One-off, 8 weeks</p></div>
+    <div class="card"><h3>Monthly run</h3><p><b style="font-size:18pt">£1,000–£1,400</b><br/>Includes upgrades and support</p></div>
+  </div>
+
+  <h2>What you receive weekly</h2>
+  <div class="grid2">
+    <div class="card"><p>• Buyer-intent bulletin (top demand themes)<br/>• Design briefs with segment and saturation window<br/>• Sales triggers for re-merchandising and retargeting</p></div>
+    <div class="card"><p>• Executive summary for leadership<br/>• Draft email for review before send<br/>• Midweek surge alerts (from Phase 4)</p></div>
+  </div>
+
+  <p class="small" style="margin-top:4mm">All prices are exclusive of VAT. VAT applies at the prevailing UK rate.</p>
+  <div class="footer"><span>AI Automation Studio · boris.korol@ai-automation.studio · @BKproduct</span><span>Prepared: 27 April 2026</span></div>
+</div></section>
 
 </body>
 </html>
