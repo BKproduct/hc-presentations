@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Zero to Polished Deliverable — AAS Process Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f7fb;
+    --surface: #ffffff;
+    --surface-2: #f0f4ff;
+    --accent: #0ea5e9;
+    --accent-strong: #0369a1;
+    --text: #111827;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+    --success: #10b981;
+    --warn: #f59e0b;
+    --danger: #ef4444;
+    --tag-bg: #e0f2fe;
+    --tag-text: #0369a1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 15px;
+  }
+  .hero {
+    background: linear-gradient(135deg, #0c1a2e 0%, #0369a1 100%);
+    color: white;
+    padding: 72px 32px 64px;
+    text-align: center;
+  }
+  .hero .label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #7dd3fc;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero p {
+    font-size: 17px;
+    color: #bae6fd;
+    max-width: 620px;
+    margin: 0 auto 32px;
+  }
+  .hero .meta {
+    font-size: 13px;
+    color: #7dd3fc;
+  }
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .section {
+    padding: 56px 0 40px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-child { border-bottom: none; }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  h2 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  p { margin-bottom: 16px; color: #374151; }
+  p:last-child { margin-bottom: 0; }
+
+  /* Lesson cards */
+  .lessons { display: flex; flex-direction: column; gap: 20px; margin-top: 28px; }
+  .lesson {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .lesson.warn { border-left: 4px solid var(--warn); }
+  .lesson.success { border-left: 4px solid var(--success); }
+  .lesson.accent { border-left: 4px solid var(--accent); }
+  .lesson-num {
+    width: 40px;
+    height: 40px;
+    background: var(--surface-2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent-strong);
+    flex-shrink: 0;
+  }
+  .lesson h3 { margin-bottom: 6px; font-size: 16px; }
+  .lesson .what {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 8px;
+  }
+  .lesson p { font-size: 14px; margin-bottom: 0; }
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-bottom: 8px;
+  }
+  .tag.warn { background: #fef3c7; color: #92400e; }
+  .tag.success { background: #d1fae5; color: #065f46; }
+
+  /* Phases timeline */
+  .phases { margin-top: 28px; display: flex; flex-direction: column; gap: 0; }
+  .phase {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0 24px;
+  }
+  .phase-left {
+    text-align: right;
+    padding-top: 4px;
+    padding-bottom: 32px;
+    position: relative;
+  }
+  .phase-left::after {
+    content: '';
+    position: absolute;
+    right: -13px;
+    top: 6px;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+  .phase:last-child .phase-left::after { display: none; }
+  .phase-dot {
+    position: absolute;
+    right: -19px;
+    top: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+  .phase-step {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .phase-right {
+    padding-bottom: 32px;
+  }
+  .phase-right h3 { margin-bottom: 6px; }
+  .phase-right p { font-size: 14px; }
+
+  /* Checklist */
+  .checklist { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+  .check-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+  .check-item .icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .check-item strong { display: block; margin-bottom: 2px; }
+  .check-item span { color: var(--text-muted); font-size: 13px; }
+
+  /* Code blocks */
+  .code-block {
+    background: #0c1a2e;
+    color: #e2e8f0;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    padding: 20px 24px;
+    border-radius: 10px;
+    margin: 16px 0;
+    overflow-x: auto;
+  }
+  .code-block .comment { color: #64748b; }
+  .code-block .key { color: #7dd3fc; }
+  .code-block .val { color: #86efac; }
+
+  /* Comparison */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .compare-col {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .compare-col.bad { border-top: 3px solid var(--danger); }
+  .compare-col.good { border-top: 3px solid var(--success); }
+  .compare-col h4 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+    color: var(--text-muted);
+  }
+  .compare-col.bad h4 { color: var(--danger); }
+  .compare-col.good h4 { color: var(--success); }
+  .compare-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .compare-col ul li {
+    font-size: 13px;
+    padding-left: 20px;
+    position: relative;
+    color: #374151;
+  }
+  .compare-col ul li::before {
+    position: absolute;
+    left: 0;
+    font-size: 12px;
+  }
+  .compare-col.bad ul li::before { content: '✗'; color: var(--danger); }
+  .compare-col.good ul li::before { content: '✓'; color: var(--success); }
+
+  /* Callout */
+  .callout {
+    background: var(--surface-2);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: var(--accent-strong);
+  }
+  .callout strong { display: block; margin-bottom: 4px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 600px) {
+    .compare { grid-template-columns: 1fr; }
+    .phase { grid-template-columns: 80px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="label">AAS Process Guide &mdash; Internal</div>
+  <h1>From Zero to Polished Deliverable</h1>
+  <p>Lessons from the Faberge TrendWatch build: how to reach final-quality output from the first iteration, not the fifth.</p>
+  <div class="meta">AI Automation Studio &bull; May 2026 &bull; For Sima + AAS delivery team</div>
+</div>
+
+<div class="container">
+
+  <!-- CONTEXT -->
+  <div class="section">
+    <div class="section-label">Context</div>
+    <h2>What we built and why this guide exists</h2>
+    <p>We built a weekly demand-intelligence system for Sergey Mosunov, CEO of Faberge. The system collects signals from 12 sources, processes them through an embedding-and-scoring pipeline, and delivers a structured weekly brief to his marketing, sales, and design teams.</p>
+    <p>The build took multiple iteration cycles, each one fixing something that should have been right the first time. This guide captures what caused each rework, and gives you the checklist to avoid it.</p>
+    <p>The artefacts: <strong>live pipeline code</strong> (Phase 1 running), a <strong>commercial PDF offer</strong> in AAS design, and a <strong>published system overview</strong> at <a href="https://bkproduct.github.io/hc-presentations/faberge-system-overview/" style="color:var(--accent)">hc-presentations</a>.</p>
+  </div>
+
+  <!-- WHAT WENT WRONG -->
+  <div class="section">
+    <div class="section-label">Iteration Forensics</div>
+    <h2>What required rework and why</h2>
+    <p>Every item below caused at least one full rewrite pass. Most were preventable with a tighter client brief upfront.</p>
+
+    <div class="lessons">
+
+      <div class="lesson warn">
+        <div class="lesson-num">1</div>
+        <div>
+          <span class="tag warn">Sources</span>
+          <h3>Amazon and Etsy were in the initial source list</h3>
+          <p class="what">Client asked: "Why do we need Amazon?"</p>
+          <p>Faberge average selling price is £5,000-£500,000. Amazon and Etsy serve the mass market. Including them signals you have not done segment homework. Remove any source whose median buyer is outside the client's ASP range before presenting the architecture.</p>
+        </div>
+      </div>
+
+      <div class="lesson warn">
+        <div class="lesson-num">2</div>
+        <div>
+          <span class="tag warn">Sources</span>
+          <h3>Pinterest role was misframed as brand presence</h3>
+          <p class="what">Client asked: "How active are reference brands on Pinterest?"</p>
+          <p>Luxury brands have weak official Pinterest presence. The real value is bridal aesthetic search velocity: brides save board ideas 3-9 months before purchase. If you present Pinterest as a brand monitoring tool, the client will correctly dismiss it. Lead with the buyer behaviour use case, not the brand presence angle.</p>
+        </div>
+      </div>
+
+      <div class="lesson warn">
+        <div class="lesson-num">3</div>
+        <div>
+          <span class="tag warn">Geography</span>
+          <h3>Russia was included in the geography list</h3>
+          <p class="what">Removed silently after client review.</p>
+          <p>For any client with international ambitions in 2024+, Russia is a politically sensitive inclusion. Do not put it in default geo lists. Only add if the client explicitly requests it and the project context is clearly domestic/non-sanctioned.</p>
+        </div>
+      </div>
+
+      <div class="lesson warn">
+        <div class="lesson-num">4</div>
+        <div>
+          <span class="tag warn">Competitors</span>
+          <h3>Graff was in the competitor peer set</h3>
+          <p class="what">Removed after client review.</p>
+          <p>Always confirm the competitor peer set with the client before building it into config. Do not assume. A two-line message ("Here's the 9-brand peer set I'm using for comparison, please confirm or adjust") prevents a config and PDF rewrite.</p>
+        </div>
+      </div>
+
+      <div class="lesson warn">
+        <div class="lesson-num">5</div>
+        <div>
+          <span class="tag warn">Commercial offer</span>
+          <h3>Currency was USD in a GBP-context proposal</h3>
+          <p class="what">Faberge is a UK-headquartered luxury brand. Client is based in London.</p>
+          <p>Always check client HQ and invoice jurisdiction before setting currency. Default is USD from most tools; always override to match client billing context. UK client = GBP. EU client = EUR. Never let tooling defaults slip through to a client document.</p>
+        </div>
+      </div>
+
+      <div class="lesson warn">
+        <div class="lesson-num">6</div>
+        <div>
+          <span class="tag warn">Commercial offer</span>
+          <h3>Timeline was too optimistic by 2x</h3>
+          <p class="what">Client asked to double all phase durations.</p>
+          <p>Initial estimate was 2 weeks per phase. Client-facing estimates should include buffer for feedback cycles, API credential delays, and integration surprises. Rule of thumb: take your technical estimate, add 50% for client review cycles, add 25% for credential/access onboarding. For a 4-phase intelligence system, 8 weeks is the minimum credible commitment.</p>
+        </div>
+      </div>
+
+      <div class="lesson warn">
+        <div class="lesson-num">7</div>
+        <div>
+          <span class="tag warn">Commercial offer</span>
+          <h3>Cost structure mixed infrastructure and AAS work without separation</h3>
+          <p class="what">Client wanted to understand what each line was paying for.</p>
+          <p>Separate three distinct cost buckets in every proposal: (1) direct API/token spend the client could theoretically pay themselves, (2) AAS stewardship - the value of maintained connectors and model upgrades, (3) upgrade reserve - buffer for new model generations. Bundling these hides the value of ongoing work and invites the client to try to self-manage it.</p>
+        </div>
+      </div>
+
+      <div class="lesson warn">
+        <div class="lesson-num">8</div>
+        <div>
+          <span class="tag warn">Copy quality</span>
+          <h3>Em-dashes and AI filler patterns in the offer copy</h3>
+          <p class="what">Boris flagged: em-dashes are an AI tell.</p>
+          <p>Before any client-facing document leaves the draft stage, run the copy-editing sweep. Key checks: no em-dashes (use comma or full stop), no hedging language ("may", "could potentially"), no filler transitions ("furthermore", "it is worth noting"), active voice, sentences under 25 words. A single sweep catches 90% of AI-generated copy patterns that undermine trust.</p>
+        </div>
+      </div>
+
+      <div class="lesson warn">
+        <div class="lesson-num">9</div>
+        <div>
+          <span class="tag warn">Copy quality</span>
+          <h3>Tool names appeared in the client document</h3>
+          <p class="what">Client-facing docs should not name Apify, PRAW, pytrends, BERTopic, etc.</p>
+          <p>Technical tool names belong in architecture docs for internal use. In client proposals and briefs, describe capability, not implementation. "We monitor 12 signal sources including Pinterest board saves and Reddit purchase discussions" - not "we use Apify Pinterest actor and PRAW". The client buys outcomes, not your stack.</p>
+        </div>
+      </div>
+
+      <div class="lesson warn">
+        <div class="lesson-num">10</div>
+        <div>
+          <span class="tag warn">PDF output</span>
+          <h3>Physical address appeared in the PDF</h3>
+          <p class="what">Removed after design review.</p>
+          <p>PDFs are shared and can be cached publicly. Company address, VAT number, and registration details belong on invoices, not on commercial proposals. Keep proposals free of details that become liabilities if the document circulates beyond the intended recipient.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WHAT WORKED WELL -->
+  <div class="section">
+    <div class="section-label">What Worked</div>
+    <h2>Patterns that produced good output on the first try</h2>
+
+    <div class="lessons">
+
+      <div class="lesson success">
+        <div class="lesson-num">A</div>
+        <div>
+          <span class="tag success">Architecture</span>
+          <h3>Separating intent signals from brand mention monitoring</h3>
+          <p>The core thesis - that Meltwater/Brandwatch count PR volume while the client needs buyer intent - was right from the start and never had to be revisited. Frame the problem correctly before touching code. Write the "what this is not" section before the "what this is" section.</p>
+        </div>
+      </div>
+
+      <div class="lesson success">
+        <div class="lesson-num">B</div>
+        <div>
+          <span class="tag success">Architecture</span>
+          <h3>Three-tier source model (intent / aesthetic / global early-warning)</h3>
+          <p>Organising 12 sources into tiers by signal type - not by platform category - made the architecture immediately legible to the client. The client can evaluate each tier's relevance to their business without needing to understand the technical implementation.</p>
+        </div>
+      </div>
+
+      <div class="lesson success">
+        <div class="lesson-num">C</div>
+        <div>
+          <span class="tag success">Design briefs</span>
+          <h3>Adding a design-brief output layer</h3>
+          <p>The "design brief" section of the weekly report - translating signal data directly into product development direction - was proposed upfront and the client never questioned it. It is the clearest differentiator from commodity tools. Any intelligence system for a product company should include this layer.</p>
+        </div>
+      </div>
+
+      <div class="lesson success">
+        <div class="lesson-num">D</div>
+        <div>
+          <span class="tag success">Visuals</span>
+          <h3>Publishing the system overview as an interactive HTML page</h3>
+          <p>Instead of a static architecture diagram, we built an interactive HTML with phase filters, a comparison table, and a processing logic walkthrough. This gave the client something to share with their team that explains the system without requiring a live demo. Always ask: can this artefact sell itself without you in the room?</p>
+        </div>
+      </div>
+
+      <div class="lesson success">
+        <div class="lesson-num">E</div>
+        <div>
+          <span class="tag success">China layer</span>
+          <h3>Justifying Xiaohongshu with quantified business rationale</h3>
+          <p>When the client challenged the China data sources, having a ready response - "China = 30-40% of global luxury jewelry revenue; RED precedes Western aesthetic trends by 6-12 months; you can disable it if Asia is not a priority market" - turned a potential objection into a kept feature. Always have a one-paragraph "why this matters for you specifically" for each non-obvious source.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- THE RIGHT SEQUENCE -->
+  <div class="section">
+    <div class="section-label">Recommended Process</div>
+    <h2>The sequence that gets you to final quality in one pass</h2>
+
+    <div class="phases">
+
+      <div class="phase">
+        <div class="phase-left">
+          <div class="phase-dot"></div>
+          <div class="phase-step">Step 1</div>
+        </div>
+        <div class="phase-right">
+          <h3>Client profile brief (30 min)</h3>
+          <p>Before any design: confirm ASP range, HQ country, billing currency, markets served, excluded geographies, competitor peer set (names to include and exclude), internal teams who receive the output, and whether any data sources are politically sensitive. A single Notion page with these answers prevents 6 of the 10 rework items above.</p>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-left">
+          <div class="phase-dot"></div>
+          <div class="phase-step">Step 2</div>
+        </div>
+        <div class="phase-right">
+          <h3>Source validation pass</h3>
+          <p>For each proposed source, write one sentence: "This source tells us [what buyer behaviour], which matters because [business decision it informs]." If you cannot write that sentence, cut the source. Present the shortlist to the client for confirmation before building any connectors.</p>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-left">
+          <div class="phase-dot"></div>
+          <div class="phase-step">Step 3</div>
+        </div>
+        <div class="phase-right">
+          <h3>Commercial offer - first draft checklist</h3>
+          <p>Before sending any draft: (1) currency matches client billing jurisdiction, (2) timeline includes 50% buffer on top of technical estimate, (3) costs split into three buckets (infrastructure / AAS work / upgrade reserve), (4) no tool names, no physical address, (5) copy-editing sweep run, (6) em-dashes removed, (7) VAT note included.</p>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-left">
+          <div class="phase-dot"></div>
+          <div class="phase-step">Step 4</div>
+        </div>
+        <div class="phase-right">
+          <h3>Architecture doc - make it self-selling</h3>
+          <p>Build the system overview as something the client can share internally without you. Interactive is better than static. Include: what the system is not (the competitive comparison), a phase-by-phase roadmap, and the processing logic in plain language. Publish to a permanent URL, not as a PDF attachment.</p>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-left">
+          <div class="phase-dot"></div>
+          <div class="phase-step">Step 5</div>
+        </div>
+        <div class="phase-right">
+          <h3>Phase 1 proof run before automation</h3>
+          <p>Run one real week manually. Show the client a complete output (PDF brief + data sources) before committing to full automation. This validates the signal quality and report format before you build the cron layer. One manual run is worth more than three weeks of automated output the client never looks at.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- QUICK CHECKLIST -->
+  <div class="section">
+    <div class="section-label">Checklist</div>
+    <h2>Pre-send checklist for any intelligence-system proposal</h2>
+
+    <div class="checklist">
+      <div class="check-item">
+        <div class="icon">&#9744;</div>
+        <div>
+          <strong>Client profile confirmed</strong>
+          <span>ASP range, HQ country, currency, markets, excluded geos, competitor list, output recipients</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="icon">&#9744;</div>
+        <div>
+          <strong>Every source justified in one sentence</strong>
+          <span>"This tells us [buyer behaviour] which informs [business decision]"</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="icon">&#9744;</div>
+        <div>
+          <strong>Mass-market sources removed if client is luxury/enterprise</strong>
+          <span>Amazon, Etsy, Faire, eBay - not relevant above £1,000 ASP</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="icon">&#9744;</div>
+        <div>
+          <strong>Currency matches client billing jurisdiction</strong>
+          <span>UK = GBP. EU = EUR. Override all tool defaults.</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="icon">&#9744;</div>
+        <div>
+          <strong>Timeline has 50% buffer on top of technical estimate</strong>
+          <span>4-phase project: minimum 8 weeks client-facing, not 4</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="icon">&#9744;</div>
+        <div>
+          <strong>Costs split: infrastructure / AAS work / upgrade reserve</strong>
+          <span>Never bundle - each line should be defensible on its own</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="icon">&#9744;</div>
+        <div>
+          <strong>No tool names in client document</strong>
+          <span>Describe capability, not implementation stack</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="icon">&#9744;</div>
+        <div>
+          <strong>No physical address in PDF</strong>
+          <span>PDFs circulate. Address belongs on invoices only.</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="icon">&#9744;</div>
+        <div>
+          <strong>Copy-editing sweep complete</strong>
+          <span>No em-dashes, no hedging, no "furthermore", active voice, sentences under 25 words</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="icon">&#9744;</div>
+        <div>
+          <strong>System overview is a permanent URL, not a PDF</strong>
+          <span>Something the client can share with their team without you</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="icon">&#9744;</div>
+        <div>
+          <strong>Design-brief output layer included</strong>
+          <span>For product companies: translate signals into product development direction, not just trend scores</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="icon">&#9744;</div>
+        <div>
+          <strong>Phase 1 is a manual proof run, not automated delivery</strong>
+          <span>Validate signal quality and report format before building the cron layer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:32px">
+      <strong>The meta-lesson</strong>
+      Most rework in this build came from assumptions, not from technical mistakes. The code was right. The missing ingredient was a 30-minute client brief at the start that would have answered: segment, geography, currency, competitor set, politically sensitive inclusions. Run that brief before writing a single line.
+    </div>
+  </div>
+
+  <!-- COMPARE -->
+  <div class="section">
+    <div class="section-label">Before vs After</div>
+    <h2>First draft vs final deliverable</h2>
+    <div class="compare">
+      <div class="compare-col bad">
+        <h4>First draft issues</h4>
+        <ul>
+          <li>Amazon + Etsy in source list</li>
+          <li>Pinterest framed as brand monitoring</li>
+          <li>Russia in geography list</li>
+          <li>Graff in competitor set</li>
+          <li>Prices in USD</li>
+          <li>Timeline 4 weeks total</li>
+          <li>Costs bundled in one line</li>
+          <li>Tool names visible in client doc</li>
+          <li>Em-dashes throughout copy</li>
+          <li>Physical address in PDF</li>
+          <li>Static architecture diagram</li>
+        </ul>
+      </div>
+      <div class="compare-col good">
+        <h4>Final deliverable</h4>
+        <ul>
+          <li>12 sources, each justified by buyer behaviour</li>
+          <li>Pinterest = bridal aesthetic search velocity</li>
+          <li>Geography: UK / US / UAE / SG / HK / CN</li>
+          <li>8-brand peer set confirmed with client</li>
+          <li>All prices in GBP</li>
+          <li>8-week build, 2 weeks per phase</li>
+          <li>Three cost buckets clearly separated</li>
+          <li>Capability language only in client docs</li>
+          <li>Clean British English, no AI tells</li>
+          <li>No address in PDF</li>
+          <li>Interactive HTML at permanent URL</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  AI Automation Studio &bull; Internal Process Guide &bull; Faberge TrendWatch build, 2026<br>
+  <a href="https://bkproduct.github.io/hc-presentations/faberge-system-overview/" style="color:var(--accent)">System Overview</a> &bull;
+  <a href="https://ai-automation.studio" style="color:var(--accent)">ai-automation.studio</a>
+</footer>
+
+</body>
+</html>
