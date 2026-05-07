@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Copilot × Pro Trener — пилот на 8 недель</title>
+  <meta name="description" content="Закрытая группа 8 энтузиастов спорта и здоровья. 8 недель, $800 с участника. Валидация спроса перед раскаткой на клуб.">
+  <meta property="og:title" content="Health Copilot × Pro Trener · пилот">
+  <meta property="og:description" content="Предложение пилота для Дмитрия Меркулова: 8 человек × 8 недель × $800. Метрики, экономика, путь к масштабированию.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=JetBrains+Mono:wght@400;500&family=Spline+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --void: #04060d;
+      --panel: #0e162c;
+      --panel2: #121c38;
+      --teal: #0d9488;
+      --teal-hot: #2dd4bf;
+      --amber: #f59e0b;
+      --amber-hot: #fbbf24;
+      --rose: #fb7185;
+      --text: #e8edf7;
+      --muted: #94a3b8;
+      --grid: rgba(148, 163, 184, 0.12);
+      --stroke: rgba(255, 255, 255, 0.08);
+      --ease: cubic-bezier(0.19, 1, 0.22, 1);
+      --font-h: 'Fraunces', Georgia, serif;
+      --font-b: 'Spline Sans', system-ui, sans-serif;
+      --font-m: 'JetBrains Mono', ui-monospace, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-b);
+      background: var(--void);
+      color: var(--text);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(transparent 95%, var(--grid) 95%),
+        linear-gradient(90deg, transparent 95%, var(--grid) 95%);
+      background-size: 28px 28px;
+      opacity: 0.32;
+      mask-image: radial-gradient(ellipse 90% 70% at 50% -10%, black 40%, transparent 75%);
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    #progress {
+      position: fixed; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--teal), var(--amber));
+      transform-origin: left; transform: scaleX(0); z-index: 400;
+      transition: transform 0.12s linear;
+    }
+
+    header.bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem clamp(0.9rem, 3vw, 2rem);
+      background: linear-gradient(180deg, rgba(4, 6, 13, 0.92), rgba(4, 6, 13, 0.45) 65%, transparent);
+      backdrop-filter: blur(14px);
+    }
+    .mark { display: flex; flex-direction: column; gap: 0.1rem; transform: skewX(-5deg); }
+    .mark strong { font-family: var(--font-h); font-size: 1.08rem; letter-spacing: -0.02em; }
+    .mark span {
+      font-family: var(--font-m);
+      font-size: 0.58rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--teal-hot);
+    }
+    .bar-actions { display: flex; gap: 0.45rem; flex-wrap: wrap; justify-content: flex-end; align-items: center; }
+    .chip {
+      font-family: var(--font-m);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--stroke);
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(14, 22, 44, 0.65);
+    }
+    button.chip { cursor: pointer; color: var(--text); font: inherit; }
+    button.chip:hover { border-color: rgba(45, 212, 191, 0.45); color: var(--teal-hot); }
+
+    #overview {
+      position: fixed; inset: 0; z-index: 350;
+      background: rgba(2, 4, 10, 0.88);
+      backdrop-filter: blur(10px);
+      display: none; align-items: center; justify-content: center; padding: 1.5rem;
+    }
+    #overview.open { display: flex; }
+    .ov {
+      width: min(720px, 100%);
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: 18px;
+      padding: 1.25rem;
+      max-height: 88vh;
+      overflow: auto;
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.55);
+    }
+    .ov h3 { font-family: var(--font-h); font-size: 1.3rem; margin-bottom: 0.85rem; }
+    .ov-grid { display: grid; gap: 0.45rem; grid-template-columns: 1fr; }
+    @media (min-width: 520px) { .ov-grid { grid-template-columns: 1fr 1fr; } }
+    .ov-grid button {
+      text-align: left;
+      font: inherit;
+      font-size: 0.86rem;
+      padding: 0.55rem 0.65rem;
+      border-radius: 10px;
+      border: 1px solid var(--stroke);
+      background: var(--panel2);
+      color: var(--text);
+      cursor: pointer;
+    }
+    .ov-grid button:hover { border-color: rgba(13, 148, 136, 0.55); color: var(--teal-hot); }
+
+    main { position: relative; z-index: 2; padding-top: 4.5rem; }
+
+    section[data-moment] {
+      position: relative;
+      padding: clamp(3rem, 8vw, 5.5rem) clamp(1rem, 4vw, 2.75rem);
+    }
+    section[data-moment]::after {
+      content: attr(data-kicker);
+      position: absolute;
+      top: clamp(0.75rem, 2.5vw, 1.35rem);
+      left: clamp(1rem, 4vw, 2.75rem);
+      font-family: var(--font-m);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.85;
+    }
+
+    .wrap { width: min(1120px, 100%); margin: 0 auto; }
+
+    h1, h2, h3 { font-family: var(--font-h); font-weight: 700; line-height: 1.06; letter-spacing: -0.02em; }
+    h1 { font-size: clamp(2.1rem, 5.8vw, 3.6rem); }
+    h2 { font-size: clamp(1.45rem, 3.8vw, 2.45rem); margin-bottom: 0.75rem; }
+    h3 { font-size: clamp(1.05rem, 2vw, 1.25rem); }
+    .lede { color: var(--muted); font-size: clamp(0.95rem, 1.9vw, 1.08rem); max-width: 42rem; margin-top: 0.75rem; }
+    .fine { font-size: 0.72rem; color: var(--muted); line-height: 1.45; max-width: 46rem; margin-top: 1rem; }
+    em.hot { color: var(--teal-hot); font-style: normal; }
+    em.warm { color: var(--amber); font-style: normal; }
+
+    [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity 0.65s var(--ease), transform 0.65s var(--ease); }
+    [data-reveal].in { opacity: 1; transform: none; }
+    [data-d="1"] { transition-delay: 0.08s; }
+    [data-d="2"] { transition-delay: 0.16s; }
+    [data-d="3"] { transition-delay: 0.24s; }
+    [data-d="4"] { transition-delay: 0.32s; }
+
+    /* Hero */
+    #m-intro {
+      min-height: min(94vh, 880px);
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(ellipse 55% 50% at 88% 8%, rgba(13, 148, 136, 0.22), transparent 58%),
+        radial-gradient(ellipse 42% 42% at 6% 92%, rgba(245, 158, 11, 0.08), transparent 52%);
+    }
+    .hero-grid {
+      display: grid;
+      gap: 1.75rem;
+      grid-template-columns: 1fr;
+      align-items: end;
+    }
+    @media (min-width: 920px) {
+      .hero-grid { grid-template-columns: 1.1fr 0.9fr; align-items: stretch; }
+    }
+    .hero-meta {
+      display: grid;
+      gap: 0.6rem;
+      margin-top: 1.6rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      max-width: 30rem;
+    }
+    @media (min-width: 600px) { .hero-meta { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+    .hero-meta div {
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      padding: 0.7rem 0.7rem;
+      background: linear-gradient(155deg, rgba(18, 28, 56, 0.85), rgba(10, 16, 32, 0.6));
+    }
+    .hero-meta b { display: block; font-family: var(--font-h); font-size: 1.4rem; line-height: 1; color: var(--teal-hot); }
+    .hero-meta span { display: block; margin-top: 0.3rem; font-family: var(--font-m); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+
+    .stamp {
+      position: relative;
+      border: 1px solid var(--stroke);
+      border-radius: 20px;
+      background: linear-gradient(160deg, rgba(14, 22, 44, 0.95), rgba(7, 11, 20, 0.65));
+      padding: 1.4rem 1.3rem 1.25rem;
+      overflow: hidden;
+      transform: rotate(-1.2deg);
+      box-shadow: 0 22px 65px rgba(0, 0, 0, 0.45);
+    }
+    .stamp::before {
+      content: '';
+      position: absolute;
+      inset: -45%;
+      background: conic-gradient(from 200deg, transparent, rgba(45, 212, 191, 0.12), transparent 42%);
+      animation: sweep 18s linear infinite;
+    }
+    @keyframes sweep { to { transform: rotate(360deg); } }
+    .stamp-inner { position: relative; z-index: 2; }
+    .stamp-inner .t { font-family: var(--font-m); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal-hot); }
+    .stamp-inner h4 { font-family: var(--font-h); font-size: 1.4rem; margin-top: 0.4rem; line-height: 1.1; }
+    .stamp-inner ul { list-style: none; margin-top: 1rem; display: grid; gap: 0.5rem; }
+    .stamp-inner ul li { font-size: 0.85rem; color: #cbd5e1; padding-left: 1.1rem; position: relative; }
+    .stamp-inner ul li::before { content: ''; position: absolute; left: 0; top: 0.55rem; width: 0.5rem; height: 0.5rem; border-radius: 2px; background: var(--teal-hot); box-shadow: 0 0 12px var(--teal-hot); }
+    .stamp-foot { margin-top: 1.05rem; font-family: var(--font-m); font-size: 0.6rem; letter-spacing: 0.06em; color: var(--rose); position: relative; z-index: 2; }
+
+    /* Generic two-column / three-column blocks */
+    .grid2 { display: grid; gap: 1rem; grid-template-columns: 1fr; margin-top: 1.6rem; }
+    @media (min-width: 800px) { .grid2 { grid-template-columns: 1fr 1fr; gap: 1.4rem; } }
+    .grid3 { display: grid; gap: 0.85rem; grid-template-columns: 1fr; margin-top: 1.4rem; }
+    @media (min-width: 800px) { .grid3 { grid-template-columns: repeat(3, 1fr); } }
+
+    .card {
+      border-radius: 16px;
+      border: 1px solid var(--stroke);
+      padding: 1.1rem 1.05rem;
+      background: linear-gradient(155deg, rgba(18, 28, 56, 0.85), rgba(10, 16, 32, 0.65));
+      position: relative;
+      overflow: hidden;
+    }
+    .card .kicker {
+      font-family: var(--font-m); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+    }
+    .card h3 { margin-top: 0.45rem; font-size: 1.18rem; }
+    .card p { color: #cbd5e1; font-size: 0.9rem; margin-top: 0.55rem; line-height: 1.5; }
+    .card.warm { border-color: rgba(245, 158, 11, 0.3); }
+    .card.warm .kicker { color: var(--amber); }
+    .card.cool { border-color: rgba(13, 148, 136, 0.3); }
+    .card.cool .kicker { color: var(--teal-hot); }
+    .card .num {
+      position: absolute; top: 0.85rem; right: 1rem; font-family: var(--font-m);
+      font-size: 0.7rem; color: var(--muted); letter-spacing: 0.12em;
+    }
+
+    /* Why-now bullets */
+    .why-grid { display: grid; gap: 0.85rem; margin-top: 1.5rem; grid-template-columns: 1fr; }
+    @media (min-width: 760px) { .why-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    /* Flow / product diagram */
+    .flow-card {
+      margin-top: 1.4rem;
+      border-radius: 18px;
+      border: 1px solid var(--stroke);
+      background: rgba(14, 22, 44, 0.5);
+      padding: 1rem 0.9rem 0.9rem;
+      overflow: hidden;
+    }
+    .flow-svg { width: 100%; height: auto; display: block; max-height: 220px; }
+    .flow-legend {
+      display: grid; gap: 0.4rem; margin-top: 0.95rem;
+      font-size: 0.78rem; color: var(--muted);
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 700px) { .flow-legend { grid-template-columns: repeat(3, 1fr); } }
+    .flow-legend b { color: var(--text); display: block; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; font-family: var(--font-m); margin-bottom: 0.2rem; }
+
+    /* Weeks roadmap */
+    .weeks {
+      display: grid; gap: 0.65rem; margin-top: 1.4rem;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 760px) { .weeks { grid-template-columns: repeat(4, 1fr); } }
+    .week {
+      border-radius: 12px;
+      border: 1px solid var(--stroke);
+      padding: 0.85rem 0.8rem;
+      background: linear-gradient(155deg, rgba(18, 28, 56, 0.78), rgba(10, 16, 32, 0.6));
+      position: relative;
+      min-height: 122px;
+    }
+    .week .num {
+      font-family: var(--font-m); font-size: 0.62rem; letter-spacing: 0.2em; color: var(--teal-hot);
+      text-transform: uppercase;
+    }
+    .week h4 { font-family: var(--font-h); font-size: 1.05rem; margin-top: 0.3rem; line-height: 1.1; }
+    .week p { font-size: 0.8rem; color: var(--muted); margin-top: 0.45rem; line-height: 1.45; }
+
+    /* Deliverables list */
+    .deliv {
+      display: grid; gap: 0.7rem; margin-top: 1.4rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 760px) { .deliv { grid-template-columns: repeat(3, 1fr); } }
+    .deliv .card .icn {
+      font-size: 1.4rem;
+      width: 2.4rem; height: 2.4rem;
+      border-radius: 12px;
+      display: grid; place-items: center;
+      background: rgba(13, 148, 136, 0.15);
+      border: 1px solid rgba(13, 148, 136, 0.3);
+      margin-bottom: 0.55rem;
+    }
+
+    /* Economics breakdown */
+    .econ-block {
+      margin-top: 1.4rem; border-radius: 18px;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      background: linear-gradient(150deg, rgba(245, 158, 11, 0.05), rgba(14, 22, 44, 0.6));
+      padding: 1.4rem 1.2rem;
+    }
+    .econ-row {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 1rem; padding: 0.7rem 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+      font-size: 0.92rem;
+    }
+    .econ-row:last-of-type { border-bottom: none; }
+    .econ-row.total { font-family: var(--font-h); font-size: 1.4rem; padding-top: 0.95rem; }
+    .econ-row .k { color: var(--muted); }
+    .econ-row.total .k { color: var(--text); }
+    .econ-row .v { font-family: var(--font-m); color: var(--teal-hot); }
+    .econ-row.total .v { font-family: var(--font-h); color: var(--amber-hot); font-size: 1.6rem; }
+    .econ-row.minus .v { color: var(--rose); }
+
+    .split {
+      display: grid; gap: 0.85rem; margin-top: 1rem;
+      grid-template-columns: 1fr 1fr;
+    }
+    .split .pie {
+      border-radius: 14px; border: 1px solid var(--stroke);
+      padding: 1rem 1rem; background: rgba(14, 22, 44, 0.65);
+    }
+    .split .pie b { font-family: var(--font-h); font-size: 1.5rem; display: block; }
+    .split .pie span { font-family: var(--font-m); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); display: block; margin-top: 0.3rem; }
+    .split .pie p { color: #cbd5e1; font-size: 0.8rem; margin-top: 0.55rem; line-height: 1.4; }
+    .split .pie.a { border-color: rgba(13, 148, 136, 0.4); }
+    .split .pie.a b { color: var(--teal-hot); }
+    .split .pie.b { border-color: rgba(245, 158, 11, 0.35); }
+    .split .pie.b b { color: var(--amber-hot); }
+
+    /* Success metrics bars */
+    .metrics { display: grid; gap: 0.75rem; max-width: 42rem; margin-top: 1.3rem; }
+    .metric {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 0.85rem; padding: 0.85rem 1rem;
+      border: 1px solid var(--stroke); border-radius: 12px;
+      background: rgba(14, 22, 44, 0.55);
+      align-items: center;
+    }
+    .metric .label b { display: block; font-family: var(--font-h); font-size: 1.05rem; }
+    .metric .label span { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 0.18rem; }
+    .metric .val {
+      font-family: var(--font-m); font-size: 0.78rem; letter-spacing: 0.08em;
+      padding: 0.3rem 0.6rem; border-radius: 999px;
+      background: rgba(13, 148, 136, 0.18);
+      border: 1px solid rgba(13, 148, 136, 0.4);
+      color: var(--teal-hot);
+    }
+    .metric.warm .val { background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.4); color: var(--amber-hot); }
+
+    /* Scale tiers */
+    .tiers {
+      display: grid; gap: 0.85rem; margin-top: 1.4rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 760px) { .tiers { grid-template-columns: repeat(3, 1fr); } }
+    .tier {
+      border-radius: 16px; border: 1px solid var(--stroke);
+      padding: 1.2rem 1.1rem;
+      background: linear-gradient(160deg, rgba(18, 28, 56, 0.85), rgba(10, 16, 32, 0.6));
+      position: relative; overflow: hidden;
+    }
+    .tier h4 { font-family: var(--font-h); font-size: 1.15rem; }
+    .tier .scale {
+      font-family: var(--font-m); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+    }
+    .tier .big {
+      display: block; margin-top: 0.85rem;
+      font-family: var(--font-h); font-size: 1.95rem;
+      color: var(--teal-hot); line-height: 1;
+    }
+    .tier .sub { display: block; font-size: 0.76rem; color: var(--muted); margin-top: 0.35rem; font-family: var(--font-m); letter-spacing: 0.08em; }
+    .tier ul { list-style: none; margin-top: 0.95rem; display: grid; gap: 0.4rem; }
+    .tier ul li { font-size: 0.82rem; color: #cbd5e1; padding-left: 1rem; position: relative; }
+    .tier ul li::before { content: '·'; position: absolute; left: 0.2rem; top: -0.1rem; color: var(--teal-hot); font-size: 1.3rem; }
+    .tier.featured { border-color: rgba(245, 158, 11, 0.45); background: linear-gradient(160deg, rgba(245, 158, 11, 0.08), rgba(10, 16, 32, 0.7)); }
+    .tier.featured .big { color: var(--amber-hot); }
+    .tier.featured .scale { color: var(--amber); }
+
+    /* Risks */
+    .risks {
+      display: grid; gap: 0.7rem; margin-top: 1.3rem;
+    }
+    .risk {
+      display: grid; grid-template-columns: 1fr;
+      gap: 0.55rem;
+      padding: 1rem 1.1rem;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: rgba(14, 22, 44, 0.55);
+    }
+    @media (min-width: 760px) { .risk { grid-template-columns: 0.9fr 1.1fr; gap: 1.4rem; } }
+    .risk b { font-family: var(--font-h); font-size: 1rem; color: var(--rose); display: block; }
+    .risk b::before { content: '◆ '; opacity: 0.6; }
+    .risk p { font-size: 0.86rem; color: #cbd5e1; line-height: 1.5; }
+    .risk p span { color: var(--teal-hot); font-weight: 600; }
+
+    /* Ask block */
+    .ask {
+      margin-top: 1.6rem;
+      display: grid; gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 760px) { .ask { grid-template-columns: 1fr 1fr; gap: 1rem; } }
+    .ask-card {
+      border-radius: 14px;
+      border: 1px solid rgba(13, 148, 136, 0.35);
+      background: linear-gradient(140deg, rgba(13, 148, 136, 0.12), rgba(14, 22, 44, 0.65));
+      padding: 1.1rem 1.15rem;
+    }
+    .ask-card .num {
+      font-family: var(--font-h); font-size: 2rem; color: var(--teal-hot); line-height: 1; display: block;
+    }
+    .ask-card h4 { font-family: var(--font-h); font-size: 1.1rem; margin-top: 0.55rem; }
+    .ask-card p { font-size: 0.86rem; color: #cbd5e1; margin-top: 0.5rem; line-height: 1.5; }
+    .timeline {
+      margin-top: 1.4rem; padding: 1rem 1.15rem;
+      border-radius: 14px; border: 1px solid var(--stroke);
+      background: rgba(14, 22, 44, 0.65);
+      font-family: var(--font-m); font-size: 0.78rem;
+      color: var(--muted); display: grid; gap: 0.55rem;
+    }
+    .timeline b { color: var(--text); margin-right: 0.5rem; letter-spacing: 0.08em; }
+
+    /* Founder slide */
+    #m-founder {
+      background:
+        radial-gradient(ellipse 60% 55% at 18% 100%, rgba(13, 148, 136, 0.18), transparent 55%),
+        radial-gradient(ellipse 42% 42% at 95% 5%, rgba(245, 158, 11, 0.06), transparent 55%);
+    }
+    .founder-grid {
+      display: grid; gap: 1.5rem;
+      grid-template-columns: 1fr;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+    @media (min-width: 820px) { .founder-grid { grid-template-columns: 0.9fr 1.1fr; gap: 2.4rem; } }
+    .photo-wrap {
+      position: relative;
+      border-radius: 22px;
+      border: 1px solid var(--stroke);
+      overflow: hidden;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55);
+      background: var(--panel);
+      aspect-ratio: 3 / 4;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+    .photo-wrap img {
+      display: block;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: saturate(1.04) contrast(1.02);
+    }
+    .photo-wrap::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(190deg, transparent 60%, rgba(4, 6, 13, 0.55));
+      pointer-events: none;
+    }
+    .photo-tag {
+      position: absolute; bottom: 0.85rem; left: 0.95rem; right: 0.95rem;
+      display: flex; gap: 0.35rem; align-items: center;
+      font-family: var(--font-m); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text);
+      z-index: 2;
+    }
+    .photo-tag i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--teal-hot); box-shadow: 0 0 10px var(--teal-hot); display: inline-block; }
+    .founder-bio h2 { font-size: clamp(1.85rem, 4vw, 2.6rem); }
+    .founder-bio .role { font-family: var(--font-m); font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal-hot); margin-bottom: 0.6rem; display: block; }
+    .founder-bio p { color: #cbd5e1; font-size: 0.96rem; margin-top: 0.85rem; line-height: 1.6; max-width: 36rem; }
+    .founder-creds { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 1.1rem; }
+    .founder-creds .chip { color: var(--text); font-family: var(--font-m); font-size: 0.62rem; }
+    .founder-contact {
+      margin-top: 1.4rem; display: flex; gap: 0.5rem; flex-wrap: wrap;
+    }
+    .founder-contact a {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.85rem 1.2rem;
+      border-radius: 12px;
+      border: 1px solid rgba(13, 148, 136, 0.45);
+      background: linear-gradient(100deg, rgba(13, 148, 136, 0.32), rgba(13, 148, 136, 0.06));
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.92rem;
+    }
+    .founder-contact a:hover { border-color: var(--teal-hot); color: var(--teal-hot); }
+    .founder-contact a.ghost { background: transparent; border-color: var(--stroke); color: var(--muted); }
+    .founder-contact a.ghost:hover { color: var(--text); }
+
+    .colophon {
+      margin-top: 2.4rem; padding-top: 1.4rem;
+      border-top: 1px solid var(--stroke);
+      display: grid; gap: 0.4rem;
+      font-family: var(--font-m); font-size: 0.7rem; letter-spacing: 0.06em; color: var(--muted);
+    }
+    .colophon a { color: var(--teal-hot); text-decoration: none; }
+
+    .diag {
+      position: absolute;
+      width: 140%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(251, 113, 133, 0.35), transparent);
+      top: 40%;
+      left: -20%;
+      transform: rotate(-8deg);
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    /* Callout */
+    .callout {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border-radius: 14px;
+      border: 1px solid rgba(13, 148, 136, 0.35);
+      background: linear-gradient(120deg, rgba(13, 148, 136, 0.12), rgba(14, 22, 44, 0.65));
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      line-height: 1.55;
+      max-width: 46rem;
+    }
+    .callout strong { color: var(--text); }
+  </style>
+</head>
+<body>
+  <div id="progress" aria-hidden="true"></div>
+
+  <header class="bar">
+    <div class="mark"><strong>Health Copilot × Pro Trener</strong><span>пилот · 8 недель</span></div>
+    <div class="bar-actions">
+      <button class="chip" type="button" id="btn-overview">Оглавление · Esc</button>
+      <span class="chip">↓ пробел</span>
+    </div>
+  </header>
+
+  <div id="overview" aria-hidden="true">
+    <div class="ov" role="dialog" aria-labelledby="ov-h">
+      <h3 id="ov-h">По разделам</h3>
+      <div class="ov-grid" id="overview-grid"></div>
+    </div>
+  </div>
+
+  <main id="deck">
+
+    <!-- 1. INTRO / TITLE -->
+    <section data-moment data-kicker="предложение · для Дмитрия Меркулова" id="m-intro">
+      <div class="diag" aria-hidden="true"></div>
+      <div class="wrap hero-grid">
+        <div>
+          <h1 data-reveal>Закрытый пилот <em class="hot">Health&nbsp;Copilot</em> для энтузиастов&nbsp;Pro&nbsp;Trener.</h1>
+          <p class="lede" data-reveal data-d="1">8 человек · 8 недель · $800 с участника. Цель — измерить спрос, собрать каст-дев и просчитать LTV перед раскаткой на весь клуб.</p>
+          <div class="hero-meta" data-reveal data-d="2">
+            <div><b>8</b><span>участников</span></div>
+            <div><b>8</b><span>недель</span></div>
+            <div><b>$800</b><span>цена места</span></div>
+            <div><b>$6 400</b><span>валовая выручка</span></div>
+          </div>
+        </div>
+        <div class="stamp" data-reveal data-d="3">
+          <div class="stamp-inner">
+            <div class="t">Что в этом для Pro Trener</div>
+            <h4>Платный продукт-надстройка к существующему членству — без капитальных затрат и без риска для бренда.</h4>
+            <ul>
+              <li>Доход от пилота уходит клубу — 30%, ~<em class="warm">$1 920</em> за 8 недель.</li>
+              <li>Каст-дев и LTV-модель в подарок: понятно, сколько можно заработать на масштабе.</li>
+              <li>Решение по раскатке принимается на цифрах, а не на ощущениях.</li>
+            </ul>
+          </div>
+          <div class="stamp-foot">старт пилота — через 2 недели после go</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. WHY NOW -->
+    <section data-moment data-kicker="почему сейчас" id="m-why" style="background:linear-gradient(180deg,transparent,rgba(13,148,136,0.04));">
+      <div class="wrap">
+        <h2 data-reveal>Энтузиасты уже носят данные с собой. Им некому их объяснять.</h2>
+        <p class="lede" data-reveal data-d="1">У средне-активного члена Pro Trener — Apple Watch / WHOOP / Oura, лабораторная история на годы и горы скриншотов. Тренер видит зал; врач видит 15 минут приёма. Никто не держит общую картину между визитами. Этот разрыв — наш платежеспособный спрос.</p>
+        <div class="why-grid">
+          <div class="card cool" data-reveal data-d="1">
+            <span class="kicker">данные</span>
+            <h3>Носимые есть у всех</h3>
+            <p>Сон, HRV, нагрузка, стресс. Внутри Apple Health и приложений — ноль смысла на дистанции.</p>
+          </div>
+          <div class="card cool" data-reveal data-d="2">
+            <span class="kicker">желание</span>
+            <h3>Готовность платить</h3>
+            <p>Аудитория уже тратит десятки тысяч в год на тренеров, добавки и анализы. $800 за 8 недель ясности — допустимый билет.</p>
+          </div>
+          <div class="card cool" data-reveal data-d="3">
+            <span class="kicker">момент</span>
+            <h3>AI стал достаточно хорош</h3>
+            <p>Распознавание еды по фото, разбор лабораторных, поиск по PubMed — то, что год назад было прототипом, сегодня — продукт.</p>
+          </div>
+        </div>
+        <div class="callout" data-reveal data-d="3">
+          <strong>Пилот — это не «ещё один тренинг».</strong> Это возможность <em class="hot" style="color:var(--teal-hot)">проверить гипотезу платных AI-надстроек к фитнес-членству</em> на лояльной аудитории, до того как кто-то снаружи начнёт продавать то же самое вашим клиентам.
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. PRODUCT -->
+    <section data-moment data-kicker="что получает участник" id="m-product">
+      <div class="wrap">
+        <h2 data-reveal>Health Copilot — личная операционная система здоровья.</h2>
+        <p class="lede" data-reveal data-d="1">Пять источников данных стекаются в одно ядро. На выходе — короткие, проверяемые ответы в Telegram: утренний бриф, разбор еды по фото, журнал дня, лист к врачу. С опорой на медицинские архивы (PubMed, PharmCAT) и градацию доказательности.</p>
+        <div class="flow-card" data-reveal data-d="2">
+          <svg class="flow-svg" viewBox="0 0 900 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+                <stop stop-color="#0d9488"/><stop offset="1" stop-color="#2dd4bf"/>
+              </linearGradient>
+              <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
+                <stop stop-color="#f59e0b"/><stop offset="1" stop-color="#fbbf24"/>
+              </linearGradient>
+            </defs>
+            <rect x="40" y="55" width="200" height="90" rx="14" stroke="rgba(148,163,184,0.35)" stroke-width="1.5" fill="rgba(14,22,44,0.65)"/>
+            <text x="140" y="85" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11">5 источников</text>
+            <text x="140" y="106" text-anchor="middle" fill="#e8edf7" font-family="Spline Sans, sans-serif" font-size="12">часы · лабы · ген</text>
+            <text x="140" y="124" text-anchor="middle" fill="#e8edf7" font-family="Spline Sans, sans-serif" font-size="12">еда · журнал</text>
+            <path d="M250 100 H310" stroke="url(#g1)" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="318,100 300,92 300,108" fill="#2dd4bf"/>
+            <circle cx="450" cy="100" r="56" stroke="rgba(13,148,136,0.55)" stroke-width="2" fill="rgba(10,16,32,0.92)"/>
+            <text x="450" y="88" text-anchor="middle" fill="#2dd4bf" font-family="JetBrains Mono, monospace" font-size="11">ядро</text>
+            <text x="450" y="108" text-anchor="middle" fill="#e8edf7" font-family="Spline Sans, sans-serif" font-size="12">синтез + QC</text>
+            <text x="450" y="125" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="9">grade A · B · C</text>
+            <path d="M510 100 H570" stroke="url(#g2)" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="578,100 560,92 560,108" fill="#f59e0b"/>
+            <rect x="590" y="55" width="270" height="90" rx="14" stroke="rgba(245,158,11,0.4)" stroke-width="1.5" fill="rgba(14,22,44,0.65)"/>
+            <text x="725" y="85" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11">личный канал в Telegram</text>
+            <text x="725" y="108" text-anchor="middle" fill="#e8edf7" font-family="Spline Sans, sans-serif" font-size="12">утро · еда · журнал · врач</text>
+            <text x="725" y="125" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="9">кратко · по делу</text>
+          </svg>
+          <div class="flow-legend">
+            <div><b>input</b> — Apple Watch / WHOOP, лабы PDF, генотип, фото еды, голосовые заметки.</div>
+            <div><b>core</b> — собирает данные участника, сверяет с медицинской литературой, помечает уверенность.</div>
+            <div><b>output</b> — Telegram-канал участника. Утро. Еда по фото. Журнал. Лист к врачу.</div>
+          </div>
+        </div>
+        <p class="fine" data-reveal data-d="3">Подробная демонстрация продукта на реальных скриншотах: <a href="../pro-trener-teaser/" style="color:var(--teal-hot);">pro-trener-teaser</a>. Базовая презентация HC: <a href="../deck-skill-compare/fireworks.html" style="color:var(--teal-hot);">deck-skill-compare/fireworks</a>.</p>
+      </div>
+    </section>
+
+    <!-- 4. PILOT DESIGN -->
+    <section data-moment data-kicker="дизайн пилота" id="m-pilot">
+      <div class="wrap">
+        <h2 data-reveal>Закрытая онлайн-группа · 8 человек · 8 недель.</h2>
+        <p class="lede" data-reveal data-d="1">Один час в неделю на Zoom + личный Health Copilot на каждого участника. Я веду группу как продукт-менеджер: настраиваю систему, обучаю пользоваться, разбираю кейсы, собираю обратную связь.</p>
+        <div class="grid3">
+          <div class="card" data-reveal data-d="1">
+            <span class="kicker">формат</span>
+            <h3>1 живая сессия в неделю</h3>
+            <p>Zoom, 60–75 минут. Полтора часа подготовки контента под группу. Запись в архиве участника.</p>
+          </div>
+          <div class="card" data-reveal data-d="2">
+            <span class="kicker">личный канал</span>
+            <h3>Telegram-инстанс на каждого</h3>
+            <p>Свой ассистент, заведённый под анализы, носимые и цели участника. Между сессиями — рабочий инструмент, не «приложение поиграться».</p>
+          </div>
+          <div class="card" data-reveal data-d="3">
+            <span class="kicker">сопровождение</span>
+            <h3>Чат группы + я в личке</h3>
+            <p>Закрытый чат группы для разборов; личные вопросы — мне. Не медицина, а навигация по своим данным.</p>
+          </div>
+        </div>
+        <div class="callout" data-reveal data-d="3">
+          <strong>Кого зовём:</strong> члены клуба, которые уже носят трекер, регулярно сдают анализы и хотят перестать «коллекционировать» цифры — а начать с ними работать. Через анкету отбираем 8 из ~15 заявок.
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. WEEKS ROADMAP -->
+    <section data-moment data-kicker="по неделям" id="m-week" style="background:linear-gradient(180deg,transparent,rgba(245,158,11,0.04));">
+      <div class="wrap">
+        <h2 data-reveal>Восемь недель — от подключения данных до листа к врачу.</h2>
+        <p class="lede" data-reveal data-d="1">Каждая неделя закрывает один отдельный блок и оставляет участнику конкретный артефакт.</p>
+        <div class="weeks">
+          <div class="week" data-reveal data-d="1">
+            <span class="num">w1</span>
+            <h4>Подключение данных</h4>
+            <p>Apple Watch / WHOOP, выгрузка лабораторий, базовые цели. Запуск Telegram-ассистента.</p>
+          </div>
+          <div class="week" data-reveal data-d="1">
+            <span class="num">w2</span>
+            <h4>Утренний бриф</h4>
+            <p>Как читать восстановление, как ставить план дня поверх сна и нагрузки.</p>
+          </div>
+          <div class="week" data-reveal data-d="2">
+            <span class="num">w3</span>
+            <h4>Еда по фото</h4>
+            <p>Макросы, белок на массу тела, глюкозный отклик. Личный паттерн питания.</p>
+          </div>
+          <div class="week" data-reveal data-d="2">
+            <span class="num">w4</span>
+            <h4>Лабораторный фон</h4>
+            <p>Липиды, обмен железа, витамин D, маркёры воспаления. Что важно мониторить именно вам.</p>
+          </div>
+          <div class="week" data-reveal data-d="3">
+            <span class="num">w5</span>
+            <h4>Тренировка и восстановление</h4>
+            <p>HRV, нагрузка, сон. Когда не идти в зал и почему это профит, а не лень.</p>
+          </div>
+          <div class="week" data-reveal data-d="3">
+            <span class="num">w6</span>
+            <h4>Добавки и фарма</h4>
+            <p>Что реально подтверждено, что — маркетинг. Аккуратная связка с генетикой.</p>
+          </div>
+          <div class="week" data-reveal data-d="4">
+            <span class="num">w7</span>
+            <h4>Лист к врачу</h4>
+            <p>Один документ вместо папки. Что обсудить за 15 минут приёма.</p>
+          </div>
+          <div class="week" data-reveal data-d="4">
+            <span class="num">w8</span>
+            <h4>Свой протокол</h4>
+            <p>Каждый уходит со своим режимом, артефактами и подключённой системой на дальнейшее использование.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. WHAT EACH PARTICIPANT GETS -->
+    <section data-moment data-kicker="что уносит участник" id="m-deliv">
+      <div class="wrap">
+        <h2 data-reveal>Каждый участник уносит работающую систему — не записи лекций.</h2>
+        <p class="lede" data-reveal data-d="1">Контент сессий вторичен. Главный продукт — настроенная под человека Health Copilot и навык ей пользоваться.</p>
+        <div class="deliv">
+          <div class="card cool" data-reveal data-d="1">
+            <div class="icn">⚙️</div>
+            <span class="kicker">артефакт 1</span>
+            <h3>Личный Health Copilot</h3>
+            <p>Telegram-ассистент с подключёнными данными, под цели и историю участника. Остаётся работать после пилота — на своём подписочном плане.</p>
+          </div>
+          <div class="card cool" data-reveal data-d="2">
+            <div class="icn">📋</div>
+            <span class="kicker">артефакт 2</span>
+            <h3>Личный health-протокол</h3>
+            <p>Сон / тренировка / питание / добавки — собранный из его собственных данных, не из чек-листа.</p>
+          </div>
+          <div class="card cool" data-reveal data-d="3">
+            <div class="icn">🩺</div>
+            <span class="kicker">артефакт 3</span>
+            <h3>Лист к врачу</h3>
+            <p>Один документ с лабораторным фоном, текущим протоколом, генетическими нюансами и вопросами для приёма.</p>
+          </div>
+        </div>
+        <div class="callout" data-reveal data-d="3">
+          <strong>Почему это хорошо для бренда Pro Trener.</strong> После пилота 8 членов клуба ходят с продуктом, который вы помогли им получить. Это конвертируется в word-of-mouth внутри клубной аудитории — лучше, чем любая внешняя реклама.
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. ECONOMICS -->
+    <section data-moment data-kicker="экономика пилота" id="m-econ">
+      <div class="wrap">
+        <h2 data-reveal>Экономика пилота · <em class="warm">$6&nbsp;400</em> валовой, <em class="hot">~$2&nbsp;000</em> клубу.</h2>
+        <p class="lede" data-reveal data-d="1">Прозрачно: один источник дохода — оплата участников. Делим 70 / 30 в мою пользу. Платформа, разработка, ведение — на мне; канал, доверие и эндорсмент — на клубе.</p>
+        <div class="econ-block">
+          <div class="econ-row" data-reveal data-d="1"><span class="k">8 участников × $800</span><span class="v">$6 400</span></div>
+          <div class="econ-row minus" data-reveal data-d="1"><span class="k">Платёжные комиссии · обработка</span><span class="v">−$200</span></div>
+          <div class="econ-row total" data-reveal data-d="2"><span class="k">К распределению</span><span class="v">$6 200</span></div>
+        </div>
+        <div class="split" data-reveal data-d="3">
+          <div class="pie a">
+            <span>Health Copilot · 70%</span>
+            <b>~$4 340</b>
+            <p>Платформа · ведение · разработка · поддержка после пилота · LTV-модель и каст-дев отчёт.</p>
+          </div>
+          <div class="pie b">
+            <span>Pro Trener · 30%</span>
+            <b>~$1 860</b>
+            <p>Доступ к 15 заявкам, эндорсмент Дмитрия, использование пространства клуба для финального оффлайн-завершения (по желанию).</p>
+          </div>
+        </div>
+        <p class="fine" data-reveal data-d="3">Все цифры — валовые до налогов. Точную форму расчётов (агентский договор / партнёрское соглашение / ИП) согласуем под удобство Pro Trener. Расчёт — после полной оплаты участников, до старта группы.</p>
+      </div>
+    </section>
+
+    <!-- 8. SUCCESS METRICS -->
+    <section data-moment data-kicker="как поймём, что сработало" id="m-success" style="background:linear-gradient(180deg,transparent,rgba(13,148,136,0.05));">
+      <div class="wrap">
+        <h2 data-reveal>Что должен показать пилот, чтобы раскатывать на клуб.</h2>
+        <p class="lede" data-reveal data-d="1">Два главных индикатора + три вспомогательных. Решение go / no-go по раскатке — на основании них.</p>
+        <div class="metrics">
+          <div class="metric warm" data-reveal data-d="1">
+            <div class="label"><b>≥ 6 из 8 продлевают на месяц 2</b><span>Главный индикатор спроса. Готовность платить за продукт после первой стоимости.</span></div>
+            <div class="val">≥ 75%</div>
+          </div>
+          <div class="metric warm" data-reveal data-d="1">
+            <div class="label"><b>Юнит-экономика и LTV-прогноз</b><span>Себестоимость одного участника, расчёт ARPU и LTV при раскатке. Это основной артефакт пилота для решения по масштабу.</span></div>
+            <div class="val">отчёт</div>
+          </div>
+          <div class="metric" data-reveal data-d="2">
+            <div class="label"><b>NPS ≥ 50</b><span>Опрос на 4-й и 8-й неделе. Качественные кейсы — 2-3 видео-цитаты.</span></div>
+            <div class="val">≥ 50</div>
+          </div>
+          <div class="metric" data-reveal data-d="2">
+            <div class="label"><b>Каст-дев интервью</b><span>30-минутное интервью с каждым участником после пилота: что делает / что не делает / за что готов платить дальше.</span></div>
+            <div class="val">8 / 8</div>
+          </div>
+          <div class="metric" data-reveal data-d="3">
+            <div class="label"><b>Health-метрики у части группы</b><span>Сон / HRV / вес / липиды — у тех, кто измеряет. Не KPI, но сильный story-телл.</span></div>
+            <div class="val">кейсы</div>
+          </div>
+        </div>
+        <div class="callout" data-reveal data-d="3">
+          <strong>Если ≥ 6 из 8 продлевают</strong> — у нас валидированный платный канал внутри клуба. Идём в раскатку. <strong>Если &lt; 6</strong> — у нас на руках детальный каст-дев и LTV-модель: понимаем, что чинить и стоит ли продолжать. Меркулов в обоих случаях получает данные, не догадки.
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. SCALE PROJECTION -->
+    <section data-moment data-kicker="что из этого вырастает" id="m-scale">
+      <div class="wrap">
+        <h2 data-reveal>Если пилот сработал — экономика на масштабе.</h2>
+        <p class="lede" data-reveal data-d="1">Три сценария раскатки в течение года, при сохранении 70/30 и допущениях из пилота. Цифры — индикативные, точные перепосчитаем по итогу.</p>
+        <div class="tiers">
+          <div class="tier" data-reveal data-d="1">
+            <span class="scale">базовый</span>
+            <h4>Год 1, осторожно</h4>
+            <span class="big">~$45k</span>
+            <span class="sub">валовая · клубу ≈ $13k</span>
+            <ul>
+              <li>5 групп по 8 человек</li>
+              <li>~40 участников на пилотных тарифах</li>
+              <li>+ начало месячной подписки после</li>
+            </ul>
+          </div>
+          <div class="tier featured" data-reveal data-d="2">
+            <span class="scale">целевой</span>
+            <h4>Год 1, реалистичный</h4>
+            <span class="big">~$120k</span>
+            <span class="sub">валовая · клубу ≈ $36k</span>
+            <ul>
+              <li>10 групп пилотного формата</li>
+              <li>~80 участников с продлением 60%+</li>
+              <li>~50 на месячной подписке к концу года</li>
+            </ul>
+          </div>
+          <div class="tier" data-reveal data-d="3">
+            <span class="scale">amбициозный</span>
+            <h4>Год 1, верхняя планка</h4>
+            <span class="big">~$220k</span>
+            <span class="sub">валовая · клубу ≈ $66k</span>
+            <ul>
+              <li>15 групп + закрытый рекуррент</li>
+              <li>~150 активных подписчиков</li>
+              <li>Корпоративные пакеты для команд клуба</li>
+            </ul>
+          </div>
+        </div>
+        <p class="fine" data-reveal data-d="3">Допущения: ARPU $80–120/мес после пилота, retention 60% на 3 мес, средний чек пилота сохраняется. Реальные числа считаем после group #1 на собранных данных.</p>
+      </div>
+    </section>
+
+    <!-- 10. RISKS -->
+    <section data-moment data-kicker="риски и что с ними" id="m-risk">
+      <div class="wrap">
+        <h2 data-reveal>Где это может не взлететь — и что заранее сделано.</h2>
+        <p class="lede" data-reveal data-d="1">Пилот специально сделан маленьким, чтобы любой провал был дешёвым и читаемым.</p>
+        <div class="risks">
+          <div class="risk" data-reveal data-d="1">
+            <b>Не наберём 8 участников</b>
+            <p>Минимальный жизнеспособный размер — 6. <span>Митigation:</span> анкета на 15 заявок, рейтинг по соответствию профилю, фиксированный дедлайн. При &lt; 6 — переносим старт на следующий месяц без штрафов.</p>
+          </div>
+          <div class="risk" data-reveal data-d="1">
+            <b>Низкий NPS / низкое продление</b>
+            <p>Сценарий «мне понравилось, но платить дальше не готов». <span>Митigation:</span> пилот всё равно даёт каст-дев и LTV-модель, и мы вместе выясняем причину — это и есть продукт пилота для Меркулова.</p>
+          </div>
+          <div class="risk" data-reveal data-d="2">
+            <b>Юридика / репутация клуба</b>
+            <p>Health Copilot — не медицинская услуга, диагнозов и лечения нет. <span>Митigation:</span> чёткие дисклеймеры в офере и материалах, юридический ревью текста перед запуском, консервативные формулировки по умолчанию.</p>
+          </div>
+          <div class="risk" data-reveal data-d="2">
+            <b>Технические сбои в продукте</b>
+            <p>Продукт уже работает у живых пользователей. <span>Митigation:</span> до старта группы — 2 недели стресс-теста на участниках бета-круга, я в режиме on-call в течение пилота.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. ASK -->
+    <section data-moment data-kicker="что нужно от Дмитрия" id="m-ask" style="background:radial-gradient(65% 50% at 100% 0%,rgba(13,148,136,0.12),transparent 55%);">
+      <div class="wrap">
+        <h2 data-reveal>Просьба — три коротких шага.</h2>
+        <p class="lede" data-reveal data-d="1">Никаких денежных вложений с вашей стороны. Все капитальные расходы — на стороне Health Copilot.</p>
+        <div class="ask">
+          <div class="ask-card" data-reveal data-d="1">
+            <span class="num">01</span>
+            <h4>Эндорсмент пилота</h4>
+            <p>Короткое личное сообщение от вас по списку 30–50 наиболее активных энтузиастов клуба + анонс через канал клуба. Без него аудитория не наберётся.</p>
+          </div>
+          <div class="ask-card" data-reveal data-d="2">
+            <span class="num">02</span>
+            <h4>JV / revenue share</h4>
+            <p>Партнёрское соглашение 70/30 на пилот и на дальнейшую раскатку при тех же условиях. Шаблон я приношу — обсуждаем и подписываем.</p>
+          </div>
+          <div class="ask-card" data-reveal data-d="3">
+            <span class="num">03</span>
+            <h4>Точка контакта в клубе</h4>
+            <p>Один человек со стороны Pro Trener, с которым я согласовываю рассылки, анонсы и форматы. 2–3 часа времени за весь пилот.</p>
+          </div>
+        </div>
+        <div class="timeline" data-reveal data-d="3">
+          <div><b>Неделя 0 ·</b> подписали соглашение, согласовали анонсы.</div>
+          <div><b>Неделя 1–2 ·</b> приём заявок, отбор 8 человек, оплата.</div>
+          <div><b>Недели 3–10 ·</b> сам пилот, 8 сессий.</div>
+          <div><b>Неделя 11 ·</b> отчёт Меркулову: каст-дев, LTV-модель, решение по раскатке.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. FOUNDER -->
+    <section data-moment data-kicker="кто ведёт пилот" id="m-founder">
+      <div class="wrap">
+        <div class="founder-grid">
+          <div class="photo-wrap" data-reveal>
+            <img src="assets/founder.jpeg" alt="Борис Король — основатель Health Copilot" loading="lazy" decoding="async">
+            <div class="photo-tag"><i></i><span>Founder · Health Copilot</span></div>
+          </div>
+          <div class="founder-bio">
+            <span class="role" data-reveal>founder · ai product</span>
+            <h2 data-reveal data-d="1">Борис Король</h2>
+            <p data-reveal data-d="2">Основатель Health Copilot. Продуктовый профиль на стыке AI и доказательной медицины: строю инструменты, которые помогают людям и их врачам опираться на данные, а не на интуицию.</p>
+            <p data-reveal data-d="2">Сам пользуюсь продуктом каждый день — Apple Watch, лабы, журнал. Этот пилот веду лично от анкеты до финального отчёта.</p>
+            <div class="founder-creds" data-reveal data-d="3">
+              <span class="chip">AI Product</span>
+              <span class="chip">Evidence-based</span>
+              <span class="chip">Health Tech</span>
+              <span class="chip">B2C · B2B</span>
+            </div>
+            <div class="founder-contact" data-reveal data-d="3">
+              <a href="https://t.me/BKproduct" target="_blank" rel="noopener">Telegram — @BKproduct</a>
+              <a class="ghost" href="../pro-trener-teaser/" target="_blank" rel="noopener">Демо продукта</a>
+            </div>
+            <div class="colophon">
+              <div>Health Copilot × Pro Trener · пилотное предложение</div>
+              <div>Подготовлено для Дмитрия Меркулова · <a href="../">все презентации HC</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    (function () {
+      const sections = Array.from(document.querySelectorAll('section[data-moment]'));
+      const overview = document.getElementById('overview');
+      const grid = document.getElementById('overview-grid');
+      const progress = document.getElementById('progress');
+
+      const titles = {
+        'm-intro': '01 · Старт',
+        'm-why': '02 · Почему сейчас',
+        'm-product': '03 · Продукт',
+        'm-pilot': '04 · Дизайн пилота',
+        'm-week': '05 · По неделям',
+        'm-deliv': '06 · Что уносит участник',
+        'm-econ': '07 · Экономика',
+        'm-success': '08 · Метрики успеха',
+        'm-scale': '09 · Масштаб',
+        'm-risk': '10 · Риски',
+        'm-ask': '11 · Просьба',
+        'm-founder': '12 · Кто ведёт'
+      };
+
+      sections.forEach((sec) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = titles[sec.id] || sec.id;
+        b.addEventListener('click', () => {
+          overview.classList.remove('open');
+          sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        grid.appendChild(b);
+      });
+
+      function currentIndex() {
+        const y = window.scrollY + window.innerHeight * 0.32;
+        let best = 0, bestDist = Infinity;
+        sections.forEach((s, i) => {
+          const d = Math.abs(s.offsetTop - y);
+          if (d < bestDist) { bestDist = d; best = i; }
+        });
+        return best;
+      }
+      function updateProgress() {
+        const doc = document.documentElement;
+        const max = doc.scrollHeight - doc.clientHeight;
+        const p = max > 0 ? window.scrollY / max : 0;
+        progress.style.transform = 'scaleX(' + Math.min(1, Math.max(0, p)) + ')';
+      }
+      function go(delta) {
+        const i = currentIndex();
+        const n = Math.max(0, Math.min(sections.length - 1, i + delta));
+        sections[n].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      document.getElementById('btn-overview').addEventListener('click', () => overview.classList.add('open'));
+      overview.addEventListener('click', (e) => { if (e.target === overview) overview.classList.remove('open'); });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { overview.classList.toggle('open'); return; }
+        if (overview.classList.contains('open')) return;
+        if (['ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); go(1); }
+        else if (['ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); go(-1); }
+      });
+
+      let ty = null;
+      window.addEventListener('touchstart', (e) => { ty = e.changedTouches[0].clientY; }, { passive: true });
+      window.addEventListener('touchend', (e) => {
+        if (ty == null) return;
+        const dy = ty - e.changedTouches[0].clientY;
+        if (Math.abs(dy) > 55) { e.preventDefault(); go(dy > 0 ? 1 : -1); }
+        ty = null;
+      }, { passive: false });
+
+      const io = new IntersectionObserver((ents) => {
+        ents.forEach((en) => {
+          if (!en.isIntersecting) return;
+          en.target.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('in'));
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+      sections.forEach((s) => io.observe(s));
+
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      updateProgress();
+    })();
+  </script>
+</body>
+</html>
