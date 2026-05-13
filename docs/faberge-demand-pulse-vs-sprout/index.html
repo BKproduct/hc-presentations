@@ -3,139 +3,133 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Social Monitoring vs Buyer Intelligence — Faberge</title>
+<title>Demand Pulse vs Sprout Social — Faberge</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=EB+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
 *{box-sizing:border-box}
-html,body{
-  margin:0;padding:0;
-  background:radial-gradient(1200px 700px at 50% -10%,#2a3447 0%,#121823 58%,#0b1019 100%);
-  color:#1e1a12;font-family:'EB Garamond',serif
-}
+html,body{margin:0;padding:0;background:#08090c;color:#e0dace;font-family:'EB Garamond',serif}
 @page{size:A4;margin:0}
 body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .sheet{width:210mm;margin:0 auto;padding:2mm;background:transparent}
 .paper{
-  background:#f7f3e8;
-  border:1.4px solid rgba(138,112,39,.55);
+  background:linear-gradient(170deg,#141210 0%,#0f0e0c 40%,#0c0b09 100%);
+  border:1px solid rgba(180,155,80,.3);
   padding:9mm 11mm 7mm;
-  box-shadow:0 0 0 1px rgba(233,215,145,.45) inset,0 14px 34px rgba(0,0,0,.34);
+  box-shadow:0 0 0 1px rgba(180,155,80,.12) inset,0 14px 40px rgba(0,0,0,.5);
 }
-.topbar{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #d6ccaf;padding-bottom:2mm;margin-bottom:3.5mm}
-.docid{font:500 7.5pt 'DM Sans',sans-serif;letter-spacing:1.2pt;text-transform:uppercase;color:#927123}
-.pg{font:500 7.5pt 'DM Sans',sans-serif;color:#6b6150}
-h1{font:600 26pt 'Cormorant Garamond',serif;line-height:1.08;margin:0;color:#1a1812}
-.subtitle{font:500 8.5pt 'DM Sans',sans-serif;letter-spacing:1.6pt;text-transform:uppercase;color:#5f5644;margin-top:1.8mm}
-hr.gold{border:0;height:1.5px;background:linear-gradient(90deg,#a17d24,#d7be76,transparent);margin:2.5mm 0 0}
-h2{font:600 14pt 'Cormorant Garamond',serif;letter-spacing:1.2pt;text-transform:uppercase;color:#9d7921;border-bottom:1px solid #d8cfb6;padding-bottom:1mm;margin:3.5mm 0 2mm}
-p{font-size:10.8pt;line-height:1.38;margin:0 0 1.6mm}
-.small{font-size:8.8pt;color:#645b49}
+.topbar{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(180,155,80,.25);padding-bottom:2mm;margin-bottom:3mm}
+.docid{font:500 7pt 'DM Sans',sans-serif;letter-spacing:1.4pt;text-transform:uppercase;color:#9a8455}
+.pg{font:500 7pt 'DM Sans',sans-serif;color:#6a6050}
+h1{font:700 27pt 'Cormorant Garamond',serif;line-height:1.06;margin:0;color:#d4c28a}
+.sub{font:500 8pt 'DM Sans',sans-serif;letter-spacing:1.6pt;text-transform:uppercase;color:#7a7060;margin-top:1.5mm}
+hr.gold{border:0;height:1px;background:linear-gradient(90deg,#b49b50,#7a6a3a,transparent);margin:2mm 0 0}
+h2{font:600 12.5pt 'Cormorant Garamond',serif;letter-spacing:1.2pt;text-transform:uppercase;color:#b49b50;border-bottom:1px solid rgba(180,155,80,.2);padding-bottom:1mm;margin:3.5mm 0 2mm}
 
-/* Comparison table */
-.cmp{width:100%;border-collapse:collapse;font-size:10pt;margin-bottom:2.5mm}
-.cmp th{font:600 7.2pt 'DM Sans',sans-serif;letter-spacing:.8pt;text-transform:uppercase;padding:1.6mm 2.2mm;border-bottom:1.4px solid #a17d24;text-align:left}
-.cmp th:first-child{color:#655d4d;width:26%}
-.cmp th:nth-child(2){color:#9e2a2a;width:37%}
-.cmp th:nth-child(3){color:#2a6e3a;width:37%}
-.cmp td{padding:1.6mm 2.2mm;border-bottom:1px solid #e4dbc6;vertical-align:top;line-height:1.32}
-.cmp td:first-child{font:600 9.6pt 'DM Sans',sans-serif;color:#5a5245}
-.cmp .sprout{color:#9e2a2a}
-.cmp .dp{color:#2a6e3a;font-weight:500}
-.cmp .no{color:#a8917a;font-style:italic}
-.cmp .yes{color:#2c6e2f}
+/* Table */
+.cmp{width:100%;border-collapse:collapse;font-size:9.8pt;margin-bottom:2mm}
+.cmp th{font:600 6.8pt 'DM Sans',sans-serif;letter-spacing:.9pt;text-transform:uppercase;padding:1.4mm 2mm;border-bottom:1px solid rgba(180,155,80,.3);text-align:left}
+.cmp th:first-child{color:#7a7060;width:22%}
+.cmp th.h-sp{color:#b07060;width:39%}
+.cmp th.h-dp{color:#7ab07a;width:39%}
+.cmp td{padding:1.5mm 2mm;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:top;line-height:1.3}
+.cmp td:first-child{font:600 9pt 'DM Sans',sans-serif;color:#9a8e7a}
+.cmp .sp{color:#c47a6a}
+.cmp .dp{color:#8ac48a;font-weight:500}
 
-/* Signal grid */
-.signals{display:grid;grid-template-columns:1fr 1fr;gap:1.8mm;margin-bottom:2.5mm}
-.sig{background:#fcf8ee;border-left:2.5px solid #ceb56f;padding:1.6mm 2.4mm}
-.sig .nm{font:600 8.4pt 'DM Sans',sans-serif;color:#9b7822;letter-spacing:.3pt}
-.sig .d{font-size:9.4pt;color:#5c5445;line-height:1.28;margin-top:.4mm}
-.sig.off{border-left-color:#c4b99e;opacity:.5}
-.sig.off .nm::after{content:" ✗ Sprout";font-weight:600;color:#9e2a2a;font-size:7.5pt;letter-spacing:0}
+/* Layers */
+.layers{display:grid;grid-template-columns:1fr 1fr;gap:1.6mm;margin-bottom:2mm}
+.ly{padding:1.5mm 2.2mm;border-left:2.5px solid #b49b50;background:rgba(180,155,80,.04)}
+.ly .nm{font:600 8pt 'DM Sans',sans-serif;color:#d4c28a;letter-spacing:.2pt}
+.ly .d{font-size:9pt;color:#8a8070;line-height:1.26;margin-top:.3mm}
+.ly.no{border-left-color:#5a3a3a;background:rgba(180,80,80,.03);opacity:.55}
+.ly.no .nm::after{content:" \2717";color:#c47a6a;font-size:7pt}
 
-/* Pilot CTA */
-.pilot{background:linear-gradient(135deg,#1a1812 0%,#2a2518 100%);color:#f0e8d4;border:1.4px solid #a17d24;padding:3.5mm 4mm;margin-top:2mm;display:grid;grid-template-columns:1fr auto;gap:4mm;align-items:center}
-.pilot h3{font:600 15pt 'Cormorant Garamond',serif;color:#d7be76;margin:0 0 1mm;letter-spacing:.5pt}
-.pilot p{font-size:10.2pt;line-height:1.36;color:#c9bda5;margin:0}
-.pilot .price-block{text-align:center;padding:2.5mm 4mm;border:1.2px solid #a17d24;border-radius:1.5mm;background:rgba(161,125,36,.08)}
-.pilot .amount{font:700 22pt 'Cormorant Garamond',serif;color:#d7be76;line-height:1}
-.pilot .vat{font:400 8pt 'DM Sans',sans-serif;color:#a8977a;margin-top:.5mm}
-.pilot .timeline{font:600 9pt 'DM Sans',sans-serif;color:#c9bda5;margin-top:1mm;letter-spacing:.3pt}
+/* Pilot */
+.pilot{
+  background:linear-gradient(135deg,rgba(180,155,80,.08),rgba(180,155,80,.03));
+  border:1px solid rgba(180,155,80,.3);
+  padding:3mm 3.5mm;margin-top:1.5mm;
+  display:grid;grid-template-columns:1fr auto;gap:3.5mm;align-items:center
+}
+.pilot h3{font:600 14pt 'Cormorant Garamond',serif;color:#d4c28a;margin:0 0 .8mm}
+.pilot p{font-size:9.6pt;line-height:1.32;color:#9a8e7a;margin:0}
+.pb{text-align:center;padding:2.5mm 4mm;border:1px solid rgba(180,155,80,.4);border-radius:1.5mm;background:rgba(180,155,80,.06)}
+.pb .amt{font:700 22pt 'Cormorant Garamond',serif;color:#d4c28a;line-height:1}
+.pb .vt{font:400 7.5pt 'DM Sans',sans-serif;color:#7a7060;margin-top:.4mm}
+.pb .tl{font:600 8.5pt 'DM Sans',sans-serif;color:#b49b50;margin-top:.8mm}
 
-/* Deliverables row */
-.deliv{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.8mm;margin-top:2mm}
-.dbox{background:#fcf8ee;border:1px solid #d7ccb0;border-top:2.5px solid #a17d24;padding:1.8mm 2.4mm;text-align:center}
-.dbox .ico{font-size:14pt;margin-bottom:.5mm}
-.dbox .dt{font:600 8.2pt 'DM Sans',sans-serif;color:#9b7822;letter-spacing:.4pt;text-transform:uppercase}
-.dbox .dd{font-size:9.2pt;color:#5c5445;line-height:1.28;margin-top:.5mm}
+/* Deliverables */
+.del{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.6mm;margin-top:1.8mm}
+.db{border-top:2px solid #b49b50;padding:1.6mm 2mm;background:rgba(180,155,80,.03)}
+.db .dt{font:600 7.5pt 'DM Sans',sans-serif;color:#b49b50;letter-spacing:.4pt;text-transform:uppercase;margin-bottom:.3mm}
+.db .dd{font-size:8.8pt;color:#8a8070;line-height:1.25}
 
-.footer{margin-top:3mm;padding-top:2mm;border-top:1px solid #d8cfb5;display:flex;justify-content:space-between;font:500 7.6pt 'DM Sans',sans-serif;color:#605847}
+.note{font-size:8pt;color:#5a5448;margin-top:2mm}
+.footer{margin-top:2.5mm;padding-top:1.8mm;border-top:1px solid rgba(180,155,80,.15);display:flex;justify-content:space-between;font:500 7pt 'DM Sans',sans-serif;color:#5a5448}
 
 @media screen{
   body{padding:24px 0 40px}
-  .sheet{width:min(210mm,calc(100vw - 32px));height:auto;margin:0 auto 14px;box-shadow:0 6px 36px rgba(0,0,0,.28)}
+  .sheet{width:min(210mm,calc(100vw - 32px));height:auto;margin:0 auto 14px;box-shadow:0 6px 36px rgba(0,0,0,.5)}
   .paper{min-height:0}
 }
-@media print{
-  .sheet{box-shadow:none;padding:0}
-  .paper{box-shadow:none;border:none}
-}
+@media print{.sheet{box-shadow:none;padding:0}.paper{box-shadow:none}}
 </style>
 </head>
 <body>
 
 <section class="sheet"><div class="paper">
-  <div class="topbar"><div class="docid">Faberge · Social Monitoring vs Buyer Intelligence</div><div class="pg">May 2026</div></div>
-  <h1>What Sprout Social Cannot Tell You</h1>
+  <div class="topbar"><div class="docid">Faberge · Demand Pulse</div><div class="pg">May 2026</div></div>
+  <h1>What Sprout Social Cannot See</h1>
   <hr class="gold" />
-  <div class="subtitle">And how a ten-day pilot will prove the difference</div>
+  <div class="sub">Buyer demand intelligence vs social monitoring</div>
 
-  <h2>Side by side</h2>
+  <h2>The core difference</h2>
   <table class="cmp">
-    <thead><tr><th></th><th>Sprout Social</th><th>Demand Pulse</th></tr></thead>
+    <thead><tr><th></th><th class="h-sp">Sprout Social</th><th class="h-dp">Demand Pulse</th></tr></thead>
     <tbody>
-      <tr><td>Core question</td><td class="sprout">Who mentioned Faberge on social media?</td><td class="dp">What do buyers want to purchase — and what will they desire next season?</td></tr>
-      <tr><td>Signal type</td><td class="sprout">Mentions, sentiment, share of voice</td><td class="dp">Search queries, save velocity, aesthetic clusters, transaction data</td></tr>
-      <tr><td>Data universe</td><td class="sprout">8 social platforms</td><td class="dp">Search engines, Pinterest, forums, editorial, auction houses, Xiaohongshu</td></tr>
-      <tr><td>Trend horizon</td><td class="sprout">Past 30 days (reactive)</td><td class="dp">2–6 months ahead (predictive, via embedding clusters)</td></tr>
-      <tr><td>Output format</td><td class="sprout">Dashboards for social team to interpret</td><td class="dp">Weekly design briefs, sales triggers, executive summary — ready to act</td></tr>
-      <tr><td>Luxury fit</td><td class="sprout">Generic platform, 30 000+ brands</td><td class="dp">Custom-built for Faberge's categories and peer houses</td></tr>
+      <tr><td>Answers</td><td class="sp">Who mentioned you on social?</td><td class="dp">What do buyers want to buy next?</td></tr>
+      <tr><td>Signals</td><td class="sp">Mentions, sentiment, share of voice</td><td class="dp">Search queries, save velocity, aesthetic clusters, transactions</td></tr>
+      <tr><td>Sources</td><td class="sp">8 social platforms</td><td class="dp">Search, Pinterest, luxury forums, auctions, editorial, Xiaohongshu</td></tr>
+      <tr><td>Horizon</td><td class="sp">Past 30 days</td><td class="dp">2–6 months ahead</td></tr>
+      <tr><td>Output</td><td class="sp">Dashboards requiring interpretation</td><td class="dp">Design briefs + sales triggers — ready to act</td></tr>
+      <tr><td>Built for</td><td class="sp">30 000 brands, any industry</td><td class="dp">Faberge — your categories, your peer houses</td></tr>
     </tbody>
   </table>
 
-  <h2>Eight intelligence layers — six are invisible to Sprout</h2>
-  <div class="signals">
-    <div class="sig"><div class="nm">Search intent</div><div class="d">What buyers query across UK, US, UAE, Asia — volume, geography, rising terms</div></div>
-    <div class="sig sig off"><div class="nm">Community discourse</div><div class="d">Pre-purchase conversations: objections, comparisons, intent language in luxury forums</div></div>
-    <div class="sig"><div class="nm">Peer-house reactions</div><div class="d">Public response to Cartier, Van Cleef, Tiffany, Buccellati releases</div></div>
-    <div class="sig sig off"><div class="nm">Aesthetic search</div><div class="d">Imagery saved as desire reference, 3–9 months before purchase. Save velocity, not visibility</div></div>
-    <div class="sig off"><div class="nm">Aesthetic velocity</div><div class="d">Gen Z/millennial taste shifts on short-form video — micro-trends before press coverage</div></div>
-    <div class="sig off"><div class="nm">Asia early warning</div><div class="d">Chinese aesthetic platforms preceding Western trends by 6–12 months</div></div>
-    <div class="sig off"><div class="nm">Realised sales</div><div class="d">Auction and authenticated resale data — what truly transacts and at what price band</div></div>
-    <div class="sig off"><div class="nm">Editorial signal</div><div class="d">Specialist luxury journalism for analytical boardroom framing</div></div>
+  <h2>Eight signal layers — six invisible to Sprout</h2>
+  <div class="layers">
+    <div class="ly"><div class="nm">Search intent</div><div class="d">What buyers query, by geography (UK, US, GCC, Asia)</div></div>
+    <div class="ly no"><div class="nm">Community discourse</div><div class="d">Pre-purchase conversations in luxury forums</div></div>
+    <div class="ly"><div class="nm">Peer-house reactions</div><div class="d">Response to Cartier, Van Cleef, Tiffany, Buccellati</div></div>
+    <div class="ly no"><div class="nm">Aesthetic search</div><div class="d">Imagery saved as desire reference, 3–9 months pre-purchase</div></div>
+    <div class="ly no"><div class="nm">Aesthetic velocity</div><div class="d">Gen Z taste shifts on short-form video</div></div>
+    <div class="ly no"><div class="nm">Asia early warning</div><div class="d">Chinese platforms, 6–12 months ahead of Western press</div></div>
+    <div class="ly no"><div class="nm">Realised sales</div><div class="d">Auction and resale data — what transacts, at what price</div></div>
+    <div class="ly no"><div class="nm">Editorial signal</div><div class="d">Specialist luxury journalism for boardroom framing</div></div>
   </div>
 
-  <h2>Paid pilot — see the real output before committing</h2>
+  <h2>Paid pilot</h2>
   <div class="pilot">
     <div>
-      <h3>One live Demand Pulse bulletin for Faberge</h3>
-      <p>Four signal layers activated on real data. You receive the same weekly deliverable your team would get in production — buyer-intent themes, design brief, sales triggers, executive summary. Compare it directly with what Sprout Social produced for the same period.</p>
+      <h3>One real bulletin, built on live data</h3>
+      <p>Four signal layers running for Faberge. You receive the same deliverable as in production: buyer-intent themes, design brief, sales triggers, executive summary. Compare directly with Sprout output for the same week.</p>
     </div>
-    <div class="price-block">
-      <div class="amount">£900</div>
-      <div class="vat">+ VAT</div>
-      <div class="timeline">10 working days</div>
+    <div class="pb">
+      <div class="amt">£900</div>
+      <div class="vt">+ VAT</div>
+      <div class="tl">10 working days</div>
     </div>
   </div>
 
-  <div class="deliv">
-    <div class="dbox"><div class="ico">◆</div><div class="dt">Buyer-intent bulletin</div><div class="dd">Top demand themes with signal strength, cohort tags, and trend direction</div></div>
-    <div class="dbox"><div class="ico">◇</div><div class="dt">Design brief</div><div class="dd">What to create, for whom, with saturation window estimate</div></div>
-    <div class="dbox"><div class="ico">▸</div><div class="dt">Sales triggers</div><div class="dd">Re-merchandising and retargeting actions tied to live demand</div></div>
+  <div class="del">
+    <div class="db"><div class="dt">Buyer-intent bulletin</div><div class="dd">Demand themes ranked by signal strength and buyer cohort</div></div>
+    <div class="db"><div class="dt">Design brief</div><div class="dd">What to create, for whom, saturation window</div></div>
+    <div class="db"><div class="dt">Sales triggers</div><div class="dd">Re-merchandising and retargeting tied to live demand</div></div>
   </div>
 
-  <p class="small" style="margin-top:2.5mm">No commitment beyond the pilot. Decision gate after delivery: proceed to full build (£21,500) or stop. All prices exclusive of VAT.</p>
+  <p class="note">No commitment beyond the pilot. Proceed to full build (£21,500) or stop. Prices exclusive of VAT.</p>
 
-  <div class="footer"><span>AI Automation Studio · boris.korol@ai-automation.studio · @BKproduct</span><span>Confidential — for Faberge leadership only</span></div>
+  <div class="footer"><span>AI Automation Studio · boris.korol@ai-automation.studio</span><span>Confidential — Faberge leadership only</span></div>
 </div></section>
 
 </body>
