@@ -76,9 +76,32 @@ h2{font:600 12.5pt 'Cormorant Garamond',serif;letter-spacing:1.2pt;text-transfor
 }
 @media print{.sheet{box-shadow:none;padding:0}.paper{box-shadow:none}}
 </style>
+/* Password gate */
+#gate{position:fixed;inset:0;z-index:999;background:#08090c;display:flex;align-items:center;justify-content:center;flex-direction:column}
+#gate.ok{display:none}
+#gate label{font:500 8pt 'DM Sans',sans-serif;letter-spacing:1.4pt;text-transform:uppercase;color:#9a8455;margin-bottom:3mm}
+#gate input{
+  background:#1a1816;border:1px solid rgba(180,155,80,.3);color:#d4c28a;
+  font:400 14pt 'EB Garamond',serif;padding:8px 16px;text-align:center;
+  outline:none;width:220px;border-radius:2px;
+}
+#gate input:focus{border-color:#b49b50}
+#gate input::placeholder{color:#4a4438}
+#gate .err{font:400 9pt 'DM Sans',sans-serif;color:#d45045;height:14px;margin-top:2mm}
+#content{display:none}
+#content.ok{display:block}
+@media print{#gate{display:none}#content{display:block}}
+</style>
 </head>
 <body>
 
+<div id="gate">
+  <label>Access restricted</label>
+  <input type="password" id="pw" placeholder="Enter password" autofocus />
+  <div class="err" id="err"></div>
+</div>
+
+<div id="content">
 <section class="sheet"><div class="paper">
   <div class="topbar"><div class="docid">Faberge · Demand Pulse</div><div class="pg">May 2026</div></div>
   <h1>What Sprout Social Cannot See</h1>
@@ -134,5 +157,25 @@ h2{font:600 12.5pt 'Cormorant Garamond',serif;letter-spacing:1.2pt;text-transfor
   <div class="footer"><span>AI Automation Studio · boris.korol@ai-automation.studio</span><span>Confidential — Faberge leadership only</span></div>
 </div></section>
 
+</div>
+
+<script>
+const H='7d4dbf93051887237a5763acf6e529a53b6a02007425f0a62e31e311335ffcef';
+async function sha(s){const e=new TextEncoder().encode(s);const h=await crypto.subtle.digest('SHA-256',e);return[...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,'0')).join('')}
+const pw=document.getElementById('pw');
+pw.addEventListener('keydown',async e=>{
+  if(e.key!=='Enter')return;
+  const v=pw.value.trim().toLowerCase();
+  if(await sha(v)===H){
+    document.getElementById('gate').classList.add('ok');
+    document.getElementById('content').classList.add('ok');
+    sessionStorage.setItem('fdp','1');
+  }else{document.getElementById('err').textContent='Incorrect password'}
+});
+if(sessionStorage.getItem('fdp')==='1'){
+  document.getElementById('gate').classList.add('ok');
+  document.getElementById('content').classList.add('ok');
+}
+</script>
 </body>
 </html>
