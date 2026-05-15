@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blest — Factory-Direct Sofas & Sofa Beds | UK</title>
+  <meta name="description" content="Engineered sofas and sofa beds from our European factory — made to your layout and fabric. Everyday Sleep and Statement collections from £1,950." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --paper: #f4efe6;
+      --paper-alt: #ebe3d6;
+      --ink: #12100d;
+      --body: #2c2822;
+      --muted: #6f665c;
+      --rule: #d4c9b8;
+      --brass: #8c5d2b;
+      --brass-light: #b8874a;
+      --max: 1180px;
+      --section: clamp(72px, 10vw, 120px);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--body);
+      background: var(--paper);
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    .container { width: min(var(--max), 100% - 48px); margin-inline: auto; }
+    .kicker {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 14px;
+    }
+    h1, h2, h3 { font-family: Fraunces, Georgia, serif; color: var(--ink); font-weight: 600; }
+    h1 {
+      font-size: clamp(2.4rem, 5.5vw, 3.75rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+    h2 {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+    }
+    .lead { font-size: 1.125rem; color: var(--muted); max-width: 34rem; margin-top: 1.25rem; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 0 24px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .btn:hover { background: var(--brass); border-color: var(--brass); color: #fff; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+    }
+    .btn-ghost:hover { background: var(--ink); color: var(--paper); }
+
+    /* Nav */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 100;
+      background: rgba(244, 239, 230, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .logo {
+      font-family: Fraunces, serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .logo span { font-weight: 500; font-size: 0.65em; display: block; letter-spacing: 0.2em; color: var(--muted); }
+    .nav-links {
+      display: none;
+      list-style: none;
+      gap: 28px;
+      font-size: 14px;
+    }
+    .nav-links a { text-decoration: none; color: var(--muted); }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta { display: flex; gap: 10px; align-items: center; }
+    @media (min-width: 900px) {
+      .nav-links { display: flex; }
+    }
+
+    /* Hero */
+    .hero {
+      padding: calc(68px + var(--section)) 0 var(--section);
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (min-width: 960px) {
+      .hero-grid { grid-template-columns: 1fr 1.05fr; gap: 64px; }
+    }
+    .hero-visual {
+      position: relative;
+      aspect-ratio: 4/5;
+      max-height: 620px;
+      background: var(--paper-alt);
+      border: 1px solid var(--rule);
+    }
+    .hero-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-badge {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      padding: 12px 16px;
+      font-size: 13px;
+    }
+    .hero-badge strong { display: block; font-family: Fraunces, serif; font-size: 1.25rem; color: var(--ink); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+    /* Proof bar */
+    .proof-bar {
+      border-block: 1px solid var(--rule);
+      background: #fff;
+      padding: 20px 0;
+    }
+    .proof-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px 32px;
+      list-style: none;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .proof-list strong { color: var(--ink); font-weight: 600; }
+
+    /* Stats */
+    .stats {
+      padding: var(--section) 0;
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+    .stat-num {
+      font-family: Fraunces, serif;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-variant-numeric: tabular-nums;
+      color: var(--paper);
+    }
+    .stat-label { font-size: 13px; color: rgba(244,239,230,0.65); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* Sections */
+    section { padding: var(--section) 0; }
+    .section-head { margin-bottom: 48px; max-width: 40rem; }
+    .alt-bg { background: var(--paper-alt); }
+    .dark { background: var(--ink); color: rgba(244,239,230,0.88); }
+    .dark h2, .dark h3 { color: var(--paper); }
+
+    /* Pain cards */
+    .pain-grid {
+      display: grid;
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    @media (min-width: 768px) { .pain-grid { grid-template-columns: repeat(3, 1fr); } }
+    .pain-card {
+      background: var(--ink);
+      padding: 28px;
+    }
+    .pain-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--paper); }
+    .pain-card p { font-size: 15px; color: rgba(244,239,230,0.72); }
+    .pain-quote {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(212,201,184,0.25);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--brass-light);
+    }
+
+    /* Story */
+    .story-grid {
+      display: grid;
+      gap: 40px;
+      align-items: start;
+    }
+    @media (min-width: 900px) { .story-grid { grid-template-columns: 1fr 1fr; } }
+    .story-steps { list-style: none; counter-reset: step; }
+    .story-steps li {
+      counter-increment: step;
+      padding-left: 48px;
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .story-steps li::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--brass);
+    }
+
+    /* Lines */
+    .lines-grid {
+      display: grid;
+      gap: 24px;
+    }
+    @media (min-width: 768px) { .lines-grid { grid-template-columns: 1fr 1fr; } }
+    .line-card {
+      border: 1px solid var(--rule);
+      background: #fff;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      min-height: 280px;
+    }
+    .line-card h3 { font-size: 1.5rem; margin-bottom: 12px; }
+    .line-card p { flex: 1; color: var(--muted); font-size: 16px; }
+    .line-card .tag {
+      display: inline-block;
+      margin-bottom: 16px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--brass);
+    }
+
+    /* Products */
+    .product-grid {
+      display: grid;
+      gap: 24px;
+    }
+    @media (min-width: 600px) { .product-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1000px) { .product-grid { grid-template-columns: repeat(4, 1fr); } }
+    .product-card {
+      border: 1px solid var(--rule);
+      background: #fff;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .product-card:hover { border-color: var(--ink); transform: translateY(-2px); }
+    .product-card img { aspect-ratio: 1; object-fit: cover; background: var(--paper-alt); }
+    .product-card .info { padding: 16px; }
+    .product-card h3 { font-size: 1rem; font-family: "DM Sans", sans-serif; font-weight: 600; margin-bottom: 6px; }
+    .product-card .price { font-size: 15px; color: var(--brass); font-weight: 600; }
+    .product-card .was { text-decoration: line-through; color: var(--muted); font-weight: 400; margin-right: 6px; }
+
+    /* Custom */
+    .custom-list {
+      display: grid;
+      gap: 12px;
+      list-style: none;
+      margin-top: 24px;
+    }
+    .custom-list li {
+      padding: 14px 18px;
+      border-left: 2px solid var(--brass);
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-left-width: 3px;
+    }
+
+    /* Trade */
+    .trade-box {
+      border: 1px solid var(--rule);
+      background: var(--ink);
+      color: var(--paper);
+      padding: 40px;
+    }
+    .trade-box ul { margin: 20px 0 0 1.2rem; color: rgba(244,239,230,0.8); }
+    .trade-box li { margin-bottom: 8px; }
+
+    /* FAQ */
+    .faq-item { border-bottom: 1px solid var(--rule); }
+    .faq-q {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 20px 0;
+      font: inherit;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .faq-a {
+      display: none;
+      padding-bottom: 20px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-icon { transition: transform 0.2s; color: var(--brass); }
+
+    /* CTA */
+    .cta-panel {
+      display: grid;
+      gap: 40px;
+      align-items: center;
+      border: 1px solid var(--rule);
+      background: #fff;
+      padding: 48px;
+    }
+    @media (min-width: 800px) { .cta-panel { grid-template-columns: 1fr 1fr; } }
+    .cta-form label { display: block; margin-bottom: 16px; font-size: 13px; font-weight: 600; }
+    .cta-form input, .cta-form select, .cta-form textarea {
+      width: 100%;
+      margin-top: 6px;
+      padding: 12px;
+      border: 1px solid var(--rule);
+      font: inherit;
+      background: var(--paper);
+    }
+    .cta-form button { width: 100%; margin-top: 8px; cursor: pointer; }
+    .cta-steps { list-style: none; font-size: 15px; color: var(--muted); }
+    .cta-steps li { padding: 10px 0; border-bottom: 1px solid var(--rule); }
+    .cta-steps strong { color: var(--ink); }
+
+    /* Footer */
+    footer {
+      padding: 48px 0;
+      border-top: 1px solid var(--rule);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    footer a { color: var(--brass); }
+    .footer-grid {
+      display: grid;
+      gap: 24px;
+    }
+    @media (min-width: 768px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr; } }
+
+    /* Sticky */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 90;
+      padding: 12px 16px;
+      background: var(--ink);
+      display: none;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+    .sticky-cta.show { display: block; transform: translateY(0); }
+    .sticky-cta .btn { width: 100%; background: var(--brass); border-color: var(--brass); }
+    @media (min-width: 768px) { .sticky-cta { display: none !important; } }
+
+    [data-reveal] { opacity: 0; transform: translateY(24px); }
+    @media (prefers-reduced-motion: reduce) {
+      [data-reveal] { opacity: 1; transform: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="logo" href="https://blestsofas.co.uk/">BLEST<span>Sofas &amp; Beds</span></a>
+      <ul class="nav-links">
+        <li><a href="#lines">Collections</a></li>
+        <li><a href="#products">Bestsellers</a></li>
+        <li><a href="#custom">Your way</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="https://blestsofas.co.uk/collections/all">Shop</a>
+        <a class="btn" href="#consult">Consultation</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div data-reveal>
+          <p class="kicker">Factory-direct · Made to order · UK</p>
+          <h1>Minimalist design.<br /><em style="font-style: italic; color: var(--brass);">Real</em> bed comfort.</h1>
+          <p class="lead">Engineered sofas and sofa beds from our European factory — not a trading company. Choose your layout, fabric, and comfort level. From <strong>£1,950</strong>.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#consult">Request fabric samples</a>
+            <a class="btn btn-ghost" href="https://blestsofas.co.uk/collections/all">Shop collection</a>
+          </div>
+        </div>
+        <div class="hero-visual" data-reveal>
+          <img src="https://blestsofas.co.uk/cdn/shop/files/62d9c2d2ad282f2b056c9dc6dc06945cc7422146.jpg" alt="Blest sofa in a modern interior" width="800" height="1000" loading="eager" fetchpriority="high" />
+          <div class="hero-badge">
+            <strong>Everyday Sleep</strong>
+            Full-size sleep comfort, every night
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="proof-bar">
+      <ul class="container proof-list">
+        <li><strong>Factory</strong> not trader</li>
+        <li><strong>53+</strong> models</li>
+        <li><strong>8 weeks</strong> made to order</li>
+        <li><strong>UK</strong> brand accountability</li>
+        <li><strong>Trade</strong> programme</li>
+      </ul>
+    </div>
+
+    <section class="stats">
+      <div class="container stats-grid" data-reveal>
+        <div>
+          <div class="stat-num" data-count="53">0</div>
+          <p class="stat-label">Models in catalogue</p>
+        </div>
+        <div>
+          <div class="stat-num">from £1,950</div>
+          <p class="stat-label">Starting from</p>
+        </div>
+        <div>
+          <div class="stat-num" data-count="8">0</div>
+          <p class="stat-label">Weeks typical lead time</p>
+        </div>
+        <div>
+          <div class="stat-num">100%</div>
+          <p class="stat-label">Custom fabric options</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark" id="pain">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="kicker" style="color: var(--brass-light);">The problem</p>
+          <h2>Your living room deserves better than a compromise sofa bed.</h2>
+        </div>
+        <div class="pain-grid" data-reveal>
+          <article class="pain-card">
+            <h3>Guests feel the bar</h3>
+            <p>Most sofa beds trade sleep quality for daytime looks — your guests notice.</p>
+            <p class="pain-quote">"We need a real bed, not a fold-out afterthought."</p>
+          </article>
+          <article class="pain-card">
+            <h3>Paying the middleman</h3>
+            <p>Trading companies add margin without adding engineering or accountability.</p>
+            <p class="pain-quote">"Why am I paying retail for factory work?"</p>
+          </article>
+          <article class="pain-card">
+            <h3>Almost fits</h3>
+            <p>Off-the-shelf layouts rarely match your room, corner, or fabric vision.</p>
+            <p class="pain-quote">"I want L-shape, my fabric, my stitch colour."</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="story">
+      <div class="container story-grid">
+        <div data-reveal>
+          <p class="kicker">Engineering meets craftsmanship</p>
+          <h2>We engineer comfort — model by model.</h2>
+          <p class="lead" style="margin-top: 16px;">At Blest, every sofa is built with intentional spring systems and foam layers — not random fillers. Thinner backrests use one structure, seats another. Lie down and the comfort feels even — sofa and bed as one experience.</p>
+          <p style="margin-top: 16px; color: var(--muted);">We are a large-scale factory bringing our brand directly to the UK — fair prices, strict quality control, and full accountability.</p>
+          <a class="btn" style="margin-top: 24px;" href="https://blestsofas.co.uk/pages/about">Read our story</a>
+        </div>
+        <ol class="story-steps" data-reveal>
+          <li><strong>Designed in Europe</strong> — collections engineered for daily use and sleep mechanisms where specified.</li>
+          <li><strong>Built to your spec</strong> — layout, fabric, stitching, modules confirmed before production.</li>
+          <li><strong>Delivered with updates</strong> — typical 8-week journey with stage communication from factory to your door.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="alt-bg" id="lines">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="kicker">Two ways to experience Blest</p>
+          <h2>Choose the line that matches how you live.</h2>
+        </div>
+        <div class="lines-grid" data-reveal>
+          <article class="line-card">
+            <span class="tag">Everyday Sleep</span>
+            <h3>Made to sleep. Every night.</h3>
+            <p>Smart sofa beds with sleek design and full-size sleep comfort — built for modern living and guests who stay over.</p>
+            <a class="btn btn-ghost" href="https://blestsofas.co.uk/collections/blest-sofas" style="margin-top: auto; align-self: flex-start;">Explore Everyday Sleep</a>
+          </article>
+          <article class="line-card">
+            <span class="tag">Statement Sofa</span>
+            <h3>Maximum style. Lasting comfort.</h3>
+            <p>Curated sofas and armchairs with clean geometry and premium materials — the centrepiece your room deserves.</p>
+            <a class="btn btn-ghost" href="https://blestsofas.co.uk/collections/individual-sofas" style="margin-top: auto; align-self: flex-start;">Explore Statement</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="products">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="kicker">Bestsellers</p>
+          <h2>A sofa for every lifestyle.</h2>
+          <p class="lead">Popular pieces chosen for quality, style, and function — prices as listed on blestsofas.co.uk.</p>
+        </div>
+        <div class="product-grid" data-reveal>
+          <a class="product-card" href="https://blestsofas.co.uk/products/lassi-sofabed-3-seater-1500-mm">
+            <img src="https://blestsofas.co.uk/cdn/shop/files/64ed3463e0c65fa29a2425b504d940e9df2e3753.jpg" alt="Lassi Sofabed 3-Seater" loading="lazy" />
+            <div class="info">
+              <h3>Lassi Sofabed — 3-Seater</h3>
+              <p class="price">£2,750.00</p>
+            </div>
+          </a>
+          <a class="product-card" href="https://blestsofas.co.uk/products/rimini-corner-sofa-l-shape">
+            <img src="https://blestsofas.co.uk/cdn/shop/files/35.png" alt="Rimini Corner Sofa" loading="lazy" />
+            <div class="info">
+              <h3>Rimini Corner — L-Shape</h3>
+              <p class="price"><span class="was">£3,550</span> from £3,050</p>
+            </div>
+          </a>
+          <a class="product-card" href="https://blestsofas.co.uk/products/murphy-corner-sofa-l-shape">
+            <img src="https://blestsofas.co.uk/cdn/shop/files/28.png" alt="Murphy Corner Sofa" loading="lazy" />
+            <div class="info">
+              <h3>Murphy Corner — L-Shape</h3>
+              <p class="price">£3,550.00</p>
+            </div>
+          </a>
+          <a class="product-card" href="https://blestsofas.co.uk/products/indi-sofa-3-seater-1800-mm">
+            <img src="https://blestsofas.co.uk/cdn/shop/files/27.png" alt="Indi Sofa 3-Seater" loading="lazy" />
+            <div class="info">
+              <h3>Indi Sofa — 3-Seater</h3>
+              <p class="price">£2,750.00</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="alt-bg" id="custom">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="kicker">Your sofa. Your way.</p>
+          <h2>Modular layouts and fabric — decided by you.</h2>
+          <p class="lead">Straight, corner, or U-shape. Fabric, stitching, thread colour, contrast cushions, sleep mechanism or static — included in how we work, not an afterthought.</p>
+        </div>
+        <ul class="custom-list" data-reveal>
+          <li>Fabric type and colour + contrast options</li>
+          <li>Stitching style and thread colour</li>
+          <li>Module configuration — corner direction, lounge modules</li>
+          <li>With or without sleeping mechanism (model dependent)</li>
+          <li>Request fabric samples via our team before you commit</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="trade">
+      <div class="container">
+        <article class="trade-box" data-reveal>
+          <p class="kicker" style="color: var(--brass-light);">Trade &amp; professionals</p>
+          <h2>Working on a specification?</h2>
+          <p style="margin-top: 12px; color: rgba(244,239,230,0.8);">We support furniture retailers, design studios, contractors, developers, and architects with dedicated trade terms.</p>
+          <ul>
+            <li>3D models and technical files</li>
+            <li>Material and fabric samples</li>
+            <li>Layout and product selection support</li>
+            <li>Cumulative trade advantage programme</li>
+          </ul>
+          <a class="btn" style="margin-top: 24px; background: var(--brass); border-color: var(--brass);" href="https://blestsofas.co.uk/pages/contact">Open trade enquiry</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="kicker">Quick answers</p>
+          <h2>Before you order.</h2>
+        </div>
+        <div data-reveal>
+          <article class="faq-item open">
+            <button type="button" class="faq-q" aria-expanded="true">Are all sofas in stock?<span class="faq-icon">+</span></button>
+            <div class="faq-a">Most sofas are made to order at our European factory. A limited number of bestsellers may be available for quicker delivery — contact us to check availability.</div>
+          </article>
+          <article class="faq-item">
+            <button type="button" class="faq-q" aria-expanded="false">What is the typical lead time?<span class="faq-icon">+</span></button>
+            <div class="faq-a">Standard production and delivery is <strong>8 weeks</strong> from confirmed layout, fabric, and deposit. We update you from manufacturing through dispatch.</div>
+          </article>
+          <article class="faq-item">
+            <button type="button" class="faq-q" aria-expanded="false">What materials do you use?<span class="faq-icon">+</span></button>
+            <div class="faq-a">Construction varies by model — elastic belts, pocket springs, high-density foams, feather blends, and performance fabrics combined for the intended feel (soft to firm).</div>
+          </article>
+          <article class="faq-item">
+            <button type="button" class="faq-q" aria-expanded="false">Can I order custom fabric?<span class="faq-icon">+</span></button>
+            <div class="faq-a">Yes. Contact our manager for samples. Base personalisation includes fabric, stitching, contrast details, and module layout depending on the model.</div>
+          </article>
+          <article class="faq-item">
+            <button type="button" class="faq-q" aria-expanded="false">Do you work with trade clients?<span class="faq-icon">+</span></button>
+            <div class="faq-a">Yes — retailers, studios, contractors, and architects can open a trade account. See the trade section above or contact our team.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="consult">
+      <div class="container">
+        <div class="cta-panel" data-reveal>
+          <div>
+            <p class="kicker">Consultation</p>
+            <h2>What happens after you reach out?</h2>
+            <ol class="cta-steps">
+              <li><strong>1.</strong> We call or message within business hours (10:00–18:00, 7 days).</li>
+              <li><strong>2.</strong> Fabric samples and layout options for your room.</li>
+              <li><strong>3.</strong> Confirmed spec, deposit, then production (~8 weeks) with updates.</li>
+            </ol>
+            <p style="margin-top: 20px; font-size: 15px;">
+              <a href="tel:+447355796418" style="color: var(--brass); font-weight: 600;">+44 7355 796418</a>
+              · <a href="https://blestsofas.co.uk/pages/contact">Contact page</a>
+            </p>
+          </div>
+          <form class="cta-form" id="leadForm" action="https://blestsofas.co.uk/pages/contact" method="get">
+            <label>Name<input type="text" name="name" required autocomplete="name" /></label>
+            <label>Phone<input type="tel" name="phone" required autocomplete="tel" /></label>
+            <label>Email<input type="email" name="email" autocomplete="email" /></label>
+            <label>I'm interested in
+              <select name="interest">
+                <option value="everyday-sleep">Everyday Sleep (sofa bed)</option>
+                <option value="statement">Statement Sofa</option>
+                <option value="trade">Trade / professional</option>
+              </select>
+            </label>
+            <label>Message<textarea name="message" rows="3" placeholder="Room size, preferred collection, timeline…"></textarea></label>
+            <button type="submit" class="btn">Send enquiry</button>
+            <p style="font-size: 12px; color: var(--muted); margin-top: 10px;">Opens Blest contact — no spam. One conversation to clarify your project.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <a class="logo" href="https://blestsofas.co.uk/">BLEST</a>
+        <p style="margin-top: 12px;">Blest Sofas UK is a trading name of GLOBAL WINEXPERT LTD (Co. 14790273). Registered office: 58 New Bedford Road, Luton LU1 1SH. VAT GB473031515000.</p>
+        <p style="margin-top: 8px;">Concept redesign v2 · Preview for client review · <a href="https://blestsofas.co.uk/">Live shop</a></p>
+      </div>
+      <div>
+        <p><strong style="color: var(--ink);">Shop</strong></p>
+        <p style="margin-top: 8px;"><a href="https://blestsofas.co.uk/collections/all">All products</a></p>
+        <p><a href="https://blestsofas.co.uk/pages/shipping-policy">Shipping</a></p>
+      </div>
+      <div>
+        <p><strong style="color: var(--ink);">Legal</strong></p>
+        <p style="margin-top: 8px;"><a href="https://blestsofas.co.uk/policies/privacy-policy">Privacy</a></p>
+        <p><a href="https://blestsofas.co.uk/policies/terms-of-service">Terms</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="sticky-cta" id="stickyCta">
+    <a class="btn" href="#consult">Request samples — free consultation</a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script>
+    (function () {
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      document.querySelectorAll(".faq-q").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const item = btn.closest(".faq-item");
+          const open = item.classList.contains("open");
+          document.querySelectorAll(".faq-item").forEach((i) => {
+            i.classList.remove("open");
+            i.querySelector(".faq-q").setAttribute("aria-expanded", "false");
+          });
+          if (!open) {
+            item.classList.add("open");
+            btn.setAttribute("aria-expanded", "true");
+          }
+        });
+      });
+
+      const sticky = document.getElementById("stickyCta");
+      const hero = document.querySelector(".hero");
+      if (sticky && hero) {
+        new IntersectionObserver(
+          ([e]) => sticky.classList.toggle("show", !e.isIntersecting),
+          { threshold: 0 }
+        ).observe(hero);
+      }
+
+      if (reduced || typeof gsap === "undefined") {
+        document.querySelectorAll("[data-reveal]").forEach((el) => {
+          el.style.opacity = "1";
+          el.style.transform = "none";
+        });
+        return;
+      }
+
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.from("h1", {
+        opacity: 0,
+        y: 28,
+        duration: 0.9,
+        ease: "power3.out",
+        delay: 0.1,
+      });
+      gsap.from(".hero .lead, .hero-actions", {
+        opacity: 0,
+        y: 16,
+        duration: 0.7,
+        stagger: 0.12,
+        ease: "power3.out",
+        delay: 0.35,
+      });
+      gsap.from(".hero-visual", {
+        opacity: 0,
+        scale: 1.03,
+        duration: 1.1,
+        ease: "power2.out",
+        delay: 0.2,
+      });
+
+      gsap.utils.toArray("[data-reveal]").forEach((el) => {
+        if (el.closest(".hero")) return;
+        gsap.to(el, {
+          opacity: 1,
+          y: 0,
+          duration: 0.75,
+          ease: "power3.out",
+          scrollTrigger: { trigger: el, start: "top 88%", once: true },
+        });
+      });
+
+      document.querySelectorAll("[data-count]").forEach((el) => {
+        const target = +el.dataset.count;
+        const obj = { v: 0 };
+        gsap.to(obj, {
+          v: target,
+          duration: 1.4,
+          ease: "power3.out",
+          scrollTrigger: { trigger: el, start: "top 85%", once: true },
+          onUpdate: () => {
+            el.textContent = Math.round(obj.v);
+          },
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
