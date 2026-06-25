@@ -368,12 +368,12 @@
       .artifact-grid { grid-template-columns: 1.05fr 0.95fr; }
     }
 
-    .artifact-grid.tight {
+    .artifact-grid.gallery {
       grid-template-columns: 1fr;
     }
 
     @media (min-width: 940px) {
-      .artifact-grid.tight { grid-template-columns: repeat(3, 1fr); }
+      .artifact-grid.gallery { grid-template-columns: repeat(2, 1fr); }
     }
 
     .artifact {
@@ -415,6 +415,16 @@
       height: 100%;
       object-fit: cover;
       object-position: top center;
+    }
+
+    .artifact.featured {
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,244,238,0.9));
+    }
+
+    @media (min-width: 940px) {
+      .artifact.featured {
+        grid-column: 1 / -1;
+      }
     }
 
     .artifact-tag {
@@ -894,7 +904,7 @@
         <article class="artifact">
           <div class="artifact-tag">Morning brief</div>
           <figure>
-            <img src="../pro-trener-teaser/assets/03-telegram-morning.png" alt="Скриншот morning brief в Telegram">
+            <img src="assets/03-telegram-morning.png" alt="Скриншот morning brief в Telegram">
             <figcaption>Ежедневный персональный briefing: восстановление, нагрузка, погода, ограничения по ferritin и конкретное действие на сегодня.</figcaption>
           </figure>
           <p>
@@ -920,11 +930,21 @@
         </div>
       </div>
 
-      <div class="artifact-grid tight" style="margin-top:18px;">
+      <div class="artifact-grid gallery" style="margin-top:18px;">
+        <article class="artifact featured">
+          <div class="artifact-tag">Morning brief</div>
+          <figure>
+            <img src="assets/03-telegram-morning.png" alt="Скриншот morning brief">
+            <figcaption>Ежедневный персональный briefing: восстановление, нагрузка, погода и конкретное действие на сегодня.</figcaption>
+          </figure>
+          <p>
+            Это первый слой системы: не общие советы, а короткая, персональная обратная связь на каждый день.
+          </p>
+        </article>
         <article class="artifact wide">
           <div class="artifact-tag">Doctor brief</div>
           <figure>
-            <img src="../pro-trener-teaser/assets/01-brief-doctor.png" alt="Скриншот doctor brief для визита к врачу">
+            <img src="assets/01-brief-doctor.png" alt="Скриншот doctor brief для визита к врачу">
             <figcaption>Структурированный one-pager: ключевые кластеры, текущий протокол, генетически значимые ограничения и вопросы для врача.</figcaption>
           </figure>
           <p>
@@ -934,11 +954,41 @@
         <article class="artifact wide">
           <div class="artifact-tag">Food analysis</div>
           <figure>
-            <img src="../pro-trener-teaser/assets/02-telegram-food-fish.png" alt="Скриншот food analysis с персональным контекстом">
+            <img src="assets/01_food_analysis.png" alt="Скриншот food analysis с персональным контекстом">
             <figcaption>Food analysis связывает фото еды с нутриентами, текущим протоколом и персональным биомаркерным контекстом.</figcaption>
           </figure>
           <p>
             Это убедительный пример того, почему wearables недостаточны сами по себе: устройство не скажет, как конкретная еда выглядит на фоне ferritin, LDL, восстановительных задач и текущего протокола.
+          </p>
+        </article>
+        <article class="artifact wide">
+          <div class="artifact-tag">Lab analysis</div>
+          <figure>
+            <img src="assets/02_lab_analysis.png" alt="Скриншот лабораторного анализа">
+            <figcaption>Лабораторный слой: липиды, ferritin и генетический контекст с прямыми выводами для протокола.</figcaption>
+          </figure>
+          <p>
+            Здесь видно, почему анализы важны, но сами по себе не закрывают вопрос: они становятся полезны только в связке с историей, питанием и daily feedback.
+          </p>
+        </article>
+        <article class="artifact wide">
+          <div class="artifact-tag">Voice journal</div>
+          <figure>
+            <img src="assets/03_voice_journal.png" alt="Скриншот voice journal">
+            <figcaption>Голосовой дневник: короткая фиксация состояния, которая потом превращается в структурированный контекст.</figcaption>
+          </figure>
+          <p>
+            Этот блок показывает, что система собирает не только формальные данные, но и живой субъективный контекст, который иначе теряется.
+          </p>
+        </article>
+        <article class="artifact wide">
+          <div class="artifact-tag">Supplements</div>
+          <figure>
+            <img src="assets/04_supplements.png" alt="Скриншот протокола добавок">
+            <figcaption>Слой добавок: что принимается, зачем и как это связано с лабораторным фоном и целями.</figcaption>
+          </figure>
+          <p>
+            Именно здесь появляется decision tracker: что изменили, зачем и какой эффект это дало в реальной жизни.
           </p>
         </article>
       </div>
@@ -1111,7 +1161,7 @@
     <section class="founder-section reveal">
       <div class="founder-grid">
         <div class="photo-wrap">
-          <img src="../pro-trener-pilot/assets/founder.jpeg" alt="Борис Король, founder of AI Automation Studio" loading="lazy" decoding="async">
+          <img src="assets/founder.jpeg" alt="Борис Король, founder of AI Automation Studio" loading="lazy" decoding="async">
           <div class="photo-tag"><i></i><span>Founder · AI Automation Studio</span></div>
         </div>
         <div class="founder-bio">
