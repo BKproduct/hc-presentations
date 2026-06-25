@@ -368,12 +368,23 @@
       .artifact-grid { grid-template-columns: 1.05fr 0.95fr; }
     }
 
+    .artifact-grid.tight {
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 940px) {
+      .artifact-grid.tight { grid-template-columns: repeat(3, 1fr); }
+    }
+
     .artifact {
       padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .artifact figure {
-      margin: 0 0 16px;
+      margin: 0;
       border-radius: 16px;
       overflow: hidden;
       border: 1px solid rgba(105, 89, 73, 0.12);
@@ -392,6 +403,18 @@
       color: var(--muted);
       font-size: 0.9rem;
       border-top: 1px solid rgba(105, 89, 73, 0.08);
+    }
+
+    .artifact.wide figure {
+      aspect-ratio: 4 / 3;
+      background: #fff;
+    }
+
+    .artifact.wide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
     }
 
     .artifact-tag {
@@ -568,6 +591,145 @@
       width: 100%;
       margin-top: 14px;
       justify-content: center;
+    }
+
+    .founder-section {
+      padding: 0;
+      overflow: hidden;
+      background: linear-gradient(180deg, #171410, #0f0d0b);
+      color: #f7f1ea;
+    }
+
+    .founder-grid {
+      display: grid;
+      gap: 20px;
+      padding: clamp(24px, 4vw, 40px);
+      align-items: center;
+    }
+
+    @media (min-width: 860px) {
+      .founder-grid { grid-template-columns: 0.88fr 1.12fr; gap: 28px; }
+    }
+
+    .photo-wrap {
+      position: relative;
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255,255,255,0.04);
+      box-shadow: 0 24px 56px rgba(0, 0, 0, 0.35);
+      max-width: 460px;
+    }
+
+    .photo-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .photo-tag {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(17, 15, 12, 0.7);
+      color: #f7f1ea;
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(10px);
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .photo-tag i {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    .founder-bio h2 {
+      font-size: clamp(1.95rem, 4.5vw, 3rem);
+      margin-top: 6px;
+    }
+
+    .founder-bio .role {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--accent);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+    }
+
+    .founder-bio p {
+      color: rgba(247, 241, 234, 0.78);
+      font-size: 0.98rem;
+      margin-top: 12px;
+      max-width: 42rem;
+    }
+
+    .founder-creds {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .founder-creds .chip {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #f7f1ea;
+      background: rgba(255,255,255,0.05);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .founder-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .founder-contact a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.16);
+      color: #f7f1ea;
+      background: rgba(255,255,255,0.05);
+      transition: transform 180ms ease, border-color 180ms ease, color 180ms ease, background 180ms ease;
+    }
+
+    .founder-contact a:hover {
+      transform: translateY(-1px);
+      border-color: rgba(184, 97, 61, 0.55);
+      color: #fff;
+      background: rgba(184, 97, 61, 0.14);
+    }
+
+    .colophon {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: space-between;
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      color: rgba(247, 241, 234, 0.62);
+      font-size: 0.84rem;
     }
 
     .muted-note {
@@ -758,8 +920,8 @@
         </div>
       </div>
 
-      <div class="artifact-grid" style="margin-top:18px;">
-        <article class="artifact">
+      <div class="artifact-grid tight" style="margin-top:18px;">
+        <article class="artifact wide">
           <div class="artifact-tag">Doctor brief</div>
           <figure>
             <img src="../pro-trener-teaser/assets/01-brief-doctor.png" alt="Скриншот doctor brief для визита к врачу">
@@ -769,7 +931,7 @@
             Его задача не заменить врача, а радикально поднять качество разговора. Врач быстрее видит тренды и риски, а не тратит первые минуты на реконструкцию истории с нуля.
           </p>
         </article>
-        <article class="artifact">
+        <article class="artifact wide">
           <div class="artifact-tag">Food analysis</div>
           <figure>
             <img src="../pro-trener-teaser/assets/02-telegram-food-fish.png" alt="Скриншот food analysis с персональным контекстом">
@@ -943,6 +1105,39 @@
             Health Copilot · personal longevity system · AAS edition
           </p>
         </aside>
+      </div>
+    </section>
+
+    <section class="founder-section reveal">
+      <div class="founder-grid">
+        <div class="photo-wrap">
+          <img src="../pro-trener-pilot/assets/founder.jpeg" alt="Борис Король, founder of AI Automation Studio" loading="lazy" decoding="async">
+          <div class="photo-tag"><i></i><span>Founder · AI Automation Studio</span></div>
+        </div>
+        <div class="founder-bio">
+          <span class="role">Обо мне</span>
+          <h2>Борис Король</h2>
+          <p>
+            Строю AI-инструменты и продукты, которые помогают людям принимать более ясные решения. Health Copilot - один из продуктов AI Automation Studio, и я веду этот cohort лично.
+          </p>
+          <p>
+            Моя задача в этой группе - помочь вам собрать не просто набор советов, а рабочую personal longevity system: с ежедневной обратной связью, артефактами, research layer и понятной логикой действий.
+          </p>
+          <div class="founder-creds">
+            <span class="chip">AI Automation Studio</span>
+            <span class="chip">Health Copilot</span>
+            <span class="chip">Longevity systems</span>
+            <span class="chip">Product design</span>
+          </div>
+          <div class="founder-contact">
+            <a href="https://calendly.com/ai_automation_studio/30min" target="_blank" rel="noopener">Book the call</a>
+            <a href="https://bkproduct.github.io/hc-presentations/founding-cohort-aas/" target="_blank" rel="noopener">Open page</a>
+          </div>
+          <div class="colophon">
+            <div>Health Copilot · AAS edition</div>
+            <div>Prepared for the founding cohort</div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
