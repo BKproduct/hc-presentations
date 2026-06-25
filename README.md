@@ -38,6 +38,12 @@
 
 **https://bkproduct.github.io/hc-presentations/health-copilot-ru/?v=2**
 
+## Health Copilot — group pilot July 2026
+
+Короткая страница для группы из 4-5 человек: 4-5 занятий, 1.5 часа, £2,000 участие, в конце каждый получает полностью работающую систему.
+
+**https://bkproduct.github.io/hc-presentations/healthcopilot-group-pilot/**
+
 ## Сравнение вариантов оформления (один нарратив, четыре HTML)
 
 Таблица и четыре визуальных варианта одной истории о продукте (без внутренних техно-ярлыков в клиентском тексте):

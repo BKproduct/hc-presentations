@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthCopilot — группа July 2026</title>
+  <meta name="description" content="Закрытая группа из 4-5 человек: 4-5 живых занятий по 1.5 часа в июле, £2,000 участие, в конце каждый получает полностью работающую систему HealthCopilot.">
+  <meta property="og:title" content="HealthCopilot — группа July 2026">
+  <meta property="og:description" content="4-5 человек · 4-5 занятий · 1.5 часа · £2,000 · итог: полностью работающая система HealthCopilot">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Spline+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #06100c;
+      --bg2: #0d1b14;
+      --panel: rgba(16, 35, 26, 0.82);
+      --panel2: rgba(12, 28, 21, 0.86);
+      --line: rgba(120, 170, 140, 0.18);
+      --text: #edf3ef;
+      --muted: #a6b7ad;
+      --green: #6dd39a;
+      --green2: #2ea36d;
+      --gold: #d9b24c;
+      --gold2: #f2d278;
+      --shadow: 0 24px 80px rgba(0,0,0,0.42);
+      --font-h: 'Fraunces', Georgia, serif;
+      --font-b: 'Spline Sans', system-ui, sans-serif;
+      --radius: 22px;
+      --radius-sm: 14px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font-b);
+      background:
+        radial-gradient(ellipse at top right, rgba(109, 211, 154, 0.13), transparent 34%),
+        radial-gradient(ellipse at bottom left, rgba(217, 178, 76, 0.09), transparent 33%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      color: var(--text);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image:
+        linear-gradient(transparent 95%, rgba(255,255,255,0.08) 95%),
+        linear-gradient(90deg, transparent 95%, rgba(255,255,255,0.08) 95%);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(circle at 50% 18%, black 30%, transparent 78%);
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(180deg, rgba(6,16,12,0.95), rgba(6,16,12,0.55));
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand strong {
+      font-family: var(--font-h);
+      font-size: 1.06rem;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .brand span,
+    .chip,
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-family: var(--font-b);
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    main { padding: 28px 0 56px; }
+
+    section {
+      margin-top: 20px;
+      padding: 28px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      background: linear-gradient(160deg, rgba(16, 35, 26, 0.92), rgba(9, 22, 17, 0.9));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero {
+      padding: 34px;
+      background:
+        radial-gradient(ellipse at 86% 16%, rgba(109, 211, 154, 0.18), transparent 38%),
+        radial-gradient(ellipse at 10% 92%, rgba(217, 178, 76, 0.12), transparent 34%),
+        linear-gradient(160deg, rgba(16, 35, 26, 0.95), rgba(8, 19, 14, 0.92));
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    @media (min-width: 920px) {
+      .hero-grid {
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: center;
+      }
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-h);
+      margin: 0;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    h1 { font-size: clamp(2.4rem, 6vw, 4.8rem); }
+    h2 { font-size: clamp(1.5rem, 3vw, 2.4rem); margin-bottom: 10px; }
+    h3 { font-size: 1.22rem; }
+
+    .lede {
+      margin: 14px 0 0;
+      max-width: 54rem;
+      color: #d1ddd5;
+      font-size: clamp(1rem, 2vw, 1.14rem);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    @media (min-width: 700px) {
+      .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+
+    .stat, .card, .bubble, .note {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.035);
+    }
+
+    .stat {
+      padding: 14px;
+      min-height: 92px;
+    }
+
+    .stat strong {
+      display: block;
+      font-family: var(--font-h);
+      font-size: 1.55rem;
+      color: var(--gold2);
+      margin-bottom: 6px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .hero-aside {
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(9, 22, 17, 0.94), rgba(14, 29, 21, 0.86));
+      border-radius: 20px;
+      border: 1px solid rgba(109, 211, 154, 0.18);
+    }
+
+    .hero-aside .price {
+      font-family: var(--font-h);
+      font-size: clamp(2.4rem, 5vw, 3.5rem);
+      color: var(--green);
+      margin-top: 10px;
+    }
+
+    .hero-aside p { color: #d0ddd4; }
+
+    .grid2 {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    @media (min-width: 900px) {
+      .grid2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    .card {
+      padding: 18px;
+    }
+
+    .card p, li, .note, .bubble p {
+      color: #d0ddd4;
+      font-size: 0.96rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(109, 211, 154, 0.11);
+      border: 1px solid rgba(109, 211, 154, 0.22);
+      color: var(--green);
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    ol, ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    li + li { margin-top: 8px; }
+
+    .roadmap {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    @media (min-width: 760px) {
+      .roadmap { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    }
+
+    .week {
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      min-height: 170px;
+    }
+
+    .week b {
+      display: inline-block;
+      font-family: var(--font-h);
+      color: var(--gold2);
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .week h3 {
+      font-size: 1.02rem;
+      margin-bottom: 8px;
+    }
+
+    .week p { margin: 0; color: #d0ddd4; font-size: 0.92rem; }
+
+    .flow {
+      display: grid;
+      gap: 14px;
+    }
+
+    @media (min-width: 900px) {
+      .flow { grid-template-columns: 1.1fr 0.9fr; }
+    }
+
+    .panel {
+      padding: 20px;
+      border-radius: 20px;
+      background: linear-gradient(160deg, rgba(10, 22, 16, 0.94), rgba(14, 31, 23, 0.9));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .steps {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .step .n {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(109, 211, 154, 0.12);
+      color: var(--green);
+      font-family: var(--font-h);
+      font-size: 1.15rem;
+    }
+
+    .bubble {
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(22, 45, 34, 0.9), rgba(11, 25, 18, 0.94));
+    }
+
+    .bubble-header {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .bubble-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .bubble-dots i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      background: rgba(255,255,255,0.28);
+    }
+
+    .bubble-message {
+      background: rgba(92, 168, 252, 0.14);
+      border: 1px solid rgba(92, 168, 252, 0.28);
+      color: #eaf3ff;
+      border-radius: 18px 18px 6px 18px;
+      padding: 16px;
+      font-size: 0.98rem;
+      white-space: pre-wrap;
+    }
+
+    .message-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    @media (min-width: 900px) {
+      .message-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .note {
+      padding: 18px;
+    }
+
+    .cta {
+      display: inline-flex;
+      margin-top: 16px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 600;
+      color: #07120d;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      box-shadow: 0 10px 30px rgba(217,178,76,0.24);
+    }
+
+    .cta.secondary {
+      color: var(--text);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: none;
+      margin-left: 10px;
+    }
+
+    .fine {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    footer {
+      padding: 30px 0 44px;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap bar">
+      <div class="brand">
+        <strong>HealthCopilot</strong>
+        <span>July cohort · group pilot</span>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end;">
+        <span class="chip">4-5 people</span>
+        <span class="chip">£2,000</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="top" class="wrap">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">закрытая группа · июль 2026</div>
+          <h1>4-5 человек. 4-5 живых занятий. В конце - полностью работающая система HealthCopilot.</h1>
+          <p class="lede">
+            Это короткая практическая группа для людей, у которых уже есть свои файлы: DNA-тесты, анализы крови, Apple Watch, Oura или Whoop.
+            На каждом занятии я помогаю собрать данные в одну систему и научить человека пользоваться ею дальше.
+          </p>
+
+          <div class="stats">
+            <div class="stat"><strong>4-5</strong><span>участников в группе</span></div>
+            <div class="stat"><strong>4-5</strong><span>занятий в июле</span></div>
+            <div class="stat"><strong>90 мин</strong><span>каждая встреча</span></div>
+            <div class="stat"><strong>£2,000</strong><span>участие с человека</span></div>
+          </div>
+        </div>
+
+        <aside class="hero-aside">
+          <span class="pill">итог для участника</span>
+          <h2>Не консультация. Не лекция. Настроенная личная система.</h2>
+          <p>
+            В конце каждый участник получает HealthCopilot, собранный под его данные:
+            файлы, носимые устройства, базовые выводы, понятный порядок действий и шаблон, которым можно пользоваться дальше.
+          </p>
+          <div class="price">£2,000</div>
+          <p>Цена участия в группе. Старт в июле. Формат: 1 раз в неделю, 1.5 часа.</p>
+          <a class="cta" href="#message">Посмотреть текст для приглашения</a>
+          <a class="cta secondary" href="#roadmap">Программа занятий</a>
+        </aside>
+      </div>
+    </section>
+
+    <section id="who">
+      <div class="pill">кому подходит</div>
+      <h2>Тем, у кого уже есть данные, но нет системы.</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>Что участник приносит</h3>
+          <ul>
+            <li>файлы с DNA-тестами</li>
+            <li>PDF и фото анализов крови</li>
+            <li>Apple Watch, Oura или Whoop</li>
+            <li>желание понять свои данные без лишнего шума</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Что им не нужно знать заранее</h3>
+          <ul>
+            <li>промпт-инжиниринг</li>
+            <li>техническая настройка AI</li>
+            <li>сложная терминология</li>
+            <li>медицинская экспертиза</li>
+          </ul>
+          <p class="fine">Минимум знаний: уметь загрузить файл, подключить wearable и отвечать на простые вопросы по своим целям.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <div class="pill">программа</div>
+      <h2>4-5 живых встреч по 1.5 часа, раз в неделю в июле.</h2>
+      <div class="roadmap">
+        <div class="week">
+          <b>01</b>
+          <h3>Подключение и цели</h3>
+          <p>Собираем файлы, создаём структуру, подключаем Apple Watch / Oura / Whoop, фиксируем цели и формат работы.</p>
+        </div>
+        <div class="week">
+          <b>02</b>
+          <h3>Анализы крови</h3>
+          <p>Разбираем ключевые показатели, как хранить историю и как смотреть не только на одну цифру, а на тенденцию.</p>
+        </div>
+        <div class="week">
+          <b>03</b>
+          <h3>Wearables</h3>
+          <p>Подключаем сон, HRV, recovery и активность. Смотрим, как данные часов и кольца дополняют анализы.</p>
+        </div>
+        <div class="week">
+          <b>04</b>
+          <h3>DNA и связи</h3>
+          <p>Смотрим, как генетика влияет на интерпретацию, и что из этого реально полезно для ежедневных решений.</p>
+        </div>
+        <div class="week">
+          <b>05</b>
+          <h3>Финальная сборка</h3>
+          <p>Делаем итоговую настройку, чтобы система осталась рабочей после группы: что смотреть, что обновлять, что не трогать.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="infra">
+      <div class="pill">что нужно из инфраструктуры</div>
+      <div class="flow">
+        <div class="panel">
+          <h2>Для каждого участника - отдельная структура данных.</h2>
+          <p class="lede">
+            Я помогаю выстроить простую папку и рабочий процесс, чтобы данные не терялись и система оставалась приватной.
+          </p>
+          <div class="steps">
+            <div class="step">
+              <div class="n">1</div>
+              <div>
+                <h3>Папка участника</h3>
+                <p>Лабы, DNA, wearables, заметки, итоговые выводы. Всё разложено по разделам.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="n">2</div>
+              <div>
+                <h3>Подключение устройств</h3>
+                <p>Apple Watch, Oura, Whoop. Если что-то не подключается, я помогаю руками.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="n">3</div>
+              <div>
+                <h3>Единый итоговый файл</h3>
+                <p>Краткий рабочий summary, который остаётся у человека после курса и может обновляться дальше.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Почему это не сложный AI-курс</h2>
+          <p class="lede">
+            Никакой предварительной AI-теории не нужно. Это программа про здоровье и данные, а не про технику.
+          </p>
+          <ul>
+            <li>участник загружает свои файлы</li>
+            <li>я показываю, как читать картину целиком</li>
+            <li>мы собираем личную рабочую систему</li>
+            <li>в конце остаётся готовый процесс, а не разрозненные скриншоты</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="message">
+      <div class="pill">iMessage / Telegram-style output</div>
+      <h2>Да, формат сообщения можно сделать в стиле iMessage.</h2>
+      <div class="message-grid">
+        <div class="bubble">
+          <div class="bubble-header">
+            <span class="bubble-dots"><i></i><i></i><i></i></span>
+            <span>message preview</span>
+          </div>
+          <div class="bubble-message">HealthCopilot knows why.
+Your data, one system, one weekly workflow.</div>
+          <p class="fine">Это визуальный формат внутри страницы. Если потом захочешь, можно сделать и настоящий канал доставки в Telegram или отдельный iMessage-style интерфейс, но сама презентация уже может показывать этот паттерн.</p>
+        </div>
+
+        <div class="note">
+          <h3>Что человек получает в конце</h3>
+          <ul>
+            <li>полностью работающую систему HealthCopilot</li>
+            <li>подключённые файлы и wearable-данные</li>
+            <li>понятный порядок, что смотреть каждую неделю</li>
+            <li>личный рабочий протокол, который можно продолжать использовать</li>
+          </ul>
+          <p class="fine">Это именно результат, а не доступ к лекциям.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="invite">
+      <div class="pill">готово к отправке</div>
+      <h2>Текст для первой участницы</h2>
+      <div class="card">
+        <p>
+          Привет, я хочу собрать небольшую группу из 4-5 человек по HealthCopilot. Старт планирую в июле.
+          Формат - 4-5 занятий, по полтора часа, раз в неделю.
+        </p>
+        <p>
+          В конце у каждого будет полностью работающая система: подключённые анализы, DNA, Apple Watch / Oura / Whoop и понятный рабочий процесс.
+          Возможно, кто-то из твоих знакомых тоже хочет принять участие в такой группе?
+        </p>
+      </div>
+      <a class="cta" href="#top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">Вернуться наверх</a>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <div>HealthCopilot group pilot · July 2026 · £2,000 per participant</div>
+    <div class="fine">Publish this page on the public static host or point the AAS subdomain to the same asset path.</div>
+  </footer>
+</body>
+</html>
