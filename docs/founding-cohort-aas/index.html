@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Copilot — Founding Cohort | AAS Edition</title>
+  <meta name="description" content="Русская вертикальная презентация Health Copilot Founding Cohort: personal longevity system, morning brief, doctor brief, decision tracker, food analysis, research layer и 5 живых сессий.">
+  <meta property="og:title" content="Health Copilot — Founding Cohort">
+  <meta property="og:description" content="Personal longevity system для людей, которые уже серьезно занимаются здоровьем, но хотят наконец собрать все в одну ясную систему.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f9f6f1;
+      --bg-alt: #f1ece4;
+      --panel: rgba(255, 255, 255, 0.74);
+      --panel-strong: #ffffff;
+      --text: #191612;
+      --muted: #5f554b;
+      --muted-soft: #8b7d6f;
+      --line: rgba(105, 89, 73, 0.16);
+      --accent: #b8613d;
+      --accent-strong: #964629;
+      --accent-soft: #f2dfd4;
+      --ink: #1f1b18;
+      --shadow: 0 22px 60px rgba(28, 23, 18, 0.10);
+      --display: "Fraunces", Georgia, serif;
+      --body: "Inter", system-ui, sans-serif;
+      --radius: 28px;
+      --radius-sm: 18px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--body);
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(184, 97, 61, 0.12), transparent 30%),
+        radial-gradient(circle at left 20%, rgba(146, 70, 41, 0.08), transparent 28%),
+        linear-gradient(180deg, #fcfaf7 0%, var(--bg) 42%, var(--bg-alt) 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(25, 22, 18, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(25, 22, 18, 0.018) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(circle at 50% 12%, black 26%, transparent 78%);
+      opacity: 0.8;
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 100%;
+      transform-origin: left;
+      transform: scaleX(0);
+      background: linear-gradient(90deg, var(--accent), #d78c61);
+      z-index: 50;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(16px);
+      background: rgba(249, 246, 241, 0.82);
+      border-bottom: 1px solid rgba(105, 89, 73, 0.10);
+    }
+
+    .bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .brand strong,
+    h1, h2, h3 {
+      font-family: var(--display);
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+      margin: 0;
+    }
+
+    .brand strong { font-size: 1.05rem; }
+    .brand span,
+    .eyebrow,
+    .micro {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted-soft);
+    }
+
+    nav {
+      display: none;
+      gap: 14px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    @media (min-width: 960px) {
+      nav { display: flex; }
+    }
+
+    nav a {
+      text-decoration: none;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 100%;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 180ms ease;
+    }
+
+    nav a:hover::after { transform: scaleX(1); }
+
+    .cta,
+    .ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-weight: 600;
+      transition: transform 180ms ease, background 180ms ease, color 180ms ease, border-color 180ms ease;
+    }
+
+    .cta {
+      background: var(--accent);
+      color: #fffaf5;
+      box-shadow: 0 16px 36px rgba(184, 97, 61, 0.22);
+    }
+
+    .cta:hover {
+      transform: translateY(-1px);
+      background: var(--accent-strong);
+    }
+
+    .ghost {
+      border: 1px solid rgba(105, 89, 73, 0.16);
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.58);
+    }
+
+    .ghost:hover {
+      transform: translateY(-1px);
+      border-color: rgba(184, 97, 61, 0.32);
+    }
+
+    main { padding: 24px 0 80px; }
+
+    section {
+      margin-top: 18px;
+      border: 1px solid rgba(105, 89, 73, 0.10);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.68));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero {
+      padding: clamp(28px, 4vw, 52px);
+      background:
+        radial-gradient(circle at 88% 18%, rgba(184, 97, 61, 0.18), transparent 26%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(246, 240, 233, 0.94));
+    }
+
+    .hero-grid,
+    .grid-2,
+    .grid-3 {
+      display: grid;
+      gap: 18px;
+    }
+
+    .hero-grid { align-items: stretch; }
+
+    @media (min-width: 960px) {
+      .hero-grid { grid-template-columns: 1.15fr 0.85fr; }
+      .grid-2 { grid-template-columns: 1fr 1fr; }
+      .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    h1 { font-size: clamp(2.6rem, 6vw, 5.4rem); max-width: 12ch; }
+    h2 { font-size: clamp(1.7rem, 3.1vw, 3rem); margin-bottom: 12px; }
+    h3 { font-size: 1.32rem; margin-bottom: 8px; }
+
+    .lede {
+      font-size: clamp(1.02rem, 2vw, 1.2rem);
+      max-width: 56rem;
+      color: var(--muted);
+      margin-top: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    @media (min-width: 700px) {
+      .stat-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+
+    .stat,
+    .card,
+    .artifact,
+    .quote,
+    .diagram-step,
+    .compare,
+    .proof {
+      background: var(--panel);
+      border: 1px solid rgba(105, 89, 73, 0.12);
+      border-radius: var(--radius-sm);
+      backdrop-filter: blur(8px);
+    }
+
+    .stat {
+      padding: 16px;
+      min-height: 112px;
+    }
+
+    .stat strong {
+      display: block;
+      font-family: var(--display);
+      font-size: 1.7rem;
+      color: var(--accent-strong);
+      margin-bottom: 10px;
+      letter-spacing: -0.03em;
+    }
+
+    .aside {
+      display: grid;
+      gap: 16px;
+      padding: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(248, 242, 235, 0.96));
+      border: 1px solid rgba(184, 97, 61, 0.18);
+      border-radius: 24px;
+    }
+
+    .aside .price {
+      font-family: var(--display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 0.95;
+      color: var(--accent-strong);
+    }
+
+    .section-body { padding: clamp(24px, 3vw, 38px); }
+
+    .card,
+    .compare,
+    .proof,
+    .quote {
+      padding: 20px;
+    }
+
+    .card p,
+    .compare p,
+    .proof p,
+    .aside p,
+    .quote p,
+    li {
+      color: var(--muted);
+    }
+
+    ul, ol {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    li + li { margin-top: 8px; }
+
+    .accent-list {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .accent-list li {
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .accent-list li::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      position: absolute;
+      left: 0;
+      top: 0.58em;
+    }
+
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .artifact-grid {
+      display: grid;
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    @media (min-width: 980px) {
+      .artifact-grid { grid-template-columns: 1.05fr 0.95fr; }
+    }
+
+    .artifact {
+      padding: 16px;
+    }
+
+    .artifact figure {
+      margin: 0 0 16px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(105, 89, 73, 0.12);
+      background: #fff;
+    }
+
+    .artifact img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .artifact figcaption {
+      padding: 12px 14px;
+      background: #fbfaf8;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(105, 89, 73, 0.08);
+    }
+
+    .artifact-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(184, 97, 61, 0.10);
+      color: var(--accent-strong);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+    }
+
+    .artifact-copy {
+      display: grid;
+      gap: 14px;
+    }
+
+    .artifact-copy .mini {
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(105, 89, 73, 0.10);
+    }
+
+    .compare-grid,
+    .proof-grid,
+    .lesson-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    @media (min-width: 900px) {
+      .compare-grid { grid-template-columns: repeat(3, 1fr); }
+      .proof-grid { grid-template-columns: 1.1fr 0.9fr; }
+      .lesson-grid { grid-template-columns: repeat(5, 1fr); }
+    }
+
+    .compare h3,
+    .proof h3 {
+      margin-bottom: 8px;
+    }
+
+    .grade-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    @media (min-width: 720px) {
+      .grade-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .grade {
+      border-radius: 16px;
+      padding: 18px;
+      color: #fff;
+      min-height: 154px;
+    }
+
+    .grade strong {
+      display: block;
+      font-family: var(--display);
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .grade-a { background: linear-gradient(180deg, #24553d, #183829); }
+    .grade-b { background: linear-gradient(180deg, #275372, #1b3649); }
+    .grade-c { background: linear-gradient(180deg, #70604c, #4f4336); }
+    .grade-u { background: linear-gradient(180deg, #5c5450, #332f2d); }
+
+    .diagram {
+      margin-top: 18px;
+      padding: 20px;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at top right, rgba(184, 97, 61, 0.10), transparent 34%),
+        rgba(255,255,255,0.74);
+      border: 1px solid rgba(105, 89, 73, 0.12);
+    }
+
+    .diagram-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    @media (min-width: 880px) {
+      .diagram-grid { grid-template-columns: repeat(5, 1fr); }
+    }
+
+    .diagram-step {
+      padding: 16px;
+      position: relative;
+      min-height: 180px;
+    }
+
+    .diagram-step::after {
+      content: "→";
+      position: absolute;
+      right: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--accent);
+      font-size: 1.3rem;
+      font-weight: 700;
+      display: none;
+    }
+
+    @media (min-width: 880px) {
+      .diagram-step:not(:last-child)::after { display: block; }
+    }
+
+    .step-no {
+      display: inline-flex;
+      width: 34px;
+      height: 34px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .quote {
+      margin-top: 18px;
+      border-left: 4px solid var(--accent);
+    }
+
+    .lesson {
+      padding: 18px 14px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(245, 239, 231, 0.88));
+      border: 1px solid rgba(105, 89, 73, 0.10);
+    }
+
+    .lesson strong {
+      display: block;
+      font-family: var(--display);
+      font-size: 1.08rem;
+      margin-bottom: 8px;
+    }
+
+    .footer-cta {
+      display: grid;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (min-width: 980px) {
+      .footer-cta { grid-template-columns: 1.15fr 0.85fr; }
+    }
+
+    .callout {
+      padding: 22px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #211c17, #15110e);
+      color: #f7f1ea;
+      box-shadow: 0 22px 60px rgba(17, 12, 8, 0.28);
+    }
+
+    .callout p,
+    .callout li,
+    .callout .micro { color: rgba(247, 241, 234, 0.76); }
+
+    .callout .cta {
+      width: 100%;
+      margin-top: 14px;
+      justify-content: center;
+    }
+
+    .muted-note {
+      color: var(--muted-soft);
+      font-size: 0.94rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 560ms ease, transform 560ms ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <header>
+    <div class="wrap bar">
+      <div class="brand">
+        <strong>Health Copilot</strong>
+        <span>Founding cohort · AAS edition</span>
+      </div>
+      <nav aria-label="Навигация по разделам">
+        <a href="#problem">Проблема</a>
+        <a href="#artifacts">Артефакты</a>
+        <a href="#evidence">Доказательность</a>
+        <a href="#format">Формат</a>
+        <a href="#cta">Участие</a>
+      </nav>
+      <a class="ghost" href="https://calendly.com/ai_automation_studio/30min" target="_blank" rel="noopener">30-мин звонок</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero reveal">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Personal longevity system</div>
+          <h1>Соберите здоровье в одну ясную систему</h1>
+          <p class="lede">
+            Health Copilot помогает людям, которые уже серьезно занимаются здоровьем, наконец соединить анализы, wearables, дневник, питание и решения в рабочую personal longevity system.
+          </p>
+          <div class="hero-actions">
+            <a class="cta" href="https://calendly.com/ai_automation_studio/30min" target="_blank" rel="noopener">Забронировать onboarding call</a>
+            <a class="ghost" href="#artifacts">Посмотреть артефакты</a>
+          </div>
+          <div class="stat-row">
+            <div class="stat">
+              <strong>4-5</strong>
+              <span>участников в закрытой группе</span>
+            </div>
+            <div class="stat">
+              <strong>5</strong>
+              <span>живых встреч с финальной интеграцией</span>
+            </div>
+            <div class="stat">
+              <strong>£1,800</strong>
+              <span>стоимость участия одним платежом</span>
+            </div>
+            <div class="stat">
+              <strong>июль</strong>
+              <span>ориентир старта после набора состава</span>
+            </div>
+          </div>
+        </div>
+        <aside class="aside">
+          <div class="micro">Founding cohort</div>
+          <div class="price">£1,800</div>
+          <p>
+            Первая точка входа — 30-минутный звонок по целям и текущему контексту. После него становится понятно, подходит ли вам cohort и как для вас должна собираться система.
+          </p>
+          <ul class="accent-list">
+            <li><strong>morning brief</strong> как ежедневная персональная обратная связь</li>
+            <li><strong>doctor brief</strong> как сильная подготовка к врачу</li>
+            <li><strong>decision tracker</strong> как слой управляемых решений</li>
+            <li><strong>food analysis</strong> как мост между едой и биомаркерами</li>
+          </ul>
+          <p class="muted-note">
+            Это не медицинская диагностика и не замена врачу. Это слой intelligence между человеком, его данными и его решениями.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="problem" class="section-body reveal">
+      <div class="eyebrow">Почему данные не складываются в понимание</div>
+      <h2>Главная проблема не в нехватке данных, а в нехватке системы</h2>
+      <div class="grid-3 compare-grid">
+        <article class="compare">
+          <h3>Wearables видят только часть картины</h3>
+          <p>
+            Сон, HRV, пульс, нагрузка и восстановление полезны, но wearables не знают ваши лабораторные маркеры, симптомы, добавки, назначения врача, реакцию на питание и длинную историю решений.
+          </p>
+        </article>
+        <article class="compare">
+          <h3>Анализы дают snapshots, а не ежедневный контекст</h3>
+          <p>
+            Лаборатории важны, но между сдачами остается огромный слой реальной жизни: режим, питание, тренировки, самочувствие, изменения протокола и эффект этих изменений.
+          </p>
+        </article>
+        <article class="compare">
+          <h3>Обычный ChatGPT не строит health system</h3>
+          <p>
+            Он может ответить на отдельный вопрос, но сам по себе не создает персональную память, архитектуру данных, daily feedback loop и слой доказательной интерпретации.
+          </p>
+        </article>
+      </div>
+      <div class="quote">
+        <p>
+          Health Copilot нужен именно в точке, где данные уже есть, но еще не превратились в ясное понимание: что для вас реально работает, что связано между собой и что стоит менять дальше.
+        </p>
+      </div>
+    </section>
+
+    <section class="section-body reveal">
+      <div class="eyebrow">Как работает продукт</div>
+      <h2>Данные → понимание → намерение → действие → система результата</h2>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Что собирает Health Copilot</h3>
+          <div class="flow">
+            <span class="pill">анализы</span>
+            <span class="pill">wearables</span>
+            <span class="pill">дневник самочувствия</span>
+            <span class="pill">питание</span>
+            <span class="pill">добавки</span>
+            <span class="pill">решения</span>
+            <span class="pill">генетика</span>
+          </div>
+          <p>
+            Система не просто хранит эти слои. Она собирает их в один контур, где сигналы начинают говорить друг с другом и превращаются в гипотезы, приоритеты и понятную ежедневную логику.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Почему особенно важны связи между слоями</h3>
+          <p>
+            Настоящая ценность возникает не в отдельных метриках, а в связях: когда ухудшение восстановления сопоставляется с нагрузкой, самочувствием, лабораторным фоном, питанием и тем, что вы недавно изменили.
+          </p>
+          <ul>
+            <li>Вы видите не просто сигнал, а контекст</li>
+            <li>Вы видите не просто контекст, а причины и гипотезы</li>
+            <li>Вы фиксируете не просто вывод, а решение и его эффект</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="artifacts" class="section-body reveal">
+      <div class="eyebrow">Реальные артефакты системы</div>
+      <h2>Не абстрактный AI про здоровье, а конкретные рабочие форматы</h2>
+      <div class="artifact-grid">
+        <article class="artifact">
+          <div class="artifact-tag">Morning brief</div>
+          <figure>
+            <img src="../pro-trener-teaser/assets/03-telegram-morning.png" alt="Скриншот morning brief в Telegram">
+            <figcaption>Ежедневный персональный briefing: восстановление, нагрузка, погода, ограничения по ferritin и конкретное действие на сегодня.</figcaption>
+          </figure>
+          <p>
+            Именно этот слой превращает разрозненные метрики в ежедневную персональную обратную связь. Не общие wellness-советы, а то, что имеет смысл именно для вашего текущего состояния.
+          </p>
+        </article>
+        <div class="artifact-copy">
+          <div class="mini">
+            <h3>Что получает участник на практике</h3>
+            <ul>
+              <li><strong>morning brief</strong> для ежедневной ориентации в сигналах</li>
+              <li><strong>doctor brief</strong> для визита к врачу без хаоса и потери контекста</li>
+              <li><strong>decision tracker</strong> для фиксации изменений и эффектов</li>
+              <li><strong>food analysis</strong> для персональной интерпретации еды</li>
+            </ul>
+          </div>
+          <div class="mini">
+            <h3>Почему это сильнее обычного self-tracking</h3>
+            <p>
+              Большинство людей останавливается на наблюдении. Здесь появляется missing layer: система, которая помогает не просто смотреть, а принимать решения, проверять их и удерживать логику во времени.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="artifact-grid" style="margin-top:18px;">
+        <article class="artifact">
+          <div class="artifact-tag">Doctor brief</div>
+          <figure>
+            <img src="../pro-trener-teaser/assets/01-brief-doctor.png" alt="Скриншот doctor brief для визита к врачу">
+            <figcaption>Структурированный one-pager: ключевые кластеры, текущий протокол, генетически значимые ограничения и вопросы для врача.</figcaption>
+          </figure>
+          <p>
+            Его задача не заменить врача, а радикально поднять качество разговора. Врач быстрее видит тренды и риски, а не тратит первые минуты на реконструкцию истории с нуля.
+          </p>
+        </article>
+        <article class="artifact">
+          <div class="artifact-tag">Food analysis</div>
+          <figure>
+            <img src="../pro-trener-teaser/assets/02-telegram-food-fish.png" alt="Скриншот food analysis с персональным контекстом">
+            <figcaption>Food analysis связывает фото еды с нутриентами, текущим протоколом и персональным биомаркерным контекстом.</figcaption>
+          </figure>
+          <p>
+            Это убедительный пример того, почему wearables недостаточны сами по себе: устройство не скажет, как конкретная еда выглядит на фоне ferritin, LDL, восстановительных задач и текущего протокола.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="evidence" class="section-body reveal">
+      <div class="eyebrow">Research layer и evidence standards</div>
+      <h2>Доверие возникает не из красивого AI-output, а из проверяемой опоры</h2>
+      <div class="proof-grid">
+        <article class="proof">
+          <h3>Что делает evidence layer</h3>
+          <p>
+            Система связывает персональный контекст человека с research layer и не подает гипотезы как твердые факты. Важные выводы должны иметь понятную опору, а слабые выводы должны быть явно помечены.
+          </p>
+          <ul>
+            <li>strong claims опираются на guidelines, RCT и систематические обзоры</li>
+            <li>рабочие гипотезы различаются по уровню уверенности</li>
+            <li>clinical decisions остаются у врача</li>
+            <li>AI помогает собрать контекст, паттерны и вопросы, а не симулировать медицину</li>
+          </ul>
+        </article>
+        <article class="proof">
+          <h3>Зачем это будущему участнику</h3>
+          <p>
+            Так появляется другое качество доверия: вы понимаете, где у вас твердая опора, где разумная гипотеза, а где рано делать слишком уверенные выводы. Это особенно важно в longevity, где рынок переполнен красивыми, но слабо обоснованными обещаниями.
+          </p>
+        </article>
+      </div>
+      <div class="grade-grid">
+        <div class="grade grade-a">
+          <strong>A</strong>
+          RCT, систематические обзоры, устойчивые клинические стандарты.
+        </div>
+        <div class="grade grade-b">
+          <strong>B</strong>
+          Сильные наблюдательные данные или хорошие исследования с ограничениями.
+        </div>
+        <div class="grade grade-c">
+          <strong>C</strong>
+          Механистические или более ранние гипотезы, которые требуют осторожности.
+        </div>
+        <div class="grade grade-u">
+          <strong>Unverified</strong>
+          То, что нельзя уверенно подтверждать и что нельзя подавать как факт.
+        </div>
+      </div>
+    </section>
+
+    <section class="section-body reveal">
+      <div class="eyebrow">DNA pipeline</div>
+      <h2>Почему генетический анализ должен быть многостадийным</h2>
+      <p class="lede" style="margin-top:0; max-width:64rem;">
+        Один сырой DNA-файл не равен полезному знанию. Чтобы получить по-настоящему надежный персональный слой, генетика должна проходить через несколько стадий: качество данных, клинические панели, pharmaco-слой, nutrigenomics и отдельную проверку противоречий.
+      </p>
+      <div class="diagram">
+        <div class="diagram-grid">
+          <article class="diagram-step">
+            <div class="step-no">1</div>
+            <h3>Raw DNA</h3>
+            <p>Загрузка исходного файла и первичный quality check, чтобы не строить выводы на невалидных сигналах.</p>
+          </article>
+          <article class="diagram-step">
+            <div class="step-no">2</div>
+            <h3>Clinical panels</h3>
+            <p>Отбор релевантных SNP, ClinVar и панелей, где важен клинический смысл, а не просто любопытные совпадения.</p>
+          </article>
+          <article class="diagram-step">
+            <div class="step-no">3</div>
+            <h3>PharmCAT + nutrigenomics</h3>
+            <p>Отдельный слой про лекарства, метаболизм и нутриентные особенности, где ошибка особенно дорого стоит.</p>
+          </article>
+          <article class="diagram-step">
+            <div class="step-no">4</div>
+            <h3>Research reconciliation</h3>
+            <p>Сопоставление с источниками, evidence grades и разбор конфликтов между исследованиями и интерпретациями.</p>
+          </article>
+          <article class="diagram-step">
+            <div class="step-no">5</div>
+            <h3>Action layer</h3>
+            <p>Только после этого генетика начинает работать в `doctor brief`, `morning brief` и в decision layer.</p>
+          </article>
+        </div>
+      </div>
+      <div class="quote">
+        <p>
+          Генетика сильна не сама по себе, а как часть целой системы. Только в связке с лабораториями, носимыми устройствами, питанием и историей решений она начинает реально помогать, а не просто впечатлять.
+        </p>
+      </div>
+    </section>
+
+    <section id="format" class="section-body reveal">
+      <div class="eyebrow">Что получит участник и как пройдет программа</div>
+      <h2>К концу cohort у каждого должна появиться своя рабочая система</h2>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Что будет на выходе</h3>
+          <ul>
+            <li>структурированная система данных по вашему здоровью</li>
+            <li>логика связей между анализами, wearables и наблюдениями</li>
+            <li>ваш собственный `morning brief`</li>
+            <li>ваш собственный `doctor brief`</li>
+            <li>ваш `decision tracker`</li>
+            <li>ваш слой `food analysis`</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Кому особенно подойдет эта группа</h3>
+          <ul>
+            <li>тем, кто уже увлечен longevity, самочувствием, спортом и health-tech</li>
+            <li>тем, у кого уже накопились данные, но не сложилась целостная система</li>
+            <li>тем, кто не хочет жить только на общих советах или чужих протоколах</li>
+            <li>тем, кто готов собирать персональную operating system, а не искать быстрый универсальный ответ</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="lesson-grid" style="margin-top:20px;">
+        <article class="lesson">
+          <strong>Урок 1</strong>
+          Карта вашей current health system: данные, устройства, анализы, цели и главный разрыв между данными и пониманием.
+        </article>
+        <article class="lesson">
+          <strong>Урок 2</strong>
+          Архитектура сигналов: как собрать единый контур из анализов, wearables, дневника, питания и решений.
+        </article>
+        <article class="lesson">
+          <strong>Урок 3</strong>
+          Daily feedback layer: как строится сильный `morning brief` и логика персональных гипотез.
+        </article>
+        <article class="lesson">
+          <strong>Урок 4</strong>
+          `doctor brief` и decision layer: как упаковывать информацию для себя и для врача, как фиксировать изменения и эффекты.
+        </article>
+        <article class="lesson">
+          <strong>Урок 5</strong>
+          Финальная интеграция: сборка всей системы, устранение разрывов и настройка следующего шага после cohort.
+        </article>
+      </div>
+    </section>
+
+    <section id="cta" class="section-body reveal">
+      <div class="eyebrow">Следующий шаг</div>
+      <h2>Если вам откликается идея собрать свою personal longevity system, начнем с короткого звонка</h2>
+      <div class="footer-cta">
+        <div>
+          <p class="lede" style="margin-top:0;">
+            На onboarding call мы посмотрим, с какой точки вы стартуете, что уже есть в вашем health-контуре и какой сильный результат имеет смысл собрать именно для вас.
+          </p>
+          <ul class="accent-list">
+            <li>Формат: онлайн, маленькая группа, высокая степень персонализации</li>
+            <li>Состав: только 4-5 участников</li>
+            <li>Ориентир старта: середина июля 2026 после набора группы</li>
+            <li>Вход в cohort принимается после личного разговора</li>
+          </ul>
+        </div>
+        <aside class="callout">
+          <div class="micro">Founding cohort · limited seats</div>
+          <h3 style="font-size:2rem; margin-top:10px;">Забронировать 30-minute onboarding call</h3>
+          <p>
+            Это лучший способ быстро понять fit: подходит ли вам cohort, где у вас сейчас главный разрыв и как для вас должен выглядеть результат этой системы.
+          </p>
+          <a class="cta" href="https://calendly.com/ai_automation_studio/30min" target="_blank" rel="noopener">Открыть Calendly</a>
+          <p class="muted-note" style="color:rgba(247, 241, 234, 0.72); margin:12px 0 0;">
+            Health Copilot · personal longevity system · AAS edition
+          </p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const progress = document.getElementById("progress");
+    const updateProgress = () => {
+      const height = document.documentElement.scrollHeight - window.innerHeight;
+      const value = height > 0 ? window.scrollY / height : 0;
+      progress.style.transform = `scaleX(${Math.max(0, Math.min(1, value))})`;
+    };
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>

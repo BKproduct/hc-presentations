@@ -40,9 +40,21 @@
 
 ## Health Copilot — group pilot July 2026
 
-Короткая страница для группы из 4-5 человек: 4-5 занятий, 1.5 часа, £2,000 участие, в конце каждый получает полностью работающую систему.
+Короткая страница для группы из 4-5 человек: 4-5 занятий, 1.5 часа, £1,800 участие, в конце каждый получает полностью работающую систему.
 
 **https://bkproduct.github.io/hc-presentations/healthcopilot-group-pilot/**
+
+## Health Copilot — Founding Cohort Longevity (AAS)
+
+Вертикальная русская презентация в дизайн-системе AAS: premium editorial подача, real artifacts, evidence layer и DNA pipeline.
+
+**https://bkproduct.github.io/hc-presentations/founding-cohort-aas/**
+
+## Health Copilot — Founding Cohort Longevity (Health & Wellness)
+
+Вертикальная русская презентация в дизайне Health & Wellness: более мягкая longevity-подача, с теми же артефактами, доказательной частью и CTA на onboarding call.
+
+**https://bkproduct.github.io/hc-presentations/founding-cohort-wellness/**
 
 ## Сравнение вариантов оформления (один нарратив, четыре HTML)
 

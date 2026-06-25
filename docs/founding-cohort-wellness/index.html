@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Copilot — Founding Cohort | Health & Wellness</title>
+  <meta name="description" content="Вертикальная презентация Health Copilot в дизайне Health & Wellness: personal longevity system, daily feedback, doctor brief, decision tracker, food analysis и evidence layer.">
+  <meta property="og:title" content="Health Copilot — Health & Wellness Edition">
+  <meta property="og:description" content="Закрытая русская cohort-группа для тех, кто хочет превратить данные о здоровье в ясную систему понимания, решений и действий.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #edf2ea;
+      --bg-deep: #e4ece2;
+      --card: rgba(251, 252, 249, 0.78);
+      --card-strong: rgba(255,255,255,0.86);
+      --text: #132019;
+      --muted: #456050;
+      --muted-soft: #6a7f70;
+      --line: rgba(39, 73, 53, 0.12);
+      --green: #2f6a47;
+      --green-soft: #dce9df;
+      --gold: #af8a47;
+      --shadow: 0 24px 70px rgba(18, 34, 24, 0.10);
+      --display: "Cormorant Garamond", Georgia, serif;
+      --body: "Manrope", system-ui, sans-serif;
+      --radius: 30px;
+      --radius-sm: 20px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--body);
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 0%, rgba(175, 138, 71, 0.10), transparent 24%),
+        radial-gradient(circle at 90% 10%, rgba(47, 106, 71, 0.10), transparent 26%),
+        linear-gradient(180deg, #f7faf5 0%, var(--bg) 45%, var(--bg-deep) 100%);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.5;
+      background:
+        radial-gradient(circle at 12% 16%, rgba(255,255,255,0.88), transparent 13%),
+        radial-gradient(circle at 90% 24%, rgba(255,255,255,0.55), transparent 10%);
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      transform-origin: left;
+      transform: scaleX(0);
+      background: linear-gradient(90deg, var(--green), var(--gold));
+      z-index: 50;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(14px);
+      background: rgba(247, 250, 245, 0.8);
+      border-bottom: 1px solid rgba(39, 73, 53, 0.08);
+    }
+
+    .bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand strong,
+    h1, h2, h3 {
+      font-family: var(--display);
+      letter-spacing: -0.03em;
+      line-height: 0.98;
+      margin: 0;
+    }
+
+    .brand strong { font-size: 1.16rem; }
+
+    .brand span,
+    .eyebrow,
+    .micro {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.75rem;
+      color: var(--muted-soft);
+    }
+
+    nav {
+      display: none;
+      gap: 16px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    @media (min-width: 960px) {
+      nav { display: flex; }
+    }
+
+    nav a {
+      text-decoration: none;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 100%;
+      height: 1px;
+      background: var(--green);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 180ms ease;
+    }
+
+    nav a:hover::after { transform: scaleX(1); }
+
+    .cta,
+    .ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-weight: 600;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .cta {
+      background: var(--green);
+      color: #f5fbf6;
+      box-shadow: 0 18px 34px rgba(47, 106, 71, 0.18);
+    }
+
+    .cta:hover { transform: translateY(-1px); background: #24573a; }
+
+    .ghost {
+      border: 1px solid rgba(39, 73, 53, 0.14);
+      background: rgba(255,255,255,0.62);
+      color: var(--text);
+    }
+
+    .ghost:hover {
+      transform: translateY(-1px);
+      border-color: rgba(47, 106, 71, 0.26);
+    }
+
+    main { padding: 24px 0 84px; }
+
+    section {
+      margin-top: 18px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(39, 73, 53, 0.10);
+      background: linear-gradient(180deg, rgba(255,255,255,0.74), rgba(248, 251, 246, 0.72));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero {
+      padding: clamp(28px, 4vw, 54px);
+      background:
+        radial-gradient(circle at 90% 16%, rgba(47, 106, 71, 0.16), transparent 28%),
+        radial-gradient(circle at 12% 84%, rgba(175, 138, 71, 0.12), transparent 24%),
+        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(241, 247, 240, 0.96));
+    }
+
+    .hero-grid,
+    .grid-2,
+    .grid-3,
+    .proof-grid,
+    .artifact-grid,
+    .lesson-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    @media (min-width: 960px) {
+      .hero-grid { grid-template-columns: 1.1fr 0.9fr; }
+      .grid-2,
+      .proof-grid { grid-template-columns: 1fr 1fr; }
+      .grid-3 { grid-template-columns: repeat(3, 1fr); }
+      .artifact-grid { grid-template-columns: 1fr 1fr; }
+      .lesson-grid { grid-template-columns: repeat(5, 1fr); }
+    }
+
+    h1 { font-size: clamp(3rem, 7vw, 5.8rem); max-width: 11ch; }
+    h2 { font-size: clamp(2rem, 3.3vw, 3.3rem); margin-bottom: 10px; }
+    h3 { font-size: 1.55rem; margin-bottom: 8px; }
+
+    .lede {
+      font-size: clamp(1.02rem, 2vw, 1.17rem);
+      color: var(--muted);
+      max-width: 60rem;
+      margin-top: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    @media (min-width: 700px) {
+      .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+
+    .stat,
+    .card,
+    .artifact,
+    .grade,
+    .diagram-step,
+    .callout,
+    .lesson {
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(39, 73, 53, 0.10);
+      background: var(--card);
+      backdrop-filter: blur(8px);
+    }
+
+    .stat {
+      padding: 16px;
+      min-height: 112px;
+    }
+
+    .stat strong {
+      display: block;
+      font-family: var(--display);
+      font-size: 1.95rem;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+
+    .hero-aside {
+      display: grid;
+      gap: 16px;
+      padding: 24px;
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.84), rgba(236, 244, 236, 0.98));
+      border: 1px solid rgba(47, 106, 71, 0.16);
+    }
+
+    .hero-aside .price {
+      font-family: var(--display);
+      font-size: clamp(2.8rem, 5vw, 4.4rem);
+      color: var(--green);
+      line-height: 0.9;
+    }
+
+    .hero-aside p,
+    .card p,
+    .artifact p,
+    .callout p,
+    li {
+      color: var(--muted);
+    }
+
+    .section-body { padding: clamp(24px, 3vw, 40px); }
+
+    ul, ol {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    li + li { margin-top: 8px; }
+
+    .calm-list {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .calm-list li {
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .calm-list li::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--green), #6f946f);
+      position: absolute;
+      left: 0;
+      top: 0.58em;
+    }
+
+    .petals {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .petal {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--green-soft);
+      color: var(--green);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .artifact {
+      padding: 16px;
+    }
+
+    .artifact figure {
+      margin: 0 0 14px;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(39, 73, 53, 0.10);
+      background: #fff;
+    }
+
+    .artifact img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .artifact figcaption {
+      padding: 12px 14px;
+      background: #fbfdf9;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(39, 73, 53, 0.08);
+    }
+
+    .artifact-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(47, 106, 71, 0.10);
+      color: var(--green);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .proof-grid { margin-top: 20px; }
+
+    .card,
+    .callout {
+      padding: 22px;
+    }
+
+    .grade-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    @media (min-width: 720px) {
+      .grade-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .grade {
+      padding: 18px;
+      color: #f7fbf7;
+      min-height: 152px;
+    }
+
+    .grade strong {
+      display: block;
+      font-family: var(--display);
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .grade-a { background: linear-gradient(180deg, #2c6644, #1f4730); }
+    .grade-b { background: linear-gradient(180deg, #466f83, #284553); }
+    .grade-c { background: linear-gradient(180deg, #7c6a52, #5b4e3d); }
+    .grade-u { background: linear-gradient(180deg, #6b6660, #45413c); }
+
+    .diagram {
+      margin-top: 18px;
+      padding: 22px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at top right, rgba(47, 106, 71, 0.10), transparent 34%),
+        rgba(255,255,255,0.80);
+      border: 1px solid rgba(39, 73, 53, 0.10);
+    }
+
+    .diagram-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    @media (min-width: 900px) {
+      .diagram-grid { grid-template-columns: repeat(5, 1fr); }
+    }
+
+    .diagram-step {
+      padding: 18px;
+      min-height: 188px;
+      position: relative;
+    }
+
+    .diagram-step::after {
+      content: "→";
+      position: absolute;
+      right: -11px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold);
+      font-size: 1.35rem;
+      display: none;
+    }
+
+    @media (min-width: 900px) {
+      .diagram-step:not(:last-child)::after { display: block; }
+    }
+
+    .step-no {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: rgba(175, 138, 71, 0.16);
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .lesson {
+      padding: 18px 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.84), rgba(240, 246, 238, 0.96));
+    }
+
+    .lesson strong {
+      display: block;
+      font-family: var(--display);
+      font-size: 1.16rem;
+      margin-bottom: 8px;
+    }
+
+    .footer-cta {
+      display: grid;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (min-width: 980px) {
+      .footer-cta { grid-template-columns: 1.15fr 0.85fr; }
+    }
+
+    .callout {
+      background: linear-gradient(180deg, #163425, #11271d);
+      color: #eef8ef;
+      box-shadow: 0 22px 70px rgba(17, 39, 29, 0.22);
+    }
+
+    .callout p,
+    .callout li,
+    .callout .micro { color: rgba(238, 248, 239, 0.76); }
+
+    .callout .cta {
+      width: 100%;
+      margin-top: 14px;
+      justify-content: center;
+    }
+
+    .muted-note {
+      color: var(--muted-soft);
+      font-size: 0.94rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 560ms ease, transform 560ms ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <header>
+    <div class="wrap bar">
+      <div class="brand">
+        <strong>Health Copilot</strong>
+        <span>Health & Wellness edition</span>
+      </div>
+      <nav aria-label="Навигация по разделам">
+        <a href="#clarity">Ясность</a>
+        <a href="#artifacts">Артефакты</a>
+        <a href="#evidence">Evidence</a>
+        <a href="#format">Формат</a>
+        <a href="#cta">Звонок</a>
+      </nav>
+      <a class="ghost" href="https://calendly.com/ai_automation_studio/30min" target="_blank" rel="noopener">Book a call</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero reveal">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Longevity for real life</div>
+          <h1>Когда данные наконец превращаются в понимание</h1>
+          <p class="lede">
+            Эта группа для людей, которые уже много делают для здоровья, самочувствия, спорта и longevity, но хотят перестать жить в разрозненных сигналах и собрать персональную систему, которая помогает видеть, понимать и действовать.
+          </p>
+          <div class="hero-actions">
+            <a class="cta" href="https://calendly.com/ai_automation_studio/30min" target="_blank" rel="noopener">Забронировать 30-мин звонок</a>
+            <a class="ghost" href="#artifacts">Смотреть артефакты</a>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <strong>4-5</strong>
+              <span>человек в закрытом founding cohort</span>
+            </div>
+            <div class="stat">
+              <strong>5</strong>
+              <span>живых сессий и финальная интеграция</span>
+            </div>
+            <div class="stat">
+              <strong>£1,800</strong>
+              <span>стоимость участия одним платежом</span>
+            </div>
+            <div class="stat">
+              <strong>июль</strong>
+              <span>ориентир старта после набора группы</span>
+            </div>
+          </div>
+        </div>
+        <aside class="hero-aside">
+          <div class="micro">Personal longevity system</div>
+          <div class="price">£1,800</div>
+          <p>
+            Health Copilot помогает превратить данные в понимание, понимание в намерение, намерение в действие, а действие — в систему достижения результата, с которой можно жить дальше.
+          </p>
+          <ul class="calm-list">
+            <li>ежедневный <strong>morning brief</strong></li>
+            <li>сильный <strong>doctor brief</strong></li>
+            <li>управляемый <strong>decision tracker</strong></li>
+            <li>персонализированный <strong>food analysis</strong></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="clarity" class="section-body reveal">
+      <div class="eyebrow">Главный job</div>
+      <h2>Не просто знать про себя больше, а видеть ясную живую картину</h2>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Почему обычный self-tracking не дает покоя</h3>
+          <p>
+            Многие люди уже отслеживают сон, HRV, пульс, питание, анализы, добавки и самочувствие. Но без структуры это все равно остается несколькими параллельными потоками информации, а не системой.
+          </p>
+          <ul>
+            <li>данных становится больше, а ясности не прибавляется</li>
+            <li>решения принимаются фрагментарно</li>
+            <li>каждый новый протокол приходится собирать почти с нуля</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Почему wearables и ChatGPT не закрывают задачу</h3>
+          <p>
+            Wearables полезны, но они не знают лабораторный фон, симптомы, генетику, протокол добавок и ваши длинные паттерны решений. Обычный ChatGPT отвечает на вопрос, но не создает устойчивую personal health system.
+          </p>
+          <div class="petals">
+            <span class="petal">wearables ≠ whole context</span>
+            <span class="petal">labs ≠ daily dynamics</span>
+            <span class="petal">Q&A ≠ memory system</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-body reveal">
+      <div class="eyebrow">Как появляется ценность</div>
+      <h2>Настоящее понимание возникает в связях между слоями</h2>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Сигнал</h3>
+          <p>Wearable показывает изменение восстановления, пульса или сна.</p>
+        </article>
+        <article class="card">
+          <h3>Контекст</h3>
+          <p>Питание, лабораторный фон, самочувствие и недавние изменения объясняют, что могло повлиять на этот сигнал.</p>
+        </article>
+        <article class="card">
+          <h3>Действие</h3>
+          <p>Система помогает выбрать следующее решение и потом проверить, сработало ли оно именно для вас.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="artifacts" class="section-body reveal">
+      <div class="eyebrow">Concrete outputs</div>
+      <h2>Система материализуется в артефакты, которыми вы реально пользуетесь</h2>
+      <div class="artifact-grid">
+        <article class="artifact">
+          <div class="artifact-tag">Morning brief</div>
+          <figure>
+            <img src="../pro-trener-teaser/assets/03-telegram-morning.png" alt="Скриншот morning brief">
+            <figcaption>Персональный daily briefing: состояние, ограничения, приоритет на день и почему именно он сейчас важен.</figcaption>
+          </figure>
+          <p>
+            Это ежедневный слой обратной связи, который помогает не тонуть в метриках, а каждый день видеть один ясный фокус.
+          </p>
+        </article>
+        <article class="artifact">
+          <div class="artifact-tag">Doctor brief</div>
+          <figure>
+            <img src="../pro-trener-teaser/assets/01-brief-doctor.png" alt="Скриншот doctor brief">
+            <figcaption>Одностраничный бриф для визита к врачу: кластеры, важные маркеры, протокол, генетические ограничения и вопросы.</figcaption>
+          </figure>
+          <p>
+            Это критично для людей, у которых уже много данных: врач получает контекст быстрее, а разговор становится намного более предметным.
+          </p>
+        </article>
+      </div>
+      <div class="artifact-grid" style="margin-top:18px;">
+        <article class="artifact">
+          <div class="artifact-tag">Food analysis</div>
+          <figure>
+            <img src="../pro-trener-teaser/assets/02-telegram-food-fish.png" alt="Скриншот food analysis">
+            <figcaption>Food analysis связывает фото еды с нутриентами, вашим текущим протоколом и персональными маркерами.</figcaption>
+          </figure>
+          <p>
+            Носимые устройства не способны дать такую интерпретацию. Они не видят, как конкретная еда выглядит в контексте ferritin, LDL, воспалительного фона или текущей задачи восстановления.
+          </p>
+        </article>
+        <article class="artifact">
+          <div class="artifact-tag">Decision tracker</div>
+          <p>
+            Отдельный важный слой этой системы — фиксация решений. Что вы меняли. Зачем. Какой эффект видели. Что продолжать. Что остановить.
+          </p>
+          <ul>
+            <li>без decision layer self-tracking остается наблюдением</li>
+            <li>с decision layer он становится управляемым процессом</li>
+            <li>именно это помогает не терять логику от месяца к месяцу</li>
+          </ul>
+          <p class="muted-note">
+            Поэтому Health Copilot нужен не как еще один dashboard, а как operating system для ваших персональных решений.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="evidence" class="section-body reveal">
+      <div class="eyebrow">Evidence and research layer</div>
+      <h2>Longevity без доказательности быстро превращается в красивый шум</h2>
+      <div class="proof-grid">
+        <article class="card">
+          <h3>Что здесь делает research layer</h3>
+          <p>
+            Система не только собирает персональные данные, но и сопоставляет их с research layer: чтобы сильные claims имели сильную опору, а рабочие гипотезы были помечены по уровню уверенности.
+          </p>
+          <ul>
+            <li>AI не должен маскировать uncertainty</li>
+            <li>clinical decisions остаются у врача</li>
+            <li>человек получает не просто советы, а проверяемую картину</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Почему это важно участнику</h3>
+          <p>
+            В теме здоровья особенно опасно путать красивую интерпретацию с надежной интерпретацией. Поэтому система должна помогать различать твердую опору, разумную гипотезу и зону, где вывод пока слишком слаб.
+          </p>
+        </article>
+      </div>
+      <div class="grade-grid">
+        <div class="grade grade-a">
+          <strong>Grade A</strong>
+          RCT, систематические обзоры и устойчивые clinical standards.
+        </div>
+        <div class="grade grade-b">
+          <strong>Grade B</strong>
+          Хорошие исследования или сильные данные, но не максимальный уровень.
+        </div>
+        <div class="grade grade-c">
+          <strong>Grade C</strong>
+          Более ранние, экспертные или механистические гипотезы.
+        </div>
+        <div class="grade grade-u">
+          <strong>Unverified</strong>
+          То, что нельзя уверенно подавать как факт.
+        </div>
+      </div>
+    </section>
+
+    <section class="section-body reveal">
+      <div class="eyebrow">DNA as a system layer</div>
+      <h2>Генетика полезна только тогда, когда проходит многостадийную обработку</h2>
+      <p class="lede" style="margin-top:0; max-width:64rem;">
+        Генетика не должна быть одним красивым PDF. Чтобы она реально помогала, ей нужен pipeline: от raw DNA и quality control до clinical panels, pharmaco-слоя, nutrigenomics и reconciliation с research layer.
+      </p>
+      <div class="diagram">
+        <div class="diagram-grid">
+          <article class="diagram-step">
+            <div class="step-no">1</div>
+            <h3>Raw data</h3>
+            <p>Исходный DNA-файл и первичный контроль качества.</p>
+          </article>
+          <article class="diagram-step">
+            <div class="step-no">2</div>
+            <h3>Relevant variants</h3>
+            <p>Отбор SNP и клинически значимых панелей, а не всего подряд.</p>
+          </article>
+          <article class="diagram-step">
+            <div class="step-no">3</div>
+            <h3>PharmCAT + nutrition</h3>
+            <p>Разбор лекарственных и нутриентных особенностей, где точность особенно важна.</p>
+          </article>
+          <article class="diagram-step">
+            <div class="step-no">4</div>
+            <h3>Evidence check</h3>
+            <p>Сопоставление с источниками, уровнем уверенности и конфликтами в интерпретации.</p>
+          </article>
+          <article class="diagram-step">
+            <div class="step-no">5</div>
+            <h3>Action outputs</h3>
+            <p>Интеграция в `doctor brief`, `morning brief` и decision layer.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="format" class="section-body reveal">
+      <div class="eyebrow">Формат cohort</div>
+      <h2>Маленькая группа, 5 встреч и результат в виде вашей собственной системы</h2>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Что вы получите к концу программы</h3>
+          <ul>
+            <li>структурированный health data layer</li>
+            <li>логику, связывающую анализы, wearables и личные наблюдения</li>
+            <li>ваш `morning brief`</li>
+            <li>ваш `doctor brief`</li>
+            <li>ваш `decision tracker`</li>
+            <li>ваш `food analysis` layer</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Кому подходит этот формат</h3>
+          <ul>
+            <li>тем, кто уже увлечен здоровьем, longevity и своим состоянием</li>
+            <li>тем, кто уже инвестирует в анализы, трекеры и протоколы</li>
+            <li>тем, кто хочет перестать жить в догадках и начать видеть систему</li>
+            <li>тем, кто готов не просто слушать, а собирать свой персональный operating layer</li>
+          </ul>
+        </article>
+      </div>
+      <div class="lesson-grid" style="margin-top:20px;">
+        <article class="lesson">
+          <strong>Урок 1</strong>
+          Онбординг по целям, текущей карте здоровья и главному разрыву в понимании.
+        </article>
+        <article class="lesson">
+          <strong>Урок 2</strong>
+          Архитектура данных, обязательные слои и приоритетные сигналы.
+        </article>
+        <article class="lesson">
+          <strong>Урок 3</strong>
+          Daily feedback и логика `morning brief`.
+        </article>
+        <article class="lesson">
+          <strong>Урок 4</strong>
+          `doctor brief`, decision layer и управление изменениями.
+        </article>
+        <article class="lesson">
+          <strong>Урок 5</strong>
+          Финальная интеграция, чтобы у каждого осталась своя рабочая система.
+        </article>
+      </div>
+    </section>
+
+    <section id="cta" class="section-body reveal">
+      <div class="eyebrow">Следующий шаг</div>
+      <h2>Если вы давно хотели собрать здоровье в одну ясную систему, начнем с 30-минутного звонка</h2>
+      <div class="footer-cta">
+        <div>
+          <p class="lede" style="margin-top:0;">
+            На звонке мы быстро поймем, где вы сейчас, какие данные уже есть, подходит ли вам cohort и как для вас должен выглядеть сильный результат на выходе.
+          </p>
+          <ul class="calm-list">
+            <li>группа только на 4-5 человек</li>
+            <li>старт после набора состава, ориентир — середина июля 2026</li>
+            <li>формат: онлайн, живая работа, высокая персонализация</li>
+            <li>решение о составе принимается после личного разговора</li>
+          </ul>
+        </div>
+        <aside class="callout">
+          <div class="micro">Founding cohort · by application</div>
+          <h3 style="font-size:2.2rem; margin-top:10px;">Забронировать onboarding call</h3>
+          <p>
+            Это спокойный первый шаг: не покупка вслепую, а короткий разговор, после которого становится ясно, есть ли у нас fit и какой результат стоит собирать именно для вас.
+          </p>
+          <a class="cta" href="https://calendly.com/ai_automation_studio/30min" target="_blank" rel="noopener">Открыть Calendly</a>
+          <p class="muted-note" style="color:rgba(238,248,239,0.72); margin:12px 0 0;">
+            Health Copilot · Health & Wellness edition
+          </p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const progress = document.getElementById("progress");
+    const updateProgress = () => {
+      const height = document.documentElement.scrollHeight - window.innerHeight;
+      const value = height > 0 ? window.scrollY / height : 0;
+      progress.style.transform = `scaleX(${Math.max(0, Math.min(1, value))})`;
+    };
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
