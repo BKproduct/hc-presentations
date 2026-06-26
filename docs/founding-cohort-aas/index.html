@@ -370,10 +370,15 @@
 
     .artifact-grid.gallery {
       grid-template-columns: 1fr;
+      align-items: start;
     }
 
     @media (min-width: 940px) {
       .artifact-grid.gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .artifact-grid.gallery .artifact.featured {
+      grid-column: auto;
     }
 
     .artifact {
@@ -941,7 +946,7 @@
               <li>morning brief как ежедневная обратная связь</li>
               <li>doctor brief как компактный контекст для врача</li>
               <li>food analysis с видимой едой, а не только выводом</li>
-              <li>voice journal и supplements как живой слой данных</li>
+              <li>voice journal как живой слой самонаблюдения</li>
               <li>Claude Cowork и Telegram-бот как часть ежедневного workflow</li>
             </ul>
           </div>
@@ -949,46 +954,32 @@
       </div>
 
       <div class="artifact-grid gallery" style="margin-top:18px;">
-        <article class="artifact wide">
-          <div class="artifact-tag">Morning brief</div>
+        <article class="artifact wide fullshot">
+          <div class="artifact-tag">Food analysis</div>
           <figure>
-            <img src="assets/03-telegram-morning.png" alt="Скриншот morning brief в Telegram">
-            <figcaption>Telegram screenshot.</figcaption>
+            <img src="assets/02-telegram-food-fish.png" alt="Оригинальный Telegram-скриншот food analysis с фото еды и персональным контекстом">
+            <figcaption>Почему важно: видно не абстрактный совет, а реальную еду, разбор и персональный контекст.</figcaption>
           </figure>
         </article>
         <article class="artifact featured fullshot">
           <div class="artifact-tag">Doctor brief</div>
           <figure>
             <img src="assets/01-brief-doctor.png" alt="Скриншот doctor brief для визита к врачу">
-            <figcaption>Telegram screenshot.</figcaption>
+            <figcaption>Почему важно: врач получает компактный контекст до визита, а не набор разрозненных сообщений.</figcaption>
           </figure>
         </article>
         <article class="artifact wide fullshot">
-          <div class="artifact-tag">Food analysis</div>
+          <div class="artifact-tag">Morning brief</div>
           <figure>
-            <img src="assets/02-telegram-food-fish.png" alt="Оригинальный Telegram-скриншот food analysis с фото еды и персональным контекстом">
-            <figcaption>Telegram screenshot.</figcaption>
-          </figure>
-        </article>
-        <article class="artifact wide">
-          <div class="artifact-tag">Lab analysis</div>
-          <figure>
-            <img src="assets/02_lab_analysis.png" alt="Скриншот лабораторного анализа">
-            <figcaption>Telegram screenshot.</figcaption>
+            <img src="assets/03-telegram-morning.png" alt="Скриншот morning brief в Telegram">
+            <figcaption>Почему важно: утро начинается с короткого решения, собранного из ваших сигналов.</figcaption>
           </figure>
         </article>
         <article class="artifact wide fullshot">
           <div class="artifact-tag">Voice journal</div>
           <figure>
             <img src="assets/05-journal-daytime.png" alt="Оригинальный Telegram-скриншот дневного журнала">
-            <figcaption>Telegram screenshot.</figcaption>
-          </figure>
-        </article>
-        <article class="artifact wide fullshot">
-          <div class="artifact-tag">Supplements</div>
-          <figure>
-            <img src="assets/04_supplements.png" alt="Скриншот протокола добавок">
-            <figcaption>Telegram screenshot.</figcaption>
+            <figcaption>Почему важно: субъективное состояние становится данными, которые не теряются через неделю.</figcaption>
           </figure>
         </article>
       </div>
