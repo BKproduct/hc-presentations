@@ -417,6 +417,18 @@
       object-position: top center;
     }
 
+    .artifact.fullshot figure {
+      aspect-ratio: auto;
+      background: #fff;
+    }
+
+    .artifact.fullshot img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      object-position: center top;
+    }
+
     .artifact.featured {
       background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,244,238,0.9));
     }
@@ -941,61 +953,43 @@
           <div class="artifact-tag">Morning brief</div>
           <figure>
             <img src="assets/03-telegram-morning.png" alt="Скриншот morning brief в Telegram">
-            <figcaption>Оригинальный Telegram-скриншот morning brief, показанный как есть.</figcaption>
+            <figcaption>Telegram screenshot.</figcaption>
           </figure>
-          <p>
-            Ежедневная обратная связь собирает сигналы в один короткий контекст и помогает начать день с ясного действия.
-          </p>
         </article>
-        <article class="artifact featured">
+        <article class="artifact featured fullshot">
           <div class="artifact-tag">Doctor brief</div>
           <figure>
             <img src="assets/01-brief-doctor.png" alt="Скриншот doctor brief для визита к врачу">
-            <figcaption>Оригинальный Telegram-скриншот doctor brief, показанный как есть.</figcaption>
+            <figcaption>Telegram screenshot.</figcaption>
           </figure>
-          <p>
-            Его задача не заменить врача, а радикально поднять качество разговора. Врач быстрее видит тренды и риски, а не тратит первые минуты на реконструкцию истории с нуля.
-          </p>
         </article>
-        <article class="artifact wide">
+        <article class="artifact wide fullshot">
           <div class="artifact-tag">Food analysis</div>
           <figure>
             <img src="assets/02-telegram-food-fish.png" alt="Оригинальный Telegram-скриншот food analysis с фото еды и персональным контекстом">
-            <figcaption>Оригинальный Telegram-скриншот food analysis: видно само блюдо, разбор и персональный контекст.</figcaption>
+            <figcaption>Telegram screenshot.</figcaption>
           </figure>
-          <p>
-            Здесь важно не интерпретировать картинку заново, а сохранить связь между едой, исходным контекстом и дальнейшим решением.
-          </p>
         </article>
         <article class="artifact wide">
           <div class="artifact-tag">Lab analysis</div>
           <figure>
             <img src="assets/02_lab_analysis.png" alt="Скриншот лабораторного анализа">
-            <figcaption>Оригинальный Telegram-скриншот лабораторного анализа, показанный без переинтерпретации.</figcaption>
+            <figcaption>Telegram screenshot.</figcaption>
           </figure>
-          <p>
-            Анализы становятся полезны только когда соединяются с историей, питанием и ежедневной обратной связью.
-          </p>
         </article>
-        <article class="artifact wide">
+        <article class="artifact wide fullshot">
           <div class="artifact-tag">Voice journal</div>
           <figure>
             <img src="assets/05-journal-daytime.png" alt="Оригинальный Telegram-скриншот дневного журнала">
-            <figcaption>Оригинальный Telegram-скриншот journaling, без изменения смысла и формы.</figcaption>
+            <figcaption>Telegram screenshot.</figcaption>
           </figure>
-          <p>
-            Этот блок сохраняет живой субъективный контекст, который иначе теряется.
-          </p>
         </article>
-        <article class="artifact wide">
+        <article class="artifact wide fullshot">
           <div class="artifact-tag">Supplements</div>
           <figure>
             <img src="assets/04_supplements.png" alt="Скриншот протокола добавок">
-            <figcaption>Оригинальный Telegram-скриншот добавок, показанный как исходный артефакт.</figcaption>
+            <figcaption>Telegram screenshot.</figcaption>
           </figure>
-          <p>
-            Decision tracker фиксирует, что изменили, зачем и какой эффект это дало.
-          </p>
         </article>
       </div>
     </section>
@@ -1007,7 +1001,7 @@
         <article class="proof">
           <h3>Что делает evidence layer</h3>
           <p>
-            Система связывает персональный контекст человека с research layer и не подает гипотезы как твердые факты. Важные выводы должны иметь понятную опору, а слабые выводы должны быть явно помечены.
+            Система связывает личный контекст с research layer и не выдает гипотезы за факты.
           </p>
           <ul>
             <li>strong claims опираются на guidelines, RCT и систематические обзоры</li>
@@ -1019,7 +1013,7 @@
         <article class="proof">
           <h3>Зачем это будущему участнику</h3>
           <p>
-            Так появляется другое качество доверия: вы понимаете, где у вас твердая опора, где разумная гипотеза, а где рано делать слишком уверенные выводы. Это особенно важно в longevity, где рынок переполнен красивыми, но слабо обоснованными обещаниями.
+            Вы видите, что опирается на данные, что остается гипотезой и что пока рано усиливать. Это особенно важно в longevity.
           </p>
         </article>
       </div>
@@ -1047,7 +1041,7 @@
       <div class="eyebrow">DNA pipeline</div>
       <h2>Почему генетический анализ должен быть многостадийным</h2>
       <p class="lede" style="margin-top:0; max-width:64rem;">
-        DNA-лаборатории обычно присылают консьмерскую выжимку и это не равно полезному знанию. Чтобы получить по-настоящему надежный персональный генетический слой, сырые данные должны проходить через несколько стадий: качество данных, клинические панели, pharmaco-слой, nutrigenomics и отдельную проверку противоречий и валидации.
+        DNA-лаборатории часто присылают consumer summary, а не полезное знание. Надежный персональный генетический слой требует нескольких стадий: quality check, clinical panels, pharmaco-layer, nutrigenomics и валидации противоречий.
       </p>
       <div class="diagram">
         <div class="diagram-grid">
@@ -1094,12 +1088,8 @@
           <ul>
             <li>структурированная система данных по вашему здоровью</li>
             <li>логика связей между анализами, wearables и наблюдениями</li>
-            <li>ваш собственный `morning brief`</li>
-            <li>ваш собственный `doctor brief`</li>
-            <li>ваш `decision tracker`</li>
-            <li>ваш слой `food analysis`</li>
-            <li>умение пользоваться `Claude Cowork`</li>
-            <li>настройка и подключение собственного Telegram-бота</li>
+            <li>`morning brief`, `doctor brief`, `decision tracker`, `food analysis`</li>
+            <li>`Claude Cowork` и свой Telegram-бот</li>
           </ul>
         </article>
         <article class="card">
@@ -1132,7 +1122,7 @@
         </article>
         <article class="lesson">
           <strong>Урок 5</strong>
-          Финальная интеграция: сборка всей системы, `Claude Cowork`, подключение Telegram-бота и настройка следующего шага после cohort.
+          Финальная интеграция: `Claude Cowork`, Telegram-бот и следующая версия вашей системы.
         </article>
       </div>
     </section>
